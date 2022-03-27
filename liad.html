@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --> 
+    <title>All my flights</title> 
+    <link rel="shortcut icon" href="/assets/favicon.ico"> 
+    <link rel="stylesheet" href="./style.css"> 
+</head> 
+<body> 
+<form class="container"> 
+    <h1 class="form__title2">welcome</h1>     
+        <table class="table"> 
+            <thead> 
+                <tr> 
+                     
+                    <th scope="col">תאריך</th> 
+                    <th scope="col">מספר טיסה</th> 
+                    <th scope="col">             </th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+                <tr> 
+                    <%items.forEach(note =>{%> 
+                    <tr> 
+                        <td scope="row"><%= note.flightNumber %></td> 
+                        <td scope="row"><%= note.Date %></td> 
+                        <td scope="row" ><a href="./addFlight.html" class="complain__button">!הגש תלונה</a></td> 
+ 
+                    </tr> 
+                    <%})%> 
+ 
+                </tr> 
+ 
+            </tbody> 
+        </table> 
+        <a href="./addFlight.html" class="home__button2">add new flight!</a> 
+</form> 
+    <!-- <section class="get"> 
+            <%items.forEach(note =>{%> 
+                <div><%= note.flightNumber %></div> 
+                <div><%= note.Date %></div> 
+ 
+            <%})%> 
+        <div>flightNumber: items.flightNumber</div> 
+        <div>Date: items.Date </div> 
+        <div><script language="javascript" type="text/javascript">items[0].flightNumber</script></div> --> 
+        <!-- <div> 
+            {{# each item }} 
+            <article class="item"> 
+                <div>flightNumber: {{ this.flightNumber }}</div> 
+                <div>Date: {{ this.Date }}</div> 
+            </article> 
+            {{/each}} 
+        </div>  
+    </section> --> 
+    
+</body> 
+</html>
