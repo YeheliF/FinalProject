@@ -8,20 +8,19 @@ const bcrypt = require('bcryptjs');
 // Load User model
 const User = require('../models/User');
 
-const addUser = (passport) => {
+module.exports = function(passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'Email' }, (email, password, done) => {
-      console.log(email)
+    new LocalStrategy({ usernameField: 'Email' }, (Email, Password, done) => {
       // Match user
       User.findOne({
-        Email: email
+        Email: Email
       }).then(user => {
         if (!user) {
           return done(null, false, { message: 'That email is not registered' });
         }
 
         // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        bcrypt.compare(Password, user.Password, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
@@ -45,7 +44,7 @@ const addUser = (passport) => {
 };
 
 
-const addGoogleUser = (passport) => {
+module.exports = function(passport) {
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -81,10 +80,4 @@ const addGoogleUser = (passport) => {
     passport.deserializeUser((id, done) => {
         googleUser.findById(id, (err, user) => done(err, user))
     })
-}
-
-
-module.exports = (passport) => {
-    addUser(passport)
-    addGoogleUser(passport)
 }

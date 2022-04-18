@@ -3,7 +3,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
-
+var t
 // URL of the page we want to scrape
 const URL = 'https://www.flightview.com/TravelTools/FlightTrackerQueryResults.asp'
 // Async function which scrapes the data
