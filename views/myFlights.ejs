@@ -1,72 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>הטיסות שלי</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-	</script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="/assets/favicon.ico">
-    <link rel="stylesheet" href="/style.css">
-    
-</head>
-<body>
-    <div class="container">
-		<div>
-			<h1>Welcome
-            </h1>
-		</div>
-		<div class="form-group">
-			<form id="form4" method="post" action="/myFlights">
-                <a href="addFlight" class="home__button">Add flights</a>
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">תאריך</th> 
-                            <th scope="col">מספר טיסה</th> 
-                            <th scope="col">
-        
-                        </tr>
-                    </thead>
-                </table>
-			</form>
-		</div>
-		<div class="abc">
-            <a href="/logout">Logout</a>
-        </div>
-		<!-- <div class="mssg bg-danger">
-			<span id="check"></span>
-		</div>
-		<div id="LangTable"><a href="/addFlight" id="aa"></a>
-		</div> -->
-	</div>
-</body>
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>הטיסות שלי</title> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> 
+ </script> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <link rel="shortcut icon" href="/assets/favicon.ico"> 
+    <link rel="stylesheet" href="/style.css"> 
+     
+</head> 
+<body> 
+    <div class="container"> 
+  <div> 
+   <h1>Welcome 
+            </h1> 
+  </div> 
+  <div class="form-group"> 
+   <form id="form4" method="post" action="/myFlights"> 
+                <a href="addFlight" class="home__button">Add flights</a> 
+                <table class="table"> 
+                    <thead> 
+                        <tr> 
+                        <th scope="col">תאריך</th>  
+                            <th scope="col">מספר טיסה</th>  
+                            <th scope="col"> 
+         
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr> 
+                            <%items.forEach(flight =>{%> 
+                            <%if(flight.idUser == id){%> 
+                            <% currentdate = flight.Date%> 
+                            <% currentyear = currentdate.getFullYear();%> 
+                            <% currentmonth = currentdate.getMonth() + 1;%> 
+                            <% currentday = currentdate.getDate(); %> 
+                            <% currentfull = currentday + "/" + currentmonth + "/" + currentyear %> 
+                         
+                            <tr> 
+                                <th scope="row"><%= currentfull %></th>  
+                            <th scope="row"><%= flight.flightNumber %></th>  
+                             
+                            <%if(currentfull < full){%> 
+                                <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>  
+                                 
+                            <%}%> 
+                            </tr> 
+                            <%}%> 
+                            <%})%> 
+         
+                        </tr> 
+         
+                    </tbody> 
+                </table> 
+   </form> 
+  </div> 
+  <div class="abc"> 
+            <a href="/logout">Logout</a> 
+        </div> 
+ </div> 
+</body> 
 </html>
-
-
-
-
-    <!-- <form class="container" method="post">
-     <a href="login.html" class="home__button">Home Page</a> 
-        <a href="/myFlights" class="home__button">All my flights</a>
-        <h1 class="form__title">""</h1>
-        <div class="form__message form__message--error"></div>
-        <div class="form__input-group" >
-            <>
-            <div </div>
-        </div>
-        <div class="form__input-group">
-            <>
-            <div ></div>
-        </div>
-        <button type="submit" class="form__button">Add flight to my flights!</button>
-        
-        <div class="mssg bg-danger">
-			<span id="check" ></span>
-		</div>
-		<div id="LangTable"><a href="/addFlight" id="aa"></a>
-		</div>
-    </form>
-    
-</body>
-</html> -->
