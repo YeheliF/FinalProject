@@ -7,7 +7,7 @@ var t
 // URL of the page we want to scrape
 const URL = 'https://www.flightview.com/TravelTools/FlightTrackerQueryResults.asp'
 // Async function which scrapes the data
-async function scrapeData(namal_input, al_input, fn_input, whenDate_input) {
+var scraper = async function scrapeData(namal_input, al_input, fn_input, whenDate_input) {
   try {
     // Fetch HTML of the page we want to scrape
     const { data } = await axios.get(URL, { params: {
@@ -48,4 +48,5 @@ async function scrapeData(namal_input, al_input, fn_input, whenDate_input) {
   }
 }
 // Invoke the above function
-scrapeData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+// scrapeData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+module.exports = scraper
