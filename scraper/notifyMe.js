@@ -86,7 +86,7 @@ function notifyMe(){
                     delaysFlights.forEach(delayFlight=>{ 
                         // console.log({flight : flight, delayFlight: delayFlight}) 
                         if( flight.flightNumber == delayFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-                            console.log(flight.Email) 
+                            // console.log(flight.Email) 
                             updateEmail(flight,delayFlight); 
                         } 
                     }) 
