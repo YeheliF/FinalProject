@@ -48,4 +48,4 @@ async function scrapeData(namal_input, al_input, fn_input, whenDate_input) {
   }
 }
 // Invoke the above function
-scrapeData('PC Pegasus Airlines', 'PC', '784', '20220428')
+scrapeData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
