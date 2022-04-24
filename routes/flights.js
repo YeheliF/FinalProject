@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 var alert = require('alert'); 
 const session = require('express-session');  // session middleware 
 const passport = require('passport');  // authentication 
+const scraperCollectData = require ('../scraper/collectFlightData');
 // const connectEnsureLogin = require('connect-ensure-login');// authorization 
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth'); 
  
@@ -45,15 +46,42 @@ router.get("/addFlight", ensureAuthenticated,function(req, res){
 // }) 
  
 router.post("/addFlight", function(req, res){ 
-     
+    var dateFromUser = req.body.Date
+    var year = dateFromUser.substr(0, 4)
+    var month = dateFromUser.substr(5, 2)
+    var day = dateFromUser.substr(8, 2)
+    var parseDate = year+month+day
+    console.log(parseDate)
+
+    var flightNumFromUser = req.body.flightNumber
+    flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
+    var partOneFlightNum = flightNumFromUser.substr(0, 2)
+    var partTwoFlightNum = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
+    // console.log({partOne:partOne,partTwo:partTwo})
+    // var fullInfo = scraperCollectData(partOneFlightNum,partTwoFlightNum,parseDate )
+    var fullInfo = scraperCollectData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
     // console.log(req.body) 
-    let newNote = new Flight({ 
+    // 'dep' : info[0],
+    //     'dep_time' : info[1],
+    //     'terminal' : info[2],
+    //     'arv' : info[3],
+    //     'arv_time' : info[4]
+    console.log({Departure: fullInfo.dep,
+        DepartureTime: fullInfo.dep_time,
+        Arrival: fullInfo.arv,
+        ArrivalTime: fullInfo.arv_time,
+        Terminal: fullInfo.terminal})
+    let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: req.body.flightNumber, 
-        Date: req.body.Date 
- 
+        Date: req.body.Date, 
+        Departure: fullInfo.dep,
+        DepartureTime: fullInfo.dep_time,
+        Arrival: fullInfo.arv,
+        ArrivalTime: fullInfo.arv_time,
+        Terminal: fullInfo.terminal
     }); 
-    newNote.save(); 
+    newFlight.save(); 
     // console.log(req.session.name) 
     // var popup = require('popups'); 
  

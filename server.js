@@ -10,7 +10,6 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const connectDB = require ('./config/db');
 const scraperNotifyMe = require ('./scraper/notifyMe');
-const scraperCollectData = require ('./scraper/collectFlightData');
 
 const expressLayouts = require('express-ejs-layouts')
 // const connectEnsureLogin = require('connect-ensure-login'); //authorization
@@ -25,7 +24,7 @@ require("dotenv").config();
 dotenv.config({path: './config/config.env'})
 
 connectDB() 
-scraperNotifyMe()
+// scraperNotifyMe()
 const app = express()
 
 //login
