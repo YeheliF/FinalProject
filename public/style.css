@@ -16,7 +16,18 @@ body{
     background-size: cover; 
     text-align: right;
 } 
- 
+.confirm {
+    width: 100%; 
+    padding: 0.1rem 0.2rem; 
+    font-size: 1rem; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    outline: none; 
+    cursor: pointer; 
+    background:#0bbb95; 
+    text-align: right;
+}
 .container { 
     width: 700px; 
     max-width: 700px; 
