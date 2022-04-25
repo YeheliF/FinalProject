@@ -14,16 +14,18 @@ body{
     font-size:x-large; 
     background: url('https://images.theconversation.com/files/393210/original/file-20210401-13-z6rl6z.jpg?ixlib=rb-1.1.0&rect=0%2C292%2C3008%2C1504&q=45&auto=format&w=1356&h=668&fit=crop'); 
     background-size: cover; 
+    text-align: right;
 } 
  
 .container { 
-    width: 500px; 
-    max-width: 500px; 
-    margin: 1rem; 
+    width: 700px; 
+    max-width: 700px; 
+    margin: 2rem; 
     padding: 2rem; 
     box-shadow: black; 
     border-radius: var(--border-radius); 
     background: rgba(255, 255, 255, 0.932); 
+    text-align: right;
 } 
  
 .container, 
@@ -47,31 +49,38 @@ body{
     outline: none; 
     cursor: pointer; 
     background:#ff7575; 
+    text-align: right;
 }
 .section:hover { 
     background: var(--color-primary-dark); 
+    text-align: right;
 } 
  
 .section:active{ 
     transform: scale(0.98); 
+    text-align: right;
 } 
  
  
 .form--hidden{ 
     display: none; 
+    text-align: right;
 } 
  
 .form > *:first-child{ 
     margin-top: 0; 
+    text-align: right;
 } 
  
 .form > *:last-child{ 
     margin-bottom: 0; 
+    text-align: right;
 } 
  
 .form__title{ 
     margin-bottom: 2rem; 
     text-align: center; 
+    
 } 
  
 .form__title2{ 
@@ -86,14 +95,17 @@ body{
  
 .form__message--success { 
     color: var(--color-success); 
+    text-align: right;
 } 
  
 .form__message--error { 
     color: var(--color-error); 
+    text-align: right;
 } 
  
 .form__input-group{ 
     margin-bottom: 1rem; 
+    text-align: right;
 } 
  
 .form__input, .btn red darken-1{ 
@@ -106,6 +118,7 @@ body{
     outline: none; 
     background: #eeeeee; 
     transition: background 0.2s, border-color 0.2s; 
+    text-align: right;
 } 
  
 .form__input1{ 
@@ -140,22 +153,27 @@ body{
     outline: none; 
     background: #eeeeee; 
     transition: background 0.2s, border-color 0.2s; 
+    text-align: right;
 } 
+
  
 .form__input:focus { 
     border-color: var(--color-primary); 
     background: #ffffff; 
+    text-align: right;
 } 
  
 .form__input--error { 
     color: var(--color-error); 
     border-color: var(--color-error); 
+    text-align: right;
 } 
  
 .form__input-error-message{ 
     margin-top: 0.5rem; 
     font-size: 0.85rem; 
     color: var(--color-error); 
+    text-align: right;
 } 
  
 .form__button{ 
@@ -169,6 +187,7 @@ body{
     outline: none; 
     cursor: pointer; 
     background: var(--color-primary); 
+    text-align: right;
 } 
  
 .home__button{ 
@@ -181,6 +200,7 @@ body{
     outline: none; 
     cursor: pointer; 
     background: var(--color-primary); 
+    text-align: right;
 } 
  
 .home__button2{ 
@@ -193,6 +213,7 @@ body{
     outline: none; 
     cursor: pointer; 
     background: var(--color-primary); 
+    text-align: right;
 } 
  
 .complain__button{ 
@@ -205,28 +226,34 @@ body{
     outline: none; 
     cursor: pointer; 
     background:#0bbb95; 
+    text-align: right;
 } 
  
 .form__button:hover { 
     background: var(--color-primary-dark); 
+    text-align: right;
 } 
  
 .form__button:active{ 
     transform: scale(0.98); 
+    text-align: right;
 } 
  
 .form__text{ 
-    text-align: center; 
+    text-align: center;
+    text-align: right; 
 } 
  
 .form__link{ 
     color: var(--color-secondary); 
     text-decoration: none; 
     cursor: pointer; 
+    text-align: right;
 } 
  
 .form__link:hover{ 
     text-decoration: underline; 
+    text-align: right;
 } 
 table { 
     border-collapse: collapse; 
@@ -234,16 +261,20 @@ table {
     letter-spacing: 1px; 
     font-family: sans-serif; 
     font-size: .8rem; 
+    text-align: right;
 } 
  
 th[scope="col"] { 
     background-color: #696969; 
     color: #fff; 
+    text-align: right;
 } 
 tr:nth-child(even) { 
-    background-color: #eee; 
+    background-color: #eee;
+    text-align: right; 
 } 
 th { 
     border: 1px solid rgb(190, 190, 190); 
     padding: 10px; 
+    text-align: right;
 }

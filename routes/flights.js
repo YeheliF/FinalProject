@@ -15,9 +15,6 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 router.use(bodyParser.urlencoded({extended: true})); 
 router.use(bodyParser.json()); 
  
-function getName(){
-
-}
  
 router.get("/myFlights", ensureAuthenticated, async function(req, res){ 
     

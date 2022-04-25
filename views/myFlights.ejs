@@ -13,22 +13,23 @@
 <body> 
     <div class="container"> 
   <div> 
-   <h1>Welcome <%= userName %> </h1> 
+   <h1> <%= userName %> ברוך הבא </h1> 
   </div> 
   <div class="form-group"> 
    <form id="form4" method="post" action="/myFlights"> 
-                <a href="addFlight" class="home__button">Add flights</a> 
+                <a href="addFlight" class="home__button">הוספת טיסה חדשה</a> 
                 <table class="table"> 
                     <thead> 
-                        <tr> 
-                            <th scope="col">תאריך</th>  
-                            <th scope="col">מספר טיסה</th>  
-                            <th scope="col">מקור</th>  
-                            <th scope="col">זמן המראה</th> 
-                            <th scope="col">יעד</th>  
-                            <th scope="col">זמן נחיתה</th>  
-                            <th scope="col">טרמינל</th>  
+                        <tr>
+                            <th scope="col">הגשת תלונה</th>   
                             <th scope="col">פרטי טיסה מלאים</th>  
+                            <th scope="col">טרמינל</th>  
+                            <th scope="col">זמן נחיתה</th>  
+                            <th scope="col">יעד</th>  
+                            <th scope="col">זמן המראה</th> 
+                            <th scope="col">מקור</th>  
+                            <th scope="col">מספר טיסה</th>  
+                            <th scope="col">תאריך</th>  
 
                         </tr> 
                     </thead> 
@@ -43,20 +44,21 @@
                             <% currentfull = currentday + "/" + currentmonth + "/" + currentyear %> 
                          
                             <tr> 
-                                <th scope="row"><%= date = currentfull %></th>  
-                                <th scope="row"><%= num = flight.flightNumber %></th> 
-                                <th scope="row"><%= dep = flight.Departure %></th>
-                                <th scope="row"><%= depTime = flight.DepartureTime %></th>
-                                <th scope="row"><%= arr = flight.Arrival %></th>
-                                <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
-                                <th scope="row"><%= terminal = flight.Terminal %></th> 
-                                <th scope="row" class="complain__button"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal}>פרטי טיסה מלאים</a></th>
-
-                             
                                 <%if(currentfull < full){%> 
                                     <!-- <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>   -->
                                     <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>!הגש תלונה</a></th>                                     
                                 <%}%> 
+                                <th scope="row" class="complain__button"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal}>פרטי טיסה מלאים</a></th>
+                                <th scope="row"><%= terminal = flight.Terminal %></th> 
+                                <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
+                                <th scope="row"><%= arr = flight.Arrival %></th>
+                                <th scope="row"><%= depTime = flight.DepartureTime %></th>
+                                <th scope="row"><%= dep = flight.Departure %></th>
+                                <th scope="row"><%= num = flight.flightNumber %></th> 
+                                <th scope="row"><%= date = currentfull %></th>  
+
+                             
+                                
                             </tr> 
                             <%}%> 
                             <%})%> 
@@ -68,8 +70,8 @@
    </form> 
   </div> 
   <div class="abc"> 
-            <a href="/logout">Logout</a> 
-        </div> 
+            <a href="/logout">התנתק</a> 
+    </div> 
  </div> 
 </body> 
 </html>
