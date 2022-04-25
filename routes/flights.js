@@ -37,13 +37,10 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
 }) 
  
 router.get("/addFlight", ensureAuthenticated,function(req, res){ 
-    console.log(req.user.displayName)
+    console.log(req.user.userName)
     // console.log("get addflight ") 
-<<<<<<< HEAD
-    res.render('addFlight', {user: req.user}) 
-=======
-    res.render('addFlight.ejs', {userName: req.user.displayName}) 
->>>>>>> 55d5469ed9ef705fca4481bc5084b3e22707c3f5
+    // res.render('addFlight', {user: req.user}) 
+    res.render('addFlight.ejs', {userName: req.user.userName}) 
 }) 
  
 // router.get("/addFlight",function(req, res){ 
@@ -96,11 +93,9 @@ router.post("/addFlight", async function(req, res){
     //     content: 'Hello!' 
     // }); 
     // res.send({"Success":"added"}); 
-<<<<<<< HEAD
     // alert("!הטיסה נוספה");
-    res.redirect('/machine')  
-    res.redirect('/addFlight') 
-=======
+    // res.redirect('/machine')  
+    // res.redirect('/addFlight') 
     // alert("!הטיסה נוספה");  
     res.render('summaryFlight', { 
         num: req.body.flightNumber, 
@@ -111,7 +106,6 @@ router.post("/addFlight", async function(req, res){
         arrTime: fullInfo.arv_time,
         terminal: fullInfo.terminal
     }) 
->>>>>>> 55d5469ed9ef705fca4481bc5084b3e22707c3f5
 }) 
  
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 

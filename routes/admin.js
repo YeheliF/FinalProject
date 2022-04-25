@@ -228,83 +228,168 @@ router.get('/signup',forwardAuthenticated, function (req, res, next) {
 });
 
 
-router.post('/signup', function(req, res, next) {
-	console.log(req.body);
-	var personInfo = req.body;
+// router.post('/signup', function(req, res, next) {
+// 	console.log(req.body);
+// 	var personInfo = req.body;
+// 	var errors = [];
+
+
+// 	if(!personInfo.Email || !personInfo.userName || !personInfo.Password || !personInfo.PasswordConf){
+// 		errors.push({ msg: 'Please enter all fields' });
+// 		// res.redirect("/signup")
+// 		// req.flash('לא מילאת את כל הפריטים')
+// 		// res.send();
+// 	} else {
+// 		if (personInfo.Password == personInfo.PasswordConf) {
+
+// 			User.findOne({Email:personInfo.Email},function(err,data){
+// 				if(!data){
+// 					var c;
+// 					User.findOne({},function(err,data){
+
+// 						if (data) {
+// 							console.log("if");
+// 							c = data.unique_id + 1;
+// 						}else{
+// 							c=1;
+// 						}
+
+// 						var newPerson = new User({
+// 							unique_id:c,
+// 							Email:personInfo.Email,
+// 							userName: personInfo.userName,
+// 							Password: personInfo.Password,
+// 							PasswordConf: personInfo.PasswordConf
+// 						});
+
+// 						bcrypt.genSalt(10, (err, salt) => {
+// 							bcrypt.hash(newPerson.Password, salt, (err, hash) => {
+// 							  if (err) throw err;
+// 							  newPerson.Password = hash;
+// 							  newPerson
+// 								.save()
+// 								.then(user => {
+// 								  req.flash(
+// 									'success_msg',
+// 									'You are now registered and can log in'
+// 								  );
+// 								//   res.redirect('/login');
+// 								})
+// 								.catch(err => console.log(err));
+// 							});
+// 						})
+// 						// newPerson.save(function(err, Person){
+// 						// 	if(err)
+// 						// 		console.log(err);
+// 						// 	else
+// 						// 		console.log('Success');
+// 						// });
+
+// 					}).sort({_id: -1}).limit(1);
+// 					// res.redirect("/login")
+// 					// res.send({"Success":"You are regestered,You can login now."});
+// 				}else{
+// 					console.log("email exist")
+// 					errors.push({ msg: 'Email is already used' });
+// 					res.redirect("/signup")
+// 					// res.send({"Success":"Email is already used."});
+// 					// res.redirect("/signup")
+
+// 				}
+
+// 			});
+// 		}else{
+// 			errors.push({ msg: 'Passwords do not match' });
+// 			// res.redirect("/signup")
+
+// 			// res.send({"Success":"password is not matched"});
+// 		}
+// 	}
+// 	console.log(errors)
+// 	if(errors.length > 0){
+// 		res.redirect("/signup")
+// 	} else{
+// 		res.redirect("/login")
+// 	}
+// });
+
+router.post('/signup', (req, res) => {
+	const { Email, userName, Password, PasswordConf } = req.body;
 	let errors = [];
-
-
-	if(!personInfo.Email || !personInfo.userName || !personInfo.Password || !personInfo.PasswordConf){
-		errors.push({ msg: 'Please enter all fields' });
-		res.redirect("/signup")
-		// req.flash('לא מילאת את כל הפריטים')
-		// res.send();
-	} else {
-		if (personInfo.Password == personInfo.PasswordConf) {
-
-			User.findOne({Email:personInfo.Email},function(err,data){
-				if(!data){
-					var c;
-					User.findOne({},function(err,data){
-
-						if (data) {
-							console.log("if");
-							c = data.unique_id + 1;
-						}else{
-							c=1;
-						}
-
-						var newPerson = new User({
-							unique_id:c,
-							Email:personInfo.Email,
-							userName: personInfo.userName,
-							Password: personInfo.Password,
-							PasswordConf: personInfo.PasswordConf
-						});
-
-						bcrypt.genSalt(10, (err, salt) => {
-							bcrypt.hash(newPerson.Password, salt, (err, hash) => {
-							  if (err) throw err;
-							  newPerson.Password = hash;
-							  newPerson
-								.save()
-								.then(user => {
-								  req.flash(
-									'success_msg',
-									'You are now registered and can log in'
-								  );
-								  res.redirect('/login');
-								})
-								.catch(err => console.log(err));
-							});
-						})
-						// newPerson.save(function(err, Person){
-						// 	if(err)
-						// 		console.log(err);
-						// 	else
-						// 		console.log('Success');
-						// });
-
-					}).sort({_id: -1}).limit(1);
-					res.redirect("/login")
-					// res.send({"Success":"You are regestered,You can login now."});
-				}else{
-					console.log("email exist")
-					errors.push("Email is already used")
-					// res.send({"Success":"Email is already used."});
-					res.redirect("/signup")
-
-				}
-
-			});
-		}else{
-			errors.push({ msg: 'Passwords do not match' });
-			res.redirect("/signup")
-
-			// res.send({"Success":"password is not matched"});
-		}
+	let type="email"
+	if (!userName || !Email || !Password || !PasswordConf) {
+	  errors.push({ msg: 'Please enter all fields' });
 	}
-});
+  
+	if (Password != PasswordConf) {
+	  errors.push({ msg: 'Passwords do not match' });
+	}
+  
+	if (Password.length < 6) {
+	  errors.push({ msg: 'Password must be at least 6 characters' });
+	}
+  
+	if (errors.length > 0) {
+	  res.render('signup', {
+		errors,
+		Email,
+		userName,
+		type,
+		Password,
+		PasswordConf
+	  });
+	} else {
+		User.findOne({Email:Email},function(err,data){
+		if (data) {
+		  errors.push({ msg: 'Email already exists' });
+		  res.render('signup', {
+			errors,
+			Email,
+			userName,
+			type,
+			Password,
+			PasswordConf
+		  });
+		} else {
+			var c;
+			User.findOne({},function(err,data){
+
+				if (data) {
+					console.log("if");
+					c = data.unique_id + 1;
+				}else{
+					c=1;
+				}
+				const newUser = new User({
+					c,
+					Email,
+					userName,
+					type,
+					Password,
+					PasswordConf
+				});
+	
+			bcrypt.genSalt(10, (err, salt) => {
+				bcrypt.hash(newUser.Password, salt, (err, hash) => {
+				if (err) throw err;
+				newUser.Password = hash;
+				newUser
+					.save()
+					.then(user => {
+					req.flash(
+						'success_msg',
+						'You are now registered and can log in'
+					);
+					res.redirect('/login');
+					})
+					.catch(err => console.log(err));
+				});
+			});
+			})
+		}
+	  });
+	}
+  });
 
 router.get('/',forwardAuthenticated, function (req, res, next) {
 	return res.render('login.ejs');

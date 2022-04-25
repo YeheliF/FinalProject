@@ -133,10 +133,11 @@
 	</script> -->
 </head>
 <body>
-	<div class="container" action="/login">
+	<div action="/login">
 		<div>
-			<h1>Login</h1>
+			<h1>התחברות</h1>
 		</div>
+		<%= include ("./partials/messages"); %>
 		<div class="form-group" >
 			<form id="form" method="post" action="/login">
 				<input type="text" name="Email" placeholder="Email" required="" class="form-control"><br/>
