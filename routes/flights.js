@@ -109,15 +109,13 @@ router.post("/addFlight", async function(req, res){
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
-    res.render('summaryFlight' , req.params );
-     
-     
+    res.render('summaryFlight.ejs' , req.params );
 }) 
 
 router.get("/report",ensureAuthenticated, function(req, res){ 
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
-    res.render('report' , req.params);
+    res.render('report.ejs' , req.params);
      
      
 }) 
