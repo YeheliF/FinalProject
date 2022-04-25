@@ -1,4 +1,4 @@
-let client = require('@sendgrid/mail') 
+// let client = require('@sendgrid/mail') 
 // const nodemailer = require('nodemailer') 
 // const MongoClient = require('mongodb').MongoClient 
 const Flight = require('../models/Flight') 

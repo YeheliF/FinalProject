@@ -8,7 +8,8 @@ const session = require('express-session');  // session middleware
 const passport = require('passport');  // authentication 
 // const connectEnsureLogin = require('connect-ensure-login');// authorization 
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth'); 
- 
+const { ReadConcernLevel } = require('mongodb');
+const {spawn} = require('child_process'); 
  
  
 router.use(bodyParser.urlencoded({extended: true})); 
@@ -36,7 +37,7 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
  
 router.get("/addFlight", ensureAuthenticated,function(req, res){ 
     // console.log("get addflight ") 
-    res.render('addFlight.ejs', {user: req.user}) 
+    res.render('addFlight', {user: req.user}) 
 }) 
  
 // router.get("/addFlight",function(req, res){ 
@@ -61,7 +62,8 @@ router.post("/addFlight", function(req, res){
     //     content: 'Hello!' 
     // }); 
     // res.send({"Success":"added"}); 
-    // alert("!הטיסה נוספה");  
+    // alert("!הטיסה נוספה");
+    res.redirect('/machine')  
     res.redirect('/addFlight') 
 }) 
  
@@ -78,5 +80,24 @@ router.get("/Thankyou",ensureAuthenticated, function(req, res){
      
      
 }) 
+
+router.get('/machine',ensureAuthenticated, (req, res) => {
+ 
+    var dataToSend;
+    // spawn new child process to call the python script
+    const python = spawn('python', ['ModuleEval.py']);
+    // collect data from script
+    python.stdout.on('data', function (data) {
+     console.log('Pipe data from python script ...');
+     dataToSend = data.toString();
+    });
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    // send data to browser
+    res.send(dataToSend)
+    });
+    
+   })
  
 module.exports = router

@@ -25,8 +25,11 @@ require("dotenv").config();
 dotenv.config({path: './config/config.env'})
 
 connectDB() 
-scraperNotifyMe()
+// scraperNotifyMe()
 const app = express()
+
+// Passport config
+require('./config/passport')(passport)
 
 //login
 if (process.env.NODE_ENV === 'development'){
@@ -39,6 +42,9 @@ if (process.env.NODE_ENV === 'development'){
 app.use(expressLayouts)
 app.set('view engine', 'ejs');
 
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //Session 
 app.use(session({
     secret: 'secret',
@@ -49,6 +55,10 @@ app.use(session({
     //     mongoUrl: process.env.MONGO_URI
     // })
 }))
+
+//Passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
 
 //Connect flash
 app.use(flash())
@@ -78,14 +88,10 @@ app.use(function(req, res, next) {
 // }
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 // app.use(express.urlencoded({ extended: false }));
-//Passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-// Passport config
-require('./config/passport')(passport)
+
+
 // Routes
 app.use('/', require('./routes/admin'))
 app.use('/auth', require('./routes/auth'))
