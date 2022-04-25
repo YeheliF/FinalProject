@@ -42,8 +42,7 @@ async function scrapeData(namal_input, al_input, fn_input, whenDate_input) {
         'arv' : info[3],
         'arv_time' : info[4]
     }
-    console.log(full_d)
-    
+    console.log(full_d);
   } catch (err) {
     console.error(err);
   }

@@ -15,9 +15,12 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 router.use(bodyParser.urlencoded({extended: true})); 
 router.use(bodyParser.json()); 
  
- 
+function getName(){
+
+}
  
 router.get("/myFlights", ensureAuthenticated, async function(req, res){ 
+    
     // console.log(req.user) 
     date = new Date(); 
     year = date.getFullYear(); 
@@ -28,7 +31,7 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
     let all_flights = await Flight.find({}) 
     // console.log(all_flights) 
     console.log({full:full, items: all_flights, id: req.user._id}) 
-    res.render('myFlights.ejs', {full:full, items: all_flights, id: req.user._id}); 
+    res.render('myFlights.ejs', {full:full, items: all_flights, id: req.user._id, userName: req.user.displayName}); 
     // databaseInfo.collection('notes').find({}).toArray((err, result)=>{ 
     //     // if(err) throw err 
     //     res.render('myFlights.ejs', {full:full, items: result, Email: currentEmail}); 
@@ -36,8 +39,9 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
 }) 
  
 router.get("/addFlight", ensureAuthenticated,function(req, res){ 
+    console.log(req.user.displayName)
     // console.log("get addflight ") 
-    res.render('addFlight.ejs', {user: req.user}) 
+    res.render('addFlight.ejs', {userName: req.user.displayName}) 
 }) 
  
 // router.get("/addFlight",function(req, res){ 
@@ -45,7 +49,7 @@ router.get("/addFlight", ensureAuthenticated,function(req, res){
 //     res.render('addFlight.ejs') 
 // }) 
  
-router.post("/addFlight", function(req, res){ 
+router.post("/addFlight", async function(req, res){ 
     var dateFromUser = req.body.Date
     var year = dateFromUser.substr(0, 4)
     var month = dateFromUser.substr(5, 2)
@@ -59,18 +63,19 @@ router.post("/addFlight", function(req, res){
     var partTwoFlightNum = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
     // console.log({partOne:partOne,partTwo:partTwo})
     // var fullInfo = scraperCollectData(partOneFlightNum,partTwoFlightNum,parseDate )
-    var fullInfo = scraperCollectData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+    var fullInfo = await scraperCollectData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+    console.log(fullInfo)
     // console.log(req.body) 
     // 'dep' : info[0],
     //     'dep_time' : info[1],
     //     'terminal' : info[2],
     //     'arv' : info[3],
     //     'arv_time' : info[4]
-    console.log({Departure: fullInfo.dep,
-        DepartureTime: fullInfo.dep_time,
-        Arrival: fullInfo.arv,
-        ArrivalTime: fullInfo.arv_time,
-        Terminal: fullInfo.terminal})
+    // console.log({Departure: fullInfo.dep,
+    //     DepartureTime: fullInfo.dep_time,
+    //     Arrival: fullInfo.arv,
+    //     ArrivalTime: fullInfo.arv_time,
+    //     Terminal: fullInfo.terminal})
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: req.body.flightNumber, 
@@ -90,12 +95,29 @@ router.post("/addFlight", function(req, res){
     // }); 
     // res.send({"Success":"added"}); 
     // alert("!הטיסה נוספה");  
-    res.redirect('/addFlight') 
+    res.render('summaryFlight', { 
+        num: req.body.flightNumber, 
+        date: req.body.Date, 
+        dep: fullInfo.dep,
+        depTime: fullInfo.dep_time,
+        arr: fullInfo.arv,
+        arrTime: fullInfo.arv_time,
+        terminal: fullInfo.terminal
+    }) 
 }) 
  
+router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
+    // res.render('report.ejs', {Email: req.user._id}) 
+    // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    res.render('summaryFlight' , req.params );
+     
+     
+}) 
+
 router.get("/report",ensureAuthenticated, function(req, res){ 
     // res.render('report.ejs', {Email: req.user._id}) 
-    res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    res.render('report' , req.params);
      
      
 }) 
@@ -103,8 +125,6 @@ router.get("/report",ensureAuthenticated, function(req, res){
 router.get("/Thankyou",ensureAuthenticated, function(req, res){ 
     // res.render('report.ejs', {Email: req.user._id}) 
     res.render('Thankyou.ejs') 
-     
-     
 }) 
  
 module.exports = router

@@ -13,8 +13,7 @@
 <body> 
     <div class="container"> 
   <div> 
-   <h1>Welcome 
-            </h1> 
+   <h1>Welcome <%= userName %> </h1> 
   </div> 
   <div class="form-group"> 
    <form id="form4" method="post" action="/myFlights"> 
@@ -22,10 +21,15 @@
                 <table class="table"> 
                     <thead> 
                         <tr> 
-                        <th scope="col">תאריך</th>  
+                            <th scope="col">תאריך</th>  
                             <th scope="col">מספר טיסה</th>  
-                            <th scope="col"> 
-         
+                            <th scope="col">מקור</th>  
+                            <th scope="col">זמן המראה</th> 
+                            <th scope="col">יעד</th>  
+                            <th scope="col">זמן נחיתה</th>  
+                            <th scope="col">טרמינל</th>  
+                            <th scope="col">פרטי טיסה מלאים</th>  
+
                         </tr> 
                     </thead> 
                     <tbody> 
@@ -39,13 +43,20 @@
                             <% currentfull = currentday + "/" + currentmonth + "/" + currentyear %> 
                          
                             <tr> 
-                                <th scope="row"><%= currentfull %></th>  
-                            <th scope="row"><%= flight.flightNumber %></th>  
+                                <th scope="row"><%= date = currentfull %></th>  
+                                <th scope="row"><%= num = flight.flightNumber %></th> 
+                                <th scope="row"><%= dep = flight.Departure %></th>
+                                <th scope="row"><%= depTime = flight.DepartureTime %></th>
+                                <th scope="row"><%= arr = flight.Arrival %></th>
+                                <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
+                                <th scope="row"><%= terminal = flight.Terminal %></th> 
+                                <th scope="row" class="complain__button"><a href="summaryFlight\" + {date,num,dep,depTime,arr,arrTime,terminal}>פרטי טיסה מלאים</a></th>
+
                              
-                            <%if(currentfull < full){%> 
-                                <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>  
-                                 
-                            <%}%> 
+                                <%if(currentfull < full){%> 
+                                    <!-- <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>   -->
+                                    <th scope="row" class="complain__button"><a href="report\" + {date,num,dep,depTime,arr,arrTime,terminal}>!הגש תלונה</a></th>                                     
+                                <%}%> 
                             </tr> 
                             <%}%> 
                             <%})%> 

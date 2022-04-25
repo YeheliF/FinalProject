@@ -19,18 +19,65 @@
             <input type="hidden" name="_next" value="www.google.com">
             <button type="submit">Send</button> -->
             <div class="form__input-group" >
-                <label for="fullName"> Full name</label>
-                <input type="text" id="fullName" class="form__input" name="fullName" autofocus placeholder="Full name">
+                <label for="fullName"> שם מלא</label>
+                <input type="text" id="fullName" class="form__input" name="fullName" autofocus placeholder="שם מלא">
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group" >
-                <label for="email"> email</label>
-                <div id="email" class="form__input" name="email"><%= Email %></div>
+                <label for="numPassengers"> מספר נוסעים</label>
+                <input type="text" id="numPassengers" class="form__input" name="numPassengers" autofocus placeholder="מספר נוסעים">
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group" >
-                <label for="message"> message</label>
-                <textarea id="message" class="form__input" name="message" cols="30" rows="10" autofocus placeholder="your message"></textarea>
+                <label for="email">אימייל</label>
+                <input type="text" id="email" class="form__input" name="email" autofocus placeholder="אימייל">
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="Date"> תאריך</label>
+                <input id="Date" name="Date" value="<%= date %>"/>
+                <!-- <div type="text" id="Date" class="form__input"><%= date %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="num"> מספר טיסה</label>
+                <input id="num" name="num" value="<%= num %>"/>
+                <!-- <div id="num" class="form__input"><%= num %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="dep">המראה</label>
+                <input id="dep" name="dep" value="<%= dep %>"/>
+                <!-- <div id="dep" class="form__input"><%= dep %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="depTime">זמן המראה</label>
+                <input id="depTime" name="depTime" value="<%= depTime %>"/>
+                <!-- <div id="depTime" class="form__input"><%= depTime %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="arr">נחיתה</label>
+                <input id="arr" name="arr" value="<%= arr %>"/>
+                <!-- <div id="arr" class="form__input"><%= arr %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="arrTime">זמן נחיתה</label>
+                <input id="arrTime" name="arrTime" value="<%= arrTime %>"/>
+                <!-- <div id="arrTime" class="form__input"><%= arrTime %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="terminal">טרמינל</label>
+                <input id="terminal" name="terminal" value="<%= terminal %>"/>
+                <!-- <div id="terminal" class="form__input"><%= terminal %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="message"> הודעה</label>
+                <textarea id="message" class="form__input" name="message" cols="30" rows="10" autofocus placeholder="משהו שתרצה להוסיף"></textarea>
                 <div class="form__input-error-message"></div>
             </div>
             <button onclick="react()" type="submit"class="form__button">Send</button>

@@ -13,7 +13,7 @@
 <body>
     <div class="container">
 		<div>
-            <p class="lead mb-3">Welcome <%= user.name %></p>
+            <p class="lead mb-3">Welcome <%= userName %></p>
 			<h1>please fill in your flight details
             </h1>
             
@@ -23,7 +23,9 @@
                 <a href="myFlights" class="home__button">All my flights</a>
                 <input type="text" class="form__input" name="flightNumber" autofocus placeholder="Flight number" class="form__input-error-message">
                 <input type="date" class="form__input"  name="Date" autofocus placeholder="Date" class="form__input-error-message">
-				<input type="submit" value="הוסף טיסה" class="btn btn-success">
+				<input type="submit" value="הוסף טיסה" class="btn btn-success"> 
+                <!-- <a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal}></a>                                    -->
+
 			</form>
 		</div>
 		<div class="abc">

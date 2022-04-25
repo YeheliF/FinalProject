@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>פרטי טיסה <%= num %></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <a href="myFlights" class="home__button">All my flights</a>
+		<div class="form-group">
+            
+			<form id="form3" method="post" action="/addFlight">
+                
+
+            <div class="form__input-group" >
+                <label for="Date"> תאריך</label>
+                <div type="text" id="Date" class="form__input"><%= date %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="num"> מספר טיסה</label>
+                <div id="num" class="form__input"><%= num %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="dep">המראה</label>
+                <div id="dep" class="form__input"><%= dep %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="depTime">זמן המראה</label>
+                <div id="depTime" class="form__input"><%= depTime %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="arr">נחיתה</label>
+                <div id="arr" class="form__input"><%= arr %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="arrTime">זמן נחיתה</label>
+                <div id="arrTime" class="form__input"><%= arrTime %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="terminal">טרמינל</label>
+                <div id="terminal" class="form__input"><%= terminal %></div>
+                <div class="form__input-error-message"></div>
+            </div>
+			</form>
+		</div>
+		<div class="abc">
+            <a href="/logout">Logout</a>
+        </div>
+
+	</div>
+</body>
+</html>
+
+
+
