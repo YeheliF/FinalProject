@@ -16,7 +16,7 @@ $.ajaxSettings.xhr = function () {
 } 
  
 function updateEmail(flight,delayFlight){ 
-    client.setApiKey('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') 
+    client.setApiKey(process.env.SENDGRID_API_KEY) 
  
     client.send({ 
         to: { 
@@ -87,7 +87,7 @@ function notifyMe(){
                         // console.log({flight : flight, delayFlight: delayFlight}) 
                         if( flight.flightNumber == delayFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
                             // console.log(flight.Email) 
-                            updateEmail(flight,delayFlight); 
+                            // updateEmail(flight,delayFlight); 
                         } 
                     }) 
                 }) 

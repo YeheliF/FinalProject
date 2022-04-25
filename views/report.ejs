@@ -12,28 +12,82 @@
 <body>
     <section>
     <div class="container">
-        <a href="myFlights" class="home__button">All my flights</a>
+        <a href="myFlights" class="home__button">לכל הטיסות שלי</a>
         <h1 id="title" class="form__title">הגשת תלונה</h1>    
         <form action="https://formsubmit.co/yeheli2421@gmail.com" method="POST">
             <!-- <input type="email" name="email" placeholder="email" required>
             <input type="hidden" name="_next" value="www.google.com">
             <button type="submit">Send</button> -->
             <div class="form__input-group" >
-                <label for="fullName"> Full name</label>
-                <input type="text" id="fullName" class="form__input" name="fullName" autofocus placeholder="Full name">
+                <label for="fullName"> שם מלא</label>
+                <input type="text" id="fullName" class="form__input" name="fullName" autofocus placeholder="שם מלא" required>
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group" >
-                <label for="email"> email</label>
-                <div id="email" class="form__input" name="email"><%= Email %></div>
+                <label for="numPassengers"> מספר נוסעים</label>
+                <input type="text" id="numPassengers" class="form__input" name="numPassengers" autofocus placeholder="מספר נוסעים" required>
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group" >
-                <label for="message"> message</label>
-                <textarea id="message" class="form__input" name="message" cols="30" rows="10" autofocus placeholder="your message"></textarea>
+                <label for="email">אימייל</label>
+                <input type="text" id="email" class="form__input" name="email" autofocus placeholder="אימייל" required>
                 <div class="form__input-error-message"></div>
             </div>
-            <button onclick="react()" type="submit"class="form__button">Send</button>
+            <label for="Date"> תאריך</label>
+
+            <div class="form__input-group" >
+                <input id="Date" name="Date" value="<%= date %>"/>
+                <!-- <div type="text" id="Date" class="form__input"><%= date %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="num"> מספר טיסה</label>
+
+            <div class="form__input-group" >
+                <input id="num" name="num" value="<%= num %>"/>
+                <!-- <div id="num" class="form__input"><%= num %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="dep">המראה</label>
+
+            <div class="form__input-group" >
+                <input id="dep" name="dep" value="<%= dep %>"/>
+                <!-- <div id="dep" class="form__input"><%= dep %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="depTime">זמן המראה</label>
+
+            <div class="form__input-group" >
+                <input id="depTime" name="depTime" value="<%= depTime %>"/>
+                <!-- <div id="depTime" class="form__input"><%= depTime %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="arr">נחיתה</label>
+
+            <div class="form__input-group" >
+                <input id="arr" name="arr" value="<%= arr %>"/>
+                <!-- <div id="arr" class="form__input"><%= arr %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="arrTime">זמן נחיתה</label>
+
+            <div class="form__input-group" >
+                <input id="arrTime" name="arrTime" value="<%= arrTime %>"/>
+                <!-- <div id="arrTime" class="form__input"><%= arrTime %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <label for="terminal">טרמינל</label>
+            <div class="form__input-group" >
+                
+                <input id="terminal" name="terminal" value="<%= terminal %>"/>
+                <!-- <div id="terminal" class="form__input"><%= terminal %></div> -->
+                <div class="form__input-error-message"></div>
+            </div>
+            <div class="form__input-group" >
+                <label for="message"> הודעה</label>
+                <textarea id="message" class="form__input" name="message" cols="30" rows="10" autofocus placeholder="משהו שתרצה להוסיף"></textarea>
+                <div class="form__input-error-message"></div>
+            </div>
+            <button onclick="react()" type="submit"class="form__button">שלח</button>
             <script>
                 function react(){
                     document.getElementById(title).innerHTML = "תודה על הדיווח!"
@@ -42,10 +96,13 @@
             <input type="hidden" name="_subject" value="עדכון חדש מלקוח: טיסה מתעכבת">
             <input type="hidden" name="_next" value="http://localhost:5000/Thankyou">
             <!-- <input type="hidden" name="_autoresponse" value="תודה על הדיווח, ניצור קשר איתך בהקדם!"> -->
-            <input type="hidden" name="_autoresponse" value=<script>>
+            <!-- <input type="hidden" name="_autoresponse" value=<script>> -->
 
             <input type="hidden" name="_captcha" value="false"> 
         </form>
+        <div class="abc"> 
+            <a href="/logout">התנתק</a> 
+        </div> 
     </div>
     <!-- <div id="status" class="Success">Success</div> -->
 </section>

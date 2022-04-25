@@ -6,7 +6,12 @@ var Schema = mongoose.Schema;
 flightSchema = new mongoose.Schema ({
     idUser: String,
     flightNumber: String,
-    Date: Date
+    Date: Date,
+    Departure: String,
+    DepartureTime: String,
+    Arrival: String,
+    ArrivalTime: String,
+    Terminal: String
 })
 
 module.exports = mongoose.model('Flights', flightSchema)
