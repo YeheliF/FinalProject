@@ -24,6 +24,8 @@
     "express-ejs-layouts": "^2.5.1",
     "express-handlebars": "^6.0.3",
     "express-session": "^1.17.2",
+    "file-api": "^0.10.4",
+    "filereader": "^0.10.3",
     "html": "^1.0.0",
     "jquery": "^3.6.0",
     "jsdom": "^19.0.0",
@@ -50,6 +52,6 @@
   },
   "homepage": "https://github.com/YeheliF/FinalProject#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }
