@@ -126,5 +126,5 @@ function notifyMe(){
         } 
     }); 
 } 
-var loop = async () =>{ setInterval(notifyMe,2000) } 
+var loop = async () =>{ setInterval(notifyMe,15000) } 
 module.exports = loop
