@@ -8,34 +8,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/style.css">
 
-	<!-- <script type="text/javascript">
-		$(document).ready(function(){
-			$( "#form1" ).submit(function(event) {
-				event.preventDefault();
-				$.ajax({
-					type: 'POST',
-					url: '/signup',
-					data: $('#form1').serialize(),
-					dataType: "json",
-					success: function(response){
-						//alert("a");
-						//console.log(response.Success);
-						$('#form1')[0].reset();
-						document.getElementById("check").innerHTML=response.Success;
-         					//ADD THIS CODE
-         					setTimeout(function(){
-         						document.getElementById("check").innerHTML="";
-         					},3000);
-         					if (response.Success=="You are regestered,You can login now.") {
-         						document.getElementById("aa").click();
-         					};
-         				},
-         				error: function() {
-         				}
-         			})
-			});
-		});
-	</script> -->
 </head>
 <body>
 
@@ -59,7 +31,7 @@
 			<span id="check"></span>
 		</div>
 		<div>
-			<span>Already Registered! <a href="/">Login</a></span>
+			<span>כבר רשום?! <a href="/">התחבר</a></span>
 		</div>
 		<div id="LangTable"><a href="/addFlight" id="aa"></a>
 		</div>

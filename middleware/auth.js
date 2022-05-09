@@ -8,7 +8,6 @@ module.exports = {
     },
     ensureGuest: function (req,res,next) {
         if (req.isAuthenticated()){
-            console.log("LLLLLLLL")
             res.redirect('/login')
         } else{
             return next()

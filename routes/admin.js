@@ -406,7 +406,6 @@ router.post('/login', function (req, res, next) {
 		failureRedirect: '/login',
 		failureFlash: true
 	  })(req, res, next);
-	  console.log('successRedirect')
 	// User.findOne({Email:req.body.Email},function(err,data){
 	// 	console.log(data)
 	// 	if(data){
@@ -470,17 +469,18 @@ router.get('/forgetpass',forwardAuthenticated, function (req, res, next) {
 router.post('/forgetpass', function (req, res, next) {
 	//console.log('req.body');
 	//console.log(req.body);
-	User.findOne({email:req.body.email},function(err,data){
+	let errors = [];
+	User.findOne({Email:req.body.Email},function(err,data){
 		console.log(data);
 		if(!data){
-			console.log('email not found');
+			errors.push({ msg: 'אימייל לר קיים' })
 			res.redirect('/forgetpass')
 			// res.send({"Success":"This Email Is not regestered!"});
 		}else{
 			// res.send({"Success":"Success!"});
-			if (req.body.password==req.body.passwordConf) {
-			data.password=req.body.password;
-			data.passwordConf=req.body.passwordConf;
+			if (req.body.Password==req.body.PasswordConf) {
+			data.Password=req.body.Password;
+			data.PasswordConf=req.body.PasswordConf;
 
 			data.save(function(err, Person){
 				if(err)

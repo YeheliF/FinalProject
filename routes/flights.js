@@ -25,11 +25,11 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
     month = date.getMonth() + 1; 
     day = date.getDate(); 
     full = day + "/" + month + "/" + year  
-     
+    // console.log(date)
     let all_flights = await Flight.find({}) 
     // console.log(all_flights) 
     console.log({full:full, items: all_flights, id: req.user._id}) 
-    res.render('myFlights.ejs', {full:full, items: all_flights, id: req.user._id, userName: req.user.displayName}); 
+    res.render('myFlights.ejs', {full:full, items: all_flights, id: req.user._id, userName: req.user.userName}); 
     // databaseInfo.collection('notes').find({}).toArray((err, result)=>{ 
     //     // if(err) throw err 
     //     res.render('myFlights.ejs', {full:full, items: result, Email: currentEmail}); 
@@ -37,7 +37,7 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
 }) 
  
 router.get("/addFlight", ensureAuthenticated,function(req, res){ 
-    console.log(req.user.userName)
+    console.log(req.user)
     // console.log("get addflight ") 
     // res.render('addFlight', {user: req.user}) 
     res.render('addFlight.ejs', {userName: req.user.userName}) 
@@ -75,17 +75,17 @@ router.post("/addFlight", async function(req, res){
     //     Arrival: fullInfo.arv,
     //     ArrivalTime: fullInfo.arv_time,
     //     Terminal: fullInfo.terminal})
-    let newFlight = new Flight({ 
-        idUser: req.session.passport.user, 
-        flightNumber: req.body.flightNumber, 
-        Date: req.body.Date, 
-        Departure: fullInfo.dep,
-        DepartureTime: fullInfo.dep_time,
-        Arrival: fullInfo.arv,
-        ArrivalTime: fullInfo.arv_time,
-        Terminal: fullInfo.terminal
-    }); 
-    newFlight.save(); 
+    // let newFlight = new Flight({ 
+    //     idUser: req.session.passport.user, 
+    //     flightNumber: req.body.flightNumber, 
+    //     Date: req.body.Date, 
+    //     Departure: fullInfo.dep,
+    //     DepartureTime: fullInfo.dep_time,
+    //     Arrival: fullInfo.arv,
+    //     ArrivalTime: fullInfo.arv_time,
+    //     Terminal: fullInfo.terminal
+    // }); 
+    // newFlight.save(); 
     // console.log(req.session.name) 
     // var popup = require('popups'); 
  
@@ -106,17 +106,49 @@ router.post("/addFlight", async function(req, res){
         arrTime: fullInfo.arv_time,
         terminal: fullInfo.terminal
     }) 
+    // res.redirect("/summaryFlight")
+    console.log("LKOJK")
 }) 
  
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
+    console.log("summ")
+    console.log(req.body)
+    console.log(req.params)
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
     res.render('summaryFlight.ejs' , req.params );
 }) 
+router.get("/flightadded",ensureAuthenticated, function(req, res){
+    console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+    console.log(req.params)
+    res.redirect("/addFlight")
+})
+router.post("/summaryFlight", function(req, res)
+{
+    console.log(req.params)
 
+    // var fullInfo = await scraperCollectData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+    console.log(fullInfo)
+    console.log("INNNN")
+    let newFlight = new Flight({ 
+        idUser: req.session.passport.user, 
+        flightNumber: "AL07", 
+        Date: "08.05" , 
+        Departure: fullInfo.dep,
+        DepartureTime: fullInfo.dep_time,
+        Arrival: fullInfo.arv,
+        ArrivalTime: fullInfo.arv_time,
+        Terminal: fullInfo.terminal
+    }); 
+    console.log(newFlight)
+    newFlight.save(); 
+    // console.log(newFlight)
+    res.redirect("/addFlight")
+})
 router.get("/report",ensureAuthenticated, function(req, res){ 
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+
     res.render('report.ejs' , req.params);
      
      

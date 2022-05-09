@@ -44,7 +44,6 @@
                          
                             <tr> 
                                 <%if(currentfull < full){%> 
-                                    <!-- <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>   -->
                                     <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>!הגש תלונה</a></th>                                     
                                 <%}%> 
                                 <th scope="row" class="complain__button"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal}>פרטי טיסה מלאים</a></th>
@@ -55,7 +54,7 @@
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= num = flight.flightNumber %></th> 
                                 <th scope="row"><%= date = currentfull %></th>  
-
+                                
                              
                                 
                             </tr> 
