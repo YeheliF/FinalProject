@@ -56,17 +56,10 @@ router.get("/addFlight", ensureAuthenticated,function(req, res){
  
 router.post("/addFlight", async function(req, res){ 
     var dateFromUser = req.body.Date
-    var year = dateFromUser.substr(0, 4)
-    var month = dateFromUser.substr(5, 2)
-    var day = dateFromUser.substr(8, 2)
-    var parseDate = year+month+day
-    console.log(parseDate)
-
     var flightNumFromUser = req.body.flightNumber
-    flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
-    var partOneFlightNum = flightNumFromUser.substr(0, 2)
-    var partTwoFlightNum = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
-    var fullInfo = await scraperCollectData('6H ISRAIR AIRLINES', '6H', '561', '20220509')
+    // console.log({partOne:partOne,partTwo:partTwo})
+    // var fullInfo = scraperCollectData(partOneFlightNum,partTwoFlightNum,parseDate )
+    var fullInfo = await scraperCollectData(flightNumFromUser, dateFromUser)
     console.log(fullInfo)
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
@@ -76,7 +69,7 @@ router.post("/addFlight", async function(req, res){
         DepartureTime: fullInfo.dep_time,
         Arrival: fullInfo.arv,
         ArrivalTime: fullInfo.arv_time,
-        Terminal: fullInfo.terminal
+        Terminal: fullInfo.terminal,
     }); 
     newFlight.save(); 
     // console.log(req.session.name) 
@@ -89,16 +82,45 @@ router.post("/addFlight", async function(req, res){
     // alert("!הטיסה נוספה");
     // res.redirect('/machine')  
     // res.redirect('/addFlight') 
-    // alert("!הטיסה נוספה");  
-    res.render('summaryFlight', { 
-        num: req.body.flightNumber, 
-        date: req.body.Date, 
-        dep: fullInfo.dep,
-        depTime: fullInfo.dep_time,
-        arr: fullInfo.arv,
-        arrTime: fullInfo.arv_time,
-        terminal: fullInfo.terminal
-    }) 
+    // alert("!הטיסה נוספה"); 
+    var flight_info = 'flight-info'
+    var machine_pred;
+    // spawn new child process to call the python script
+    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', flight_info]);
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        machine_pred = data.toString();
+        console.log(machine_pred)
+        if (String(machine_pred).trim() == 'green') {
+            machine_pred = 'On time !'
+        }
+        console.log(machine_pred)
+    });
+    // in close event we are sure that stream from child process is closed
+    python.on('close', (code) => {
+        res.render('summaryFlight', { 
+            num: req.body.flightNumber, 
+            date: req.body.Date, 
+            dep: fullInfo.dep,
+            depTime: fullInfo.dep_time,
+            arr: fullInfo.arv,
+            arrTime: fullInfo.arv_time,
+            terminal: fullInfo.terminal,
+            machinePred: machine_pred
+        }) 
+    });
+
+    // res.render('summaryFlight', { 
+    //     num: req.body.flightNumber, 
+    //     date: req.body.Date, 
+    //     dep: fullInfo.dep,
+    //     depTime: fullInfo.dep_time,
+    //     arr: fullInfo.arv,
+    //     arrTime: fullInfo.arv_time,
+    //     terminal: fullInfo.terminal,
+    //     machinePred: machine_pred
+    // }) 
 }) 
  
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
