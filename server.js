@@ -24,7 +24,7 @@ require("dotenv").config();
 dotenv.config({path: './config/config.env'})
 
 connectDB() 
-// scraperNotifyMe()
+scraperNotifyMe()
 const app = express()
 
 // Passport config

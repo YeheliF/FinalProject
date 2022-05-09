@@ -12,7 +12,7 @@
 </head> 
 <body> 
   <div> 
-   <h1> <%= userName %> ברוך הבא </h1> 
+    <p class="lead mb-3"> ברוכים הבאים <%=userName%> </p>
   </div> 
   <div class="form-group"> 
    <form id="form4" method="post" action="/myFlights"> 
@@ -36,17 +36,21 @@
                         <tr> 
                             <%items.forEach(flight =>{%> 
                             <%if(flight.idUser == id){%> 
-                            <% currentdate = flight.Date%> 
-                            <% currentyear = currentdate.getFullYear();%> 
-                            <% currentmonth = currentdate.getMonth() + 1;%> 
-                            <% currentday = currentdate.getDate(); %> 
-                            <% currentfull = currentday + "/" + currentmonth + "/" + currentyear %> 
-                         
-                            <tr> 
-                                <%if(currentfull < full){%> 
-                                    <!-- <th scope="row" ><a href="report" class="complain__button">!הגש תלונה</a></th>   -->
+                            </tr>
+                            <%var startTime = moment(flight.DepartureTime, 'HH:mm a');%> 
+                            <%var endTime = moment(flight.delayHourUpdate, 'HH:mm a');%> 
+
+                            <%var duration = moment.duration(endTime.diff(startTime));%> 
+
+                            <%var hours = parseInt(duration.asHours());%> 
+                            <%if(hours>7){%>
+                                
+                                
                                     <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>!הגש תלונה</a></th>                                     
+                                <%}else{%> 
+                                    <th scope="row"></th> 
                                 <%}%> 
+                            
                                 <th scope="row" class="complain__button"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal}>פרטי טיסה מלאים</a></th>
                                 <th scope="row"><%= terminal = flight.Terminal %></th> 
                                 <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
@@ -54,11 +58,11 @@
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= num = flight.flightNumber %></th> 
-                                <th scope="row"><%= date = currentfull %></th>  
-
+                                <th scope="row"><%= date = flight.Date %></th>   
+                            </tr>
                              
                                 
-                            </tr> 
+                            
                             <%}%> 
                             <%})%> 
          

@@ -11,6 +11,8 @@ const scraperCollectData = require ('../scraper/collectFlightData');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth'); 
 const { ReadConcernLevel } = require('mongodb');
 const {spawn} = require('child_process'); 
+var moment = require('moment');  
+const { isMoment } = require('moment');
  
  
 router.use(bodyParser.urlencoded({extended: true})); 
@@ -20,16 +22,20 @@ router.use(bodyParser.json());
 router.get("/myFlights", ensureAuthenticated, async function(req, res){ 
     
     // console.log(req.user) 
-    date = new Date(); 
-    year = date.getFullYear(); 
-    month = date.getMonth() + 1; 
-    day = date.getDate(); 
-    full = day + "/" + month + "/" + year  
+    // date = new Date(); 
+    // year = date.getFullYear(); 
+    // month = date.getMonth() + 1; 
+    // day = date.getDate(); 
+    // fullDate = day + "/" + month + "/" + year  
      
     let all_flights = await Flight.find({}) 
-    // console.log(all_flights) 
-    console.log({full:full, items: all_flights, id: req.user._id}) 
-    res.render('myFlights.ejs', {full:full, items: all_flights, id: req.user._id, userName: req.user.displayName}); 
+    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") 
+    // console.log({fullDate:fullDate, items: all_flights, id: req.user._id}) 
+    // res.render('myFlights.ejs', {fullDate:fullDate, items: all_flights, id: req.user._id, userName: req.user.displayName}); 
+    console.log(req.user.displayName)
+    
+    res.render('myFlights.ejs', {items: all_flights, id: req.user._id, userName: req.user.displayName, moment:moment}); 
+
     // databaseInfo.collection('notes').find({}).toArray((err, result)=>{ 
     //     // if(err) throw err 
     //     res.render('myFlights.ejs', {full:full, items: result, Email: currentEmail}); 
@@ -60,21 +66,8 @@ router.post("/addFlight", async function(req, res){
     flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
     var partOneFlightNum = flightNumFromUser.substr(0, 2)
     var partTwoFlightNum = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
-    // console.log({partOne:partOne,partTwo:partTwo})
-    // var fullInfo = scraperCollectData(partOneFlightNum,partTwoFlightNum,parseDate )
-    var fullInfo = await scraperCollectData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+    var fullInfo = await scraperCollectData('6H ISRAIR AIRLINES', '6H', '561', '20220509')
     console.log(fullInfo)
-    // console.log(req.body) 
-    // 'dep' : info[0],
-    //     'dep_time' : info[1],
-    //     'terminal' : info[2],
-    //     'arv' : info[3],
-    //     'arv_time' : info[4]
-    // console.log({Departure: fullInfo.dep,
-    //     DepartureTime: fullInfo.dep_time,
-    //     Arrival: fullInfo.arv,
-    //     ArrivalTime: fullInfo.arv_time,
-    //     Terminal: fullInfo.terminal})
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: req.body.flightNumber, 
