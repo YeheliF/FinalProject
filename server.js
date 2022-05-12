@@ -24,7 +24,7 @@ require("dotenv").config();
 dotenv.config({path: './config/config.env'})
 
 connectDB() 
-// scraperNotifyMe()
+scraperNotifyMe()
 const app = express()
 
 // Passport config
@@ -44,9 +44,11 @@ app.set('view engine', 'ejs');
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// app.use(cookieParser('SecretStringForCookies'))
 //Session 
 app.use(session({
     secret: 'secret',
+    // cookie: {maxAge:  6000},
     resave:true,
     saveUninitialized:true,
     // cookie: { maxAge: 60 * 60 * 1000 },

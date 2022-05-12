@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
     "alert": "^5.0.10",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
@@ -19,11 +20,13 @@
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.0",
-    "ejs": "^3.1.6",
+    "ejs": "^3.1.7",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
     "express-handlebars": "^6.0.3",
     "express-session": "^1.17.2",
+    "file-api": "^0.10.4",
+    "filereader": "^0.10.3",
     "html": "^1.0.0",
     "jquery": "^3.6.0",
     "jsdom": "^19.0.0",
@@ -31,7 +34,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.3",
     "mongodb": "^4.4.1",
-    "mongoose": "^6.3.1",
+    "mongoose": "^5.13.14",
     "morgan": "^1.10.0",
     "passport": "^0.5.2",
     "passport-auth0": "^1.4.2",
@@ -39,7 +42,9 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.0.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "split": "^1.0.1",
+    "substr": "0.0.7"
   },
   "repository": {
     "type": "git",
@@ -50,6 +55,6 @@
   },
   "homepage": "https://github.com/YeheliF/FinalProject#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.16"
   }
 }

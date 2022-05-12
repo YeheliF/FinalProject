@@ -7,7 +7,11 @@
 	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/style.css">
-
+	<style>
+		body        { padding-top:70px; }
+		.container {width: 400px;}
+		.btn-success {justify-content: center;width: 100%;}
+	</style>
 </head>
 <body>
 
@@ -16,16 +20,16 @@
 			<h1>צור משתמש חדש
 			</h1>
 		</div>
-		<div class="form-group">
-			<%= include ("./partials/messages"); %>
+
+			<%- include ("./partials/messages"); %>
 			<form id="form1" method="post">
-				<input type="email" name="Email" placeholder="E-mail" required="" class="form-control" value="<%= typeof Email != 'undefined' ? Email : '' %>"><br/>
-				<input type="text" name="userName" placeholder="Username" required="" class="form-control" value="<%= typeof userName != 'undefined' ? userName : '' %>"><br/>
-				<input type="password" name="Password" placeholder="Password" required="" class="form-control" value="<%= typeof Password != 'undefined' ? Password : '' %>"><br/>
-				<input type="password" name="PasswordConf" placeholder="Confirm Password" required="" class="form-control" value="<%= typeof PasswordConf != 'undefined' ? PasswordConf : '' %>"><br/>
-				<input type="submit" value="Register" class="btn btn-success">
+				<input type="email" name="Email" placeholder="אימייל" required="" class="form-control" value="<%= typeof Email != 'undefined' ? Email : '' %>"><br/>
+				<input type="text" name="userName" placeholder="שם משתמש" required="" class="form-control" value="<%= typeof userName != 'undefined' ? userName : '' %>"><br/>
+				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control" value="<%= typeof Password != 'undefined' ? Password : '' %>"><br/>
+				<input type="password" name="PasswordConf" placeholder="אימות סיסמא" required="" class="form-control" value="<%= typeof PasswordConf != 'undefined' ? PasswordConf : '' %>"><br/>
+				<input type="submit" value="יצירה" class="btn btn-success">
 			</form>
-		</div>
+
 		
 		<div class="mssg bg-danger">
 			<span id="check"></span>

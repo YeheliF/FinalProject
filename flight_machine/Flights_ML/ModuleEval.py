@@ -2,6 +2,7 @@ from Module import ModuleFinal
 import constants as const
 import numpy as np
 import pandas as pd
+import sys
 
 class ModuleEval():
     def __init__(self, save_path):
@@ -51,3 +52,10 @@ class ModuleEval():
         column_names = ['country_{}'.format(i) for i in range(8)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
         return df
+
+
+def main(flight_data):
+    print('green')
+
+if __name__ == "__main__":
+    main(sys.argv[1])

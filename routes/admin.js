@@ -318,15 +318,15 @@ router.post('/signup', (req, res) => {
 	let errors = [];
 	let type="email"
 	if (!userName || !Email || !Password || !PasswordConf) {
-	  errors.push({ msg: 'Please enter all fields' });
+	  errors.push({ msg: 'מלא/י את כל השדות' });
 	}
   
 	if (Password != PasswordConf) {
-	  errors.push({ msg: 'Passwords do not match' });
+	  errors.push({ msg: 'הסיסמאות לא תואמות' });
 	}
   
 	if (Password.length < 6) {
-	  errors.push({ msg: 'Password must be at least 6 characters' });
+	  errors.push({ msg: 'הסיסמא צריכה להכיל לפחות 6 תווים' });
 	}
   
 	if (errors.length > 0) {
@@ -341,7 +341,7 @@ router.post('/signup', (req, res) => {
 	} else {
 		User.findOne({Email:Email},function(err,data){
 		if (data) {
-		  errors.push({ msg: 'Email already exists' });
+		  errors.push({ msg: 'האימייל כבר קיים' });
 		  res.render('signup', {
 			errors,
 			Email,
@@ -378,7 +378,7 @@ router.post('/signup', (req, res) => {
 					.then(user => {
 					req.flash(
 						'success_msg',
-						'You are now registered and can log in'
+						'נרשמת בהצלחה, עכשיו יכול/ה להתחבר'
 					);
 					res.redirect('/login');
 					})
@@ -447,7 +447,7 @@ router.post('/login', function (req, res, next) {
 router.get('/logout', function (req, res, next) {
 	console.log("logout")
 	req.logout();
-	req.flash('success_msg', 'You are logged out');
+	req.flash('success_msg', 'התנתקת');
 	res.redirect('/login');
 	// if (req.session) {
     // // delete session object
@@ -466,36 +466,49 @@ router.get('/forgetpass',forwardAuthenticated, function (req, res, next) {
 	res.render("forget.ejs");
 });
 
-router.post('/forgetpass', function (req, res, next) {
+router.post('/forgetpass', async  function (req, res, next) {
 	//console.log('req.body');
 	//console.log(req.body);
 	let errors = [];
-	User.findOne({Email:req.body.Email},function(err,data){
-		console.log(data);
-		if(!data){
-			errors.push({ msg: 'אימייל לר קיים' })
-			res.redirect('/forgetpass')
-			// res.send({"Success":"This Email Is not regestered!"});
-		}else{
-			// res.send({"Success":"Success!"});
-			if (req.body.Password==req.body.PasswordConf) {
-			data.Password=req.body.Password;
-			data.PasswordConf=req.body.PasswordConf;
-
-			data.save(function(err, Person){
-				if(err)
-					console.log(err);
-				else
-					console.log('Success');
-					res.redirect('/login')
-					// res.send({"Success":"Password changed!"});
+	var userData=await User.findOne({Email:req.body.Email});
+	console.log(userData);
+	if(!userData){
+		errors.push({ msg: 'אימייל לא קיים' })
+		res.redirect('/forgetpass')
+		// res.send({"Success":"This Email Is not regestered!"});
+	}else{
+		// res.send({"Success":"Success!"});
+		if (req.body.Password==req.body.PasswordConf) {
+			const newUser = new User({
+				unique_id:userData.unique_id,
+				Email:userData.Email,
+				userName:userData.userName,
+				type:userData.type
 			});
+			bcrypt.genSalt(10, (err, salt) => {
+				bcrypt.hash(req.body.Password, salt, (err, hash) => {
+				if (err) throw err;
+				newUser.Password = hash;
+				newUser.PasswordConf=req.body.PasswordConf;
+			
+				newUser.save()
+				.then(user => {
+				req.flash(
+					'success_msg',
+					'הסיסמא שונתה בהצלחה :)'
+				);
+				userData.delete();
+				res.redirect('/login');
+				})
+				.catch(err => console.log(err));
+				})	// res.send({"Success":"Password changed!"});
+			});
+		
 		}else{
 			res.redirect('/forgetpass')
 			// res.send({"Success":"Password does not matched! Both Password should be same."});
 		}
-		}
-	});
+	}
 	
 });
 

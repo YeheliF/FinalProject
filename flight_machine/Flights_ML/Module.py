@@ -16,9 +16,6 @@ from sklearn.metrics import recall_score
 
 INPUT_SIZE = 32
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(device)
-
 
 class ModuleFinal(nn.Module):
 

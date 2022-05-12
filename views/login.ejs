@@ -4,13 +4,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="=utf-8">
     <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 	</script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/style.css">
-
+	<style>
+		body        { padding-top:70px; }
+		.container {width: 400px;}
+		.btn-block { display: block;width: 100%;justify-content: center;}
+		.btn-success {justify-content: center;width: 100%;}
+	</style>
 	
 </head>
 <body>
@@ -18,21 +22,21 @@
 		<div>
 			<h1>התחברות</h1>
 		</div>
-		<%= include ("./partials/messages"); %>
-		<div class="form-group" >
+
+			<%- include ('./partials/messages') %>
 			<form id="form" method="post" action="/login">
-				<input type="text" name="Email" placeholder="Email" required="" class="form-control"><br/>
-				<input type="password" name="Password" placeholder="Password" required="" class="form-control"><br/>
-				<input type="submit" value="Login" class="btn btn-success">
+				<input type="text" name="Email" placeholder="אימייל" required="" class="form-control"><br/>
+				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control"><br/>
+				<input type="submit" value="התחבר" class="btn btn-success">
 			</form>
-		</div>
-		<div class="section">
-			<a href="/auth/google" class="btn red darken-1">
-				<i class="fab fa-google left"></i> Log In With Google
+	
+		<div>
+			<a href="/auth/google" class="btn btn-primary btn-block my-2">
+				<i class="fab fa-google left"></i> התחבר עם גוגל
 			</a>
 		</div>
-		<div><span>Do you forgot password?</span><a href="/forgetpass">Click here</a>
-		<div><span>Create a new Account?</span><a href="/signup">Register here</a>
+		<div><span>שכחת את הסיסמא?</span><a href="/forgetpass">לחץ כאן</a>
+		<div><span>ליצירת משתמש חדש</span><a href="/signup">לחץ כאן</a>
 
 		</div>
 		
