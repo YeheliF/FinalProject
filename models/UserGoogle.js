@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+var instance2 = require('../config/db_conf')
 
 const UserSchemaGoogle = new mongoose.Schema({
     googleId:{
@@ -27,4 +28,4 @@ const UserSchemaGoogle = new mongoose.Schema({
 })
 
 // UserSchemaGoogle.plugin(findOrCreate)
-module.exports = mongoose.model('UserGoogle', UserSchemaGoogle)
+module.exports = instance2().model('UserGoogle', UserSchemaGoogle)

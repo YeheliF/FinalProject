@@ -1,10 +1,13 @@
 //const Flight = require('./blogs');
+const dotenv = require ('dotenv');
 const jsdom = require('jsdom');
 var $ = require("jquery");
 var $ = require('jquery')(require('jsdom-no-contextify').jsdom().parentWindow);
-const Mongoose = require('mongoose');
+var Mongoose = require('mongoose').Mongoose;
 
-const Flight = Mongoose.model('Flight', new Mongoose.Schema({
+var instance1 = new Mongoose();
+
+const FlightD = instance1.model('Flight', new instance1.Schema({
     operatorNum: {
         type: String,
         required: true
@@ -54,11 +57,28 @@ const Flight = Mongoose.model('Flight', new Mongoose.Schema({
 // connect to mongoDB
 const DB_URI = 'mongodb+srv://ashi-98:ashi1998@cluster0.6dmrx.mongodb.net/flights?retryWrites=true&w=majority';
 
-Mongoose.createConnection(DB_URI).then((result)=> {
-    console.log("connected to db")}).catch((err)=> console.log(err));
+// await Mongoose.connect(DB_URI, { useNewUrlParser: true }).then((result)=> {
+//     console.log("connected to db")}).catch((err)=> console.log(err));
+
+const MONGO_DB_FLIGHTS = async () => {
+    try{
+        const conn = await instance1.connect('mongodb+srv://ashi-98:ashi1998@cluster0.6dmrx.mongodb.net/flights?retryWrites=true&w=majority', {
+            useNewUrlParser: true, useUnifiedTopology: true
+        })
+        console.log('mongo2 connected:')
+        console.log(conn.connection.host)
+
+    } catch(err) {
+        console.log('mongo2 not connected:')
+        console.error(err)
+        process.exit(1)
+    }
+}
+
+MONGO_DB_FLIGHTS()
 
 function GetData(){
-    console.log("got in notifyme")
+    console.log("got in GetData")
     $.ajax({
         type: 'GET',
         url: 'https://data.gov.il/api/3/action/datastore_search?resource_id=e83f763b-b7d7-479e-b172-ae981ddc6de5&limit=2400',
@@ -89,7 +109,7 @@ function GetData(){
                         ckzn: flight.CHCKZN
                     };
                     const options = { upsert : true };
-                    let doc = Flight.findOneAndUpdate(query, update, {
+                    let doc = FlightD.findOneAndUpdate(query, update, {
                         new: true,
                         upsert: true
                     }).then((result)=> {
@@ -119,5 +139,5 @@ function GetData(){
         }
     });
 }
-var loop = async () =>{ setInterval(GetData,900000) }
+var loop = async () =>{ setInterval(GetData,50000) }
 module.exports = loop
