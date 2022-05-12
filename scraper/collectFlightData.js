@@ -5,6 +5,7 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const getMapping = require ("constants");
 const mapAirlines = require("./constants");
+const { info } = require("console");
 var t
 
 // CONSTANT VARIABLES 
@@ -51,13 +52,14 @@ async function scrapeData(flightNumFromUser, dateFromUser) {
     // Select all the list items
     const dep =  $('.search-results-table-data');
 
-    info = []
+    var info = []
     dep.each((idx, el) => {
         if ($(el).text() != '' && $(el).text() != '-') {
             info.push(($(el).text()).replace('\n', '')
             .replace('\n', '').replace('\n', '').split("<")[0].trim());
         }
     });
+    console.log(info)
 
     // format departure date  
     var dep_str_time = info[1].split(',')[0]

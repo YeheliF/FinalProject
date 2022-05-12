@@ -53,7 +53,8 @@ const Flight = Mongoose.model('Flight', new Mongoose.Schema({
 
 // connect to mongoDB
 const DB_URI = 'mongodb+srv://ashi-98:ashi1998@cluster0.6dmrx.mongodb.net/flights?retryWrites=true&w=majority';
-Mongoose.connect(DB_URI).then((result)=> {
+
+Mongoose.createConnection(DB_URI).then((result)=> {
     console.log("connected to db")}).catch((err)=> console.log(err));
 
 function GetData(){
