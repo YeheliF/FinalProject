@@ -11,17 +11,19 @@
     <link rel="stylesheet" href="/style.css">
     <style>
 		body        { padding-top:70px; }
+		.btn-success {justify-content: center;width: 100%; background: #00739580;}
 	</style>
 </head>
 <body>
+	<a href="myFlights" class="home__button">לכל הטיסות שלי</a>
 		<div>
-            <p class="lead mb-3"> ברוכים הבאים <%= userName %> </p>
-			<h1>:הכנס את פרטי הטיסה</h1>
+            <p class="lead mb-3">:) <%= userName %>  ברוכ/ה הבא/ה </p>
+			<h1>:הכנס/י את פרטי הטיסה</h1>
             
 		</div>
 		<div class="">
 			<form id="form3" method="post" action="/addFlight">
-                <a href="myFlights" class="home__button">לכל הטיסות שלי</a>
+                
                 <input type="text" class="form__input" name="flightNumber" autofocus placeholder="מספר טיסה" class="form__input-error-message" required>
                 <input type="date" class="form__input"  name="Date" autofocus placeholder="Date" class="form__input-error-message" required>
 				<input type="submit" value="ראה פרטי טיסה" class="btn btn-success"> 

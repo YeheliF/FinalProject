@@ -122,6 +122,14 @@ router.post("/addFlight", async function(req, res){
     //     machinePred: machine_pred
     // }) 
 }) 
+router.get("/flightDetails",ensureAuthenticated, function(req, res){ 
+    console.log("summ")
+    console.log(req.body)
+    console.log(req.params)
+    // res.render('report.ejs', {Email: req.user._id}) 
+    // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    res.render('flightDetails.ejs' , req.params );
+}) 
  
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
     console.log("summ")

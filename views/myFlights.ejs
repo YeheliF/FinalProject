@@ -14,7 +14,7 @@
 </head> 
 <body> 
   <div> 
-    <p class="lead mb-3"><%=userName%> ברוכ/ה הבא/ה  </p>
+    <p class="lead mb-3"><%=userName%> אלו הטיסות שלך  </p>
   </div> 
    <form id="form4" method="post" action="/myFlights" size="1000"> 
                 <a href="addFlight" class="home__button">הוספת טיסה חדשה</a> 
@@ -87,7 +87,7 @@
                             <%items.forEach(flight =>{%> 
                             <%if(flight.idUser == id){%> 
                             </tr>
-                            <%if((flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] == new Date().getMonth()+1 && flight.Date.split("-")[2] < new Date().getDate()) || flight.Date.split("-")[0] < new Date().getFullYear() || (flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] < new Date().getMonth()) ){%>
+                            <%if((flight.Date.split('-')[0] == new Date().getFullYear() && flight.Date.split('-')[1] == new Date().getMonth()+1 && flight.Date.split('-')[2] < new Date().getDate()) || flight.Date.split('-')[0] < new Date().getFullYear() || (flight.Date.split('-')[0] == new Date().getFullYear() && flight.Date.split('-')[1] < new Date().getMonth()) ){%>
                             <%var startTime = moment(flight.DepartureTime, 'HH:mm a');%> 
                             <%var endTime = moment(flight.delayHourUpdate, 'HH:mm a');%> 
 
@@ -109,7 +109,7 @@
                                 <th scope="row"><%= arr = flight.Arrival %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= dep = flight.Departure %></th>
-                                <th scope="row"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
+                                <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
                                 <th scope="row"><%= date = flight.Date %></th>   
                                 <%= machinePred = flight.machinePred %>
                             </tr>    

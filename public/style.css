@@ -203,14 +203,14 @@ body{
  
 .home__button{ 
     width: 100%; 
-    padding: 0.2rem 0.2rem; 
-    font-size: 0.8rem; 
+    padding: 0.1rem; 
+    font-size: 1pc; 
     color: #ffffff; 
     border: none; 
     border-radius: var(--border-radius); 
     outline: none; 
     cursor: pointer; 
-    background: var(--color-primary); 
+    background: #39bbe280; 
     text-align: right;
 } 
  
