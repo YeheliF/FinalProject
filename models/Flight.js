@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var instance2 = require('../config/db_conf')
 
 //creat schema
 flightSchema = new mongoose.Schema ({
@@ -16,4 +16,4 @@ flightSchema = new mongoose.Schema ({
     delayHourUpdate: String
 })
 
-module.exports = mongoose.model('Flights', flightSchema)
+module.exports = instance2().model('Flights', flightSchema)

@@ -189,6 +189,6 @@ function notifyMe(){
     }); 
 } 
 // var loop = async () =>{ setInterval(notifyMe,900000) } 
-var loop = async () =>{ setInterval(notifyMe,2000) } 
+var loop = async () =>{ setInterval(notifyMe,20000) } 
 
 module.exports = loop
