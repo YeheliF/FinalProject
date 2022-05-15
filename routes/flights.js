@@ -32,7 +32,7 @@ router.get("/myFlights", ensureAuthenticated, async function(req, res){
     // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") 
     // console.log({fullDate:fullDate, items: all_flights, id: req.user._id}) 
     // res.render('myFlights.ejs', {fullDate:fullDate, items: all_flights, id: req.user._id, userName: req.user.displayName}); 
-    console.log(req.user.userName)
+    console.log(req.user)
     
     res.render('myFlights.ejs', {items: all_flights, id: req.user._id, userName: req.user.userName, moment:moment}); 
 
@@ -154,7 +154,7 @@ router.get("/report",ensureAuthenticated, function(req, res){
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
 
-    res.render('report.ejs' , req.params);
+    res.render('report.ejs',{email:req.user.Email ,params:req.params});
      
      
 }) 

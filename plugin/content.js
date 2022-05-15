@@ -100,7 +100,7 @@ function CreatElements(){
             info.style.backgroundColor = "green";
             
             if (confirm(info.value)) {
-                    window.open("localhost:5000")
+                    window.open("http://134.122.56.202/")
             } else {
                 console.log("goodbey!")
             }

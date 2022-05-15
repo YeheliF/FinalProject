@@ -31,11 +31,17 @@
                 <input type="text" id="numPassengers" class="form__input" name="numPassengers" autofocus placeholder="מספר נוסעים" required>
                 <div class="form__input-error-message"></div>
             </div>
-            <div class="form__input-group" >
+            <!-- <div class="form__input-group" >
                 <label for="email">אימייל</label>
                 <input type="text" id="email" class="form__input" name="email" autofocus placeholder="אימייל" required>
                 <div class="form__input-error-message"></div>
+            </div> -->
+            <label for="email"> אימייל</label>
+            <div class="form__input-group" >
+                <input id="email" name="email" value="<%= email %>"/>
+                <div class="form__input-error-message"></div>
             </div>
+
             <label for="Date"> תאריך</label>
 
             <div class="form__input-group" >
