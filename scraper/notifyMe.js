@@ -20,10 +20,8 @@ async function updateEmail(flight,canceled){
     user = await User.find({_id:flight.idUser}) 
     userName = user[0].userName
     email = user[0].Email
-    // userName = "ori"
-    // email = "yeheli2421@gmail.com"
     client.setApiKey(process.env.SENDGRID_API_KEY);
-    if(canceled = true){
+    if(canceled){
         templateId = process.env.TEMPLATE_ID_CANCEL;
     } else {
         templateId = process.env.TEMPLATE_ID_DELAY;
@@ -39,7 +37,7 @@ async function updateEmail(flight,canceled){
         }, 
         templateId: templateId, 
         dynamicTemplateData:{ 
-            name: user.userName, 
+            name: userName, 
             flightnum: flight.flightNumber, 
             from: flight.Departure,  
             to: flight.Arrival, 
@@ -100,69 +98,70 @@ function notifyMe(){
             // console.log("all_flights:")    
             // console.log(all_flights)
             all_flights_first_delay.forEach(flight=>{ 
-                delaysFlights.forEach(delayFlight=>{ 
+                delaysFlights.forEach(async delayFlight=>{ 
                     // console.log({flight : flight, delayFlight: delayFlight}) 
                     if( flight.flightNumber == delayFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
                         // console.log(flight.Email) 
                         
-                        var x = async() => {Flight.updateMany(
+                        await Flight.updateMany(
                             {flightNumber: delayFlight.flightNumber}, 
                             {delayHourUpdate : delayFlight.delayHour},
                             {multi:true}, 
                             function(err, numberAffected){}
-                        );}
+                        );
                         updateEmail(flight,false); 
                     } 
                 }) 
-                canceledFlights.forEach(cancelFlight=>{ 
+                canceledFlights.forEach(async cancelFlight=>{ 
                     // console.log({flight : flight, delayFlight: delayFlight}) 
                     if( flight.flightNumber == cancelFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
                         // console.log(flight.Email) 
                         
-                        var x = async() => {Flight.updateMany(
+                        await Flight.updateMany(
                             {flightNumber: cancelFlight.flightNumber}, 
                             {delayHourUpdate : "התבטלה"},
                             {multi:true}, 
                             function(err, numberAffected){}
-                        );}
+                        );
                         updateEmail(flight,true); 
                     } 
                 }) 
             })
-            let all_flights_multi_delay = await Flight.find( { delayHourUpdate: { $exists: true } } ) 
+            
+            let all_flights_multi_delay = await Flight.find( { delayHourUpdate: { $exists: true, $ne: "התבטלה" } } ) 
             // console.log("all_flights:")    
             // console.log(all_flights)
             all_flights_multi_delay.forEach(flight=>{ 
-                delaysFlights.forEach(delayFlight=>{ 
+                delaysFlights.forEach(async delayFlight=>{ 
                     // console.log({flight : flight, delayFlight: delayFlight}) 
                     if( flight.flightNumber == delayFlight.flightNumber){
-                        if(flight.delayHourUpdate != "התבטלה"){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-                            if (flight.delayHourUpdate != delayFlight.delayHour){
-                                var x = async() => {Flight.updateMany(
-                                    {flightNumber: delayFlight.flightNumber}, 
-                                    {delayHourUpdate : delayFlight.delayHour},
-                                    {multi:true}, 
-                                    function(err, numberAffected){}
-                                );}
-                                updateEmail(flight,false); 
-                            }
+                        
+                        if (flight.delayHourUpdate != delayFlight.delayHour){
+                            await Flight.updateMany(
+                                {flightNumber: delayFlight.flightNumber}, 
+                                {delayHourUpdate : delayFlight.delayHour},
+                                {multi:true}, 
+                                function(err, numberAffected){}
+                            );
+                            updateEmail(flight,false); 
                         }
+                        
                         
                     } 
                 }) 
-                canceledFlights.forEach(cancelFlight=>{ 
+                canceledFlights.forEach(async cancelFlight=>{ 
                     // console.log({flight : flight, delayFlight: delayFlight}) 
                     if( flight.flightNumber == cancelFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
                         // console.log(flight.Email) 
-                        if(flight.delayHourUpdate != "התבטלה"){
-                        var x = async() => {Flight.updateMany(
+                        
+                        await Flight.updateMany(
                             {flightNumber: cancelFlight.flightNumber}, 
                             {delayHourUpdate : "התבטלה"},
                             {multi:true}, 
                             function(err, numberAffected){}
-                        );}
+                        );
                         updateEmail(flight,true); 
-                        } 
+                        
                     }
                 }) 
             })

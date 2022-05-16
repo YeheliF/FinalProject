@@ -130,6 +130,15 @@ router.get("/flightDetails",ensureAuthenticated, function(req, res){
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
     res.render('flightDetails.ejs' , req.params );
 }) 
+
+router.get("/flightDetailsPast",ensureAuthenticated, function(req, res){ 
+    console.log("summ")
+    console.log(req.body)
+    console.log(req.params.updateHour)
+    // res.render('report.ejs', {Email: req.user._id}) 
+    // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    res.render('flightDetailsPast.ejs' , req.params );
+}) 
  
 router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
     console.log("summ")
