@@ -22,7 +22,7 @@
                     <h2>טיסות עבר</h2>
                     <thead> 
                         <tr>
-                            <th scope="col">הגשת תלונה</th>   
+                            <th scope="col"> </th>   
                             <th scope="col">טרמינל</th>  
                             <th scope="col">זמן נחיתה</th>  
                             <th scope="col">יעד</th>  
@@ -101,7 +101,7 @@
                                 <th scope="row"><%= arr = flight.Arrival %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= dep = flight.Departure %></th>
-                                <th scope="row"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
+                                <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
                                 <th scope="row"><%= date = flight.Date %></th>   
                                 <%= machinePred = flight.machinePred %>
                             </tr>
