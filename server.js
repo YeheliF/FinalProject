@@ -27,7 +27,7 @@ dotenv.config({path: './config/config.env'})
 
 connectDB() 
 scraperNotifyMe()
-scraperGetData()
+// scraperGetData()
 const app = express()
 
 // Passport config

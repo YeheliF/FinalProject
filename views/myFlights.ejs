@@ -104,16 +104,16 @@
                                     <th scope="row"></th> 
                                 <%}%> 
                             
-                               
+                                <% delayHourUpdate = flight.delayHourUpdate %>
                                 <th scope="row"><%= terminal = flight.Terminal %></th> 
                                 <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
                                 <th scope="row"><%= arr = flight.Arrival %></th>
                                 <th scope="row"><%= depTime = flight.delayHourUpdate %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= dep = flight.Departure %></th>
-                                <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
+                                <th scope="row"><a href="flightDetailsPast" + {date,num,dep,depTime,arr,arrTime,terminal,delayHourUpdate}><%= num = flight.flightNumber %></a></th> 
                                 <th scope="row"><%= date = flight.Date %></th>   
-                                <%= machinePred = flight.machinePred %>
+                                
                             </tr>    
                             <%}%> 
                             <%}%> 
