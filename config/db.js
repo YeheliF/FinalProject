@@ -1,6 +1,11 @@
-const mongoose = require('mongoose')
-// console.log("test");
+var Mongoose = require('mongoose').Mongoose;
+var instance2 = require('./db_conf')
 
+// export const instance2 = new Mongoose();
+// // console.log("test");
+// const retDB = () => {
+//     return instance2
+// }
 // mongoose.connect(
 //     'mongodb+srv://liad:liad@cluster0.w0cf6.mongodb.net/users?retryWrites=true&w=majority',
 //     {
@@ -17,7 +22,7 @@ const mongoose = require('mongoose')
 // });
 const connectDB = async () => {
     try{
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
+        const conn = await instance2().connect(process.env.MONGO_URI, {
             useNewUrlParser: true, useUnifiedTopology: true
         })
         console.log('mongo connected:')
@@ -28,4 +33,4 @@ const connectDB = async () => {
         process.exit(1)
     }
 }
-module.exports= connectDB
+module.exports = connectDB

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var instance2 = require('../config/db_conf')
 
 userSchema = new mongoose.Schema( {
 	
@@ -34,4 +35,4 @@ userSchema = new mongoose.Schema( {
     } 
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = instance2().model('User', userSchema)

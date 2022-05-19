@@ -16,17 +16,67 @@
   <div> 
     <p class="lead mb-3"><%=userName%> אלו הטיסות שלך  </p>
   </div> 
+  <%- include ('./partials/messages') %>
    <form id="form4" method="post" action="/myFlights" size="1000"> 
                 <a href="addFlight" class="home__button">הוספת טיסה חדשה</a> 
-                <table class="table"> 
-                    <h2>טיסות עבר</h2>
+                <table class="table">
+                    <h2>טיסות עתידיות</h2> 
                     <thead> 
-                        <tr>
-                            <th scope="col"> </th>   
+                        <tr>  
+                            <th scope="col">תחזית</th> 
                             <th scope="col">טרמינל</th>  
                             <th scope="col">זמן נחיתה</th>  
                             <th scope="col">יעד</th>  
                             <th scope="col">זמן המראה</th> 
+                            <th scope="col">מקור</th>  
+                            <th scope="col">מספר טיסה</th>  
+                            <th scope="col">תאריך</th>  
+
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr> 
+                            <%items.forEach(flight =>{%> 
+                            <%if(flight.idUser == id){%> 
+                                
+                            <%if(!((flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] == new Date().getMonth()+1 && flight.Date.split("-")[2] < new Date().getDate()) || flight.Date.split("-")[0] < new Date().getFullYear() || (flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] < new Date().getMonth())) ){%>
+                            
+                                <th scope="row"><%= machinePred = flight.machinePred %></th>
+                                <th scope="row"><%= terminal = flight.Terminal %></th> 
+                                <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
+                                <th scope="row"><%= arr = flight.Arrival %></th>
+                                <th scope="row"><%= depTime = flight.DepartureTime %></th>
+                                <th scope="row"><%= dep = flight.Departure %></th>
+                                <th scope="row"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
+                                <th scope="row"><%= date = flight.Date %></th>   
+                                
+                                <%if(flight.delayHourUpdate){%>
+                                    <tr><td class="complain__button">
+                                         שים לב!!! הטיסה מתעכבת לשעה:<%=flight.delayHourUpdate %>
+                                    </td></tr>
+                                <%}%>
+                            </tr>
+                            
+                            <%}%> 
+                            
+                             
+                            <%}%> 
+                            
+                            <%})%> 
+         
+                        </tr> 
+         
+                    </tbody> 
+                </table> 
+                <table class="table"> 
+                    <h2>טיסות עבר</h2>
+                    <thead> 
+                        <tr>
+                            <th scope="col"></th>   
+                            <th scope="col">טרמינל</th>  
+                            <th scope="col">זמן נחיתה</th>  
+                            <th scope="col">יעד</th>  
+                            <th scope="col" colspan="2">זמן המראה</th> 
                             <th scope="col">מקור</th>  
                             <th scope="col">מספר טיסה</th>  
                             <th scope="col">תאריך</th>  
@@ -44,11 +94,12 @@
 
                             <%var duration = moment.duration(endTime.diff(startTime));%> 
 
-                            <%var hours = parseInt(duration.asHours());%> 
-                            <%if(hours>7){%>
+                            <%var hours = parseInt(duration.asHours());%>
+                            <%console.log(hours)%> 
+                            <%if(hours>6){%>
                                 
                                 
-                                    <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>!הגש תלונה</a></th>                                     
+                                    <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>הנך זכאי לפיצוי, אנא הגש תלונה</a></th>                                     
                                 <%}else{%> 
                                     <th scope="row"></th> 
                                 <%}%> 
@@ -57,14 +108,13 @@
                                 <th scope="row"><%= terminal = flight.Terminal %></th> 
                                 <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
                                 <th scope="row"><%= arr = flight.Arrival %></th>
+                                <th scope="row"><%= depTime = flight.delayHourUpdate %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
                                 <th scope="row"><%= date = flight.Date %></th>   
                                 <%= machinePred = flight.machinePred %>
-                            </tr>
-                             
-                                
+                            </tr>    
                             <%}%> 
                             <%}%> 
                             <%})%> 
@@ -74,47 +124,7 @@
                     </tbody> 
                 </table> 
 
-                <table class="table">
-                    <h2>טיסות עתידיות</h2> 
-                    <thead> 
-                        <tr>  
-                            <th scope="col">טרמינל</th>  
-                            <th scope="col">זמן נחיתה</th>  
-                            <th scope="col">יעד</th>  
-                            <th scope="col">זמן המראה</th> 
-                            <th scope="col">מקור</th>  
-                            <th scope="col">מספר טיסה</th>  
-                            <th scope="col">תאריך</th>  
-
-                        </tr> 
-                    </thead> 
-                    <tbody> 
-                        <tr> 
-                            <%items.forEach(flight =>{%> 
-                            <%if(flight.idUser == id){%> 
-                            </tr>
-                            <%if(!((flight.Date.split('-')[0] == new Date().getFullYear() && flight.Date.split('-')[1] == new Date().getMonth()+1 && flight.Date.split('-')[2] < new Date().getDate()) || flight.Date.split('-')[0] < new Date().getFullYear() || (flight.Date.split('-')[0] == new Date().getFullYear() && flight.Date.split('-')[1] < new Date().getMonth()) ) ){%>
-                            
-                               
-                                <th scope="row"><%= terminal = flight.Terminal %></th> 
-                                <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
-                                <th scope="row"><%= arr = flight.Arrival %></th>
-                                <th scope="row"><%= depTime = flight.DepartureTime %></th>
-                                <th scope="row"><%= dep = flight.Departure %></th>
-                                <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a></th> 
-                                <th scope="row"><%= date = flight.Date %></th>   
-                                <%= machinePred = flight.machinePred %>
-                            </tr>
-                             
-                                
-                            <%}%> 
-                            <%}%> 
-                            <%})%> 
-         
-                        </tr> 
-         
-                    </tbody> 
-                </table> 
+                
    </form> 
   <div class="abc"> 
             <a href="/logout">התנתק</a> 
