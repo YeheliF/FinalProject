@@ -3,6 +3,7 @@ const express = require ('express')
 const mongoose = require('mongoose')
 const dotenv = require ('dotenv')
 const morgan = require ('morgan')
+// const csrf = require('csurf');
 // const exphbs = require('express-handlebars')
 const passport = require ('passport')
 const flash = require('connect-flash')
@@ -11,7 +12,7 @@ const MongoStore = require('connect-mongo')
 const connectDB = require ('./config/db');
 const scraperNotifyMe = require ('./scraper/notifyMe');
 const scraperGetData = require ('./CollectFlightData/ScrapperForFlightData');
-
+const nodeMailer = require('nodemailer');
 const expressLayouts = require('express-ejs-layouts')
 // const connectEnsureLogin = require('connect-ensure-login'); //authorization
 const bodyParser = require("body-parser");
@@ -59,6 +60,7 @@ app.use(session({
     // })
 }))
 
+// app.use(csrf());
 //Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())

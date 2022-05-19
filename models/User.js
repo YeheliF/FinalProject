@@ -32,7 +32,11 @@ userSchema = new mongoose.Schema( {
 	createdAt:{
         type: Date,
         default: Date.now
-    } 
-})
+    },
+	resetLink: {
+		data: String,
+		default:''
+	}
+},{timestamps: true})
 
 module.exports = instance2().model('User', userSchema)

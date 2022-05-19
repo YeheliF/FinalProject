@@ -140,21 +140,36 @@ router.get("/summaryFlight",ensureAuthenticated, function(req, res){
     res.render('summaryFlight.ejs' , req.params );
 }) 
 
-router.post("/summaryFlight", function(req, res)
+router.post("/summaryFlight",async function(req, res)
 {
+    errors=[]
     console.log("INNNN")
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: full_d.num_flight, 
         Date: full_d.arv_date , 
-        Departure: info[0],
-        DepartureTime: info[1],
-        Arrival: info[3],
-        ArrivalTime: info[4],
-        Terminal: info[2]
+        Departure: full_d.dep,
+        DepartureTime: full_d.dep_time,
+        Arrival: full_d.arv,
+        ArrivalTime: full_d.arv_time,
+        Terminal: full_d.terminal
     }); 
     console.log(newFlight)
-    newFlight.save(); 
+    exist=0
+    let all_flights = await Flight.find({}) 
+    all_flights.forEach(flight =>{
+        if(flight.idUser == req.user._id){
+            if (flight.flightNumber==full_d.num_flight && flight.Date==full_d.arv_date){
+                exist=1
+            }
+        }
+    })
+    if (exist==0){
+       newFlight.save();  
+    }
+    else{
+        errors.push({ msg: 'הטיסה כבר קיימת' });
+    } 
     // console.log(newFlight)
     res.redirect("/addFlight")
 })

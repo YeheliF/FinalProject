@@ -113,7 +113,7 @@ function GetData(){
                         new: true,
                         upsert: true
                     }).then((result)=> {
-                            console.log("saved")
+                            // console.log("saved")
                         }).catch((err) => {
                             conosole.log(err)
                         });
