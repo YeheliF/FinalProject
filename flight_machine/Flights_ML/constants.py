@@ -10,6 +10,11 @@ DAY_IN_WEEK_MAX = 6
 
 DAY_IN_MONTH_MAX = 0
 
+AIRLINE_TO_CODE_MAP = {'EL AL' : 'LY', 'Air Canada' : 'AC', 'Air France' : 'AF', 'British Airways' : 'BA', 'Iberia' : 'IB', 'KLM' : 'KL', 
+                        'Delta' : 'DL', 'ISRAIR' : '6H', 'easyJet' : 'EZY', 'Lufthansa' : 'LH', 'Austrian Airlines' : 'OS', 'Wizz Air' : 'W6', 
+                        'Ryanair' : 'FR', 'Air Europa' : 'UX', 'Vueling' : 'VY', 'Aegean Airlines' : 'A3', 'ITA Airways' : 'AZ', 'Brussels Airlines' : 'SN',
+                        'Royal Jordanian' : 'RJ', 'Pegasus Airlines' : 'PC'}
+
 DEST_TO_COUNTRY_MAP = {'IST': 'TURKEY', 'CDG': 'FRANCE', 'FCO': 'ITALY', 'KBP': 'UKRAINE', 'SAW': 'TURKEY', 'ATH': 'GREECE', 'VIE': 'AUSTRIA', 'LCA': 'CYPRUS', 'OTP': 'ROMANIA', 'AMS': 'NETHERLANDS', 'JFK': 'UNITED STATES', 'LHR': 'UNITED KINGDOM', 'FRA': 'GERMANY', 'BUD': 'HUNGARY', 'EWR': 'UNITED STATES', 'SVO': 'RUSSIAN FEDERATION', 'AYT': 'TURKEY', 'WAW': 'POLAND', 'PRG': 'CZECH REPUBLIC', 
                         'MAD': 'SPAIN', 'DXB': 'UNITED ARAB EMIRATES', 'TBS': 'GEORGIA', 'ZRH': 'SWITZERLAND', 'LTN': 'UNITED KINGDOM', 'MUC': 'GERMANY', 'BCN': 'SPAIN', 'SOF': 'BULGARIA', 'PFO': 'CYPRUS', 'MXP': 'ITALY', 'BUS': 'GEORGIA', 'RHO': 'GREECE', 'HER': 'GREECE', 'ORY': 'FRANCE', 'BRU': 'BELGIUM', 'AMM': 'JORDAN', 'ADD': 'ETHIOPIA', 'SKG': 'GREECE', 'SXF': 'GERMANY', 
                         'DME': 'RUSSIAN FEDERATION', 'YYZ': 'CANADA', 'SFO': 'UNITED STATES', 'GVA': 'SWITZERLAND', 'HKG': 'CHINA', 'LIS': 'PORTUGAL', 'ODS': 'UKRAINE', 'KRK': 'POLAND', 'KIV': 'MOLDOVA', 'LED': 'RUSSIAN FEDERATION', 'BOJ': 'BULGARIA', 'BER': 'GERMANY', 'BEG': 'SERBIA', 'MIA': 'UNITED STATES', 'BGY': 'ITALY', 'BKK': 'THAILAND', 'VAR': 'BULGARIA', 'AER': 'RUSSIAN FEDERATION', 
