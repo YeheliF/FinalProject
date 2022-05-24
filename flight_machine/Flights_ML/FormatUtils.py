@@ -17,11 +17,11 @@ class FormatUtil():
     def create_flight_number(self, f_number):
         # create mapping
         for i, fn in enumerate(f_number):
-            self.f_number_map[fn] = [int(j) for j in format(i, '10b')]
+            self.f_number_map[fn] = [int(j) for j in format(i, '011b')]
         # print
-        print(self.f_number_map)
+        # print(self.f_number_map)
         # save mapping
-        with open('FlightNumbers.csv', 'w') as csvfile:
+        with open('data_files/FlightNumbers.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=f_number)
             writer.writeheader()
             writer.writerow(self.f_number_map)
@@ -35,11 +35,12 @@ class FormatUtil():
         df_array = []
         for n in numbers:
             df_array.append(self.f_number_map[n])
+        #print(df_array)
         # create column names
-        column_names = ['f_number_{}'.format(i) for i in range(10)]
+        column_names = ['f_number_{}'.format(i) for i in range(11)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
         # print
-        print(df)
+        # print(df)
         # return
         return df
 
@@ -54,7 +55,7 @@ class FormatUtil():
         # print
         print(self.company_map)
         # save mapping
-        with open('CompanyNames.csv', 'w') as csvfile:
+        with open('data_files/CompanyNames.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=company)
             writer.writeheader()
             writer.writerow(self.company_map)
@@ -72,7 +73,7 @@ class FormatUtil():
         column_names = ['comp_{}'.format(i) for i in range(8)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
         # print
-        print(df)
+        # print(df)
         # return
         return df
 
@@ -86,7 +87,7 @@ class FormatUtil():
         # print
         print(self.dest_map)
         # save mapping
-        with open('destinationNames.csv', 'w') as csvfile:
+        with open('data_files/destinationNames.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=dest)
             writer.writeheader()
             writer.writerow(self.dest_map)
@@ -104,7 +105,7 @@ class FormatUtil():
         column_names = ['dest_{}'.format(i) for i in range(9)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
         # print
-        print(df)
+        # print(df)
         # return
         return df
 
@@ -119,9 +120,9 @@ class FormatUtil():
         for i, count in enumerate(country):
             self.country_map[count] = [int(j) for j in format(i, '08b')]
         # reformat
-        self.country_map['UNITED ARAB\nEMIRATES'] = self.country_map['UNITED ARAB EMIRATES']
+        #self.country_map['UNITED ARAB\nEMIRATES'] = self.country_map['UNITED ARAB EMIRATES']
         # print
-        print(self.country_map)
+        # print(self.country_map)
         # save mapping
         with open('countryNames.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=countr)
@@ -141,7 +142,7 @@ class FormatUtil():
         column_names = ['country_{}'.format(i) for i in range(8)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
         # print
-        print(df)
+        # print(df)
         # return
         return df
 
@@ -151,6 +152,8 @@ class FormatUtil():
     def create_hour_in_day(self, date):
         hour_in_day = np.array([d.hour * 60 + d.minute for d in date])
         self.hour_in_day_max = max(hour_in_day)
+        print('self.hour_in_day_max')
+        print(self.hour_in_day_max)
         hour_in_day_norm = 2 * math.pi * hour_in_day / self.hour_in_day_max
 
         return (np.cos(hour_in_day_norm), np.sin(hour_in_day_norm))
@@ -160,6 +163,8 @@ class FormatUtil():
     """
     def create_month_in_date(self, date):
         self.month_in_date_max = max(date)
+        print('self.month_in_date_max')
+        print(self.month_in_date_max)
         m_norm = 2 * math.pi * np.array(date) / self.month_in_date_max
         return (np.cos(m_norm), np.sin(m_norm))
 
@@ -168,6 +173,8 @@ class FormatUtil():
     """
     def create_day_in_week(self, day):
         self.day_in_week_max = max(day)
+        print('self.day_in_week_max')
+        print(self.day_in_week_max)
         day_in_week_norm = 2 * math.pi * np.array(day) / self.day_in_week_max
         return (np.cos(day_in_week_norm), np.sin(day_in_week_norm))
 
@@ -175,8 +182,8 @@ class FormatUtil():
      Create normalized data for day in month
     """
     def create_day_in_month(self, day):
-        self.day_in_month_max = max(day)
-        day_in_month_norm = 2 * math.pi * np.array(day) / self.day_in_month_max
+        self.day_in_month_max =[]
+        day_in_month_norm = [2 * math.pi * d.day / d.days_in_month for d in day]
         return (np.cos(day_in_month_norm), np.sin(day_in_month_norm))
 
     """
@@ -184,7 +191,7 @@ class FormatUtil():
     """
     def save_date_data(self):
 
-        a_file = open("DateNormData.txt", "w")
+        a_file = open("data_files/DateNormData.txt", "w")
 
         np.savetxt(a_file, self.hour_in_day_max)
         np.savetxt(a_file, self.day_in_week_max)
@@ -211,6 +218,13 @@ class FormatUtil():
                 delay.append(2)
             else:
                 delay.append(3)
+        
+        length_all = len(delay)
+        print("Delay classification : ")
+        print("Class 0 [{}/{}] ({}%) ".format(delay.count(0), length_all, delay.count(0) / length_all))
+        print("Class 1 [{}/{}] ({}%) ".format(delay.count(1), length_all, delay.count(1) / length_all))
+        print("Class 2 [{}/{}] ({}%) ".format(delay.count(2), length_all, delay.count(2) / length_all))
+        print("Class 3 [{}/{}] ({}%) ".format(delay.count(3), length_all, delay.count(3) / length_all))
         return delay
 
 
@@ -224,14 +238,14 @@ def main():
     # ATO = Actual Time
     # format - DD-MM-YYYY hh:mm:ss
     # convert to - day in week [1,7] , day in month, month, year, hour
-    flights['ATO'] = [pd.to_datetime(d, dayfirst=True) for d in flights['ATO']]
+    flights['PTO'] = [pd.to_datetime(d, dayfirst=True) for d in flights['PTO']]
     flights['STO'] = [pd.to_datetime(d, dayfirst=True) for d in flights['STO']]
 
     S_day_in_week = [pd.Timestamp(d).day_of_week for d in flights['STO']]
     S_month = [pd.Timestamp(d).month for d in flights['STO']]
     S_day_in_month = [pd.Timestamp(d).day for d in flights['STO']]
 
-    diff = (flights['ATO'] - flights['STO']) / pd.Timedelta(minutes=1)
+    diff = (flights['PTO'] - flights['STO']) / pd.Timedelta(minutes=1)
 
     h_in_d = fu.create_hour_in_day(flights['STO'])
     flights["cos_h_in_d"] = h_in_d[0]
@@ -241,7 +255,7 @@ def main():
     flights["cos_d_in_w"] = d_in_w[0]
     flights["sin_d_in_w"] = d_in_w[1]
 
-    d_in_m = fu.create_day_in_month(S_day_in_month)
+    d_in_m = fu.create_day_in_month(flights['STO'])
     flights["cos_d_in_m"] = d_in_m[0]
     flights["sin_d_in_m"] = d_in_m[1]
 
@@ -249,25 +263,28 @@ def main():
     flights["cos_m"] = m_in_d[0]
     flights["sin_m"] = m_in_d[1]
 
-    fu.create_company(flights['company'].unique())
-    flights = pd.concat([flights, fu.create_company_df(flights['company'])], axis=1)
-    fu.create_dest(flights['dest'].unique())
-    flights = pd.concat([flights, fu.create_dest_df(flights['dest'])], axis=1)
-    fu.create_countries(flights['country'].unique())
-    flights = pd.concat([flights, fu.create_country_df(flights['country'])], axis=1)
+    fu.create_company(flights['Oper'].unique())
+    flights = pd.concat([flights, fu.create_company_df(flights['Oper'])], axis=1)
+    fu.create_dest(flights['Locn1'].unique())
+    flights = pd.concat([flights, fu.create_dest_df(flights['Locn1'])], axis=1)
+    fu.create_flight_number(flights['Flt No'].unique())
+    flights = pd.concat([flights, fu.create_flight_number_df(flights['Flt No'])], axis=1)
+    fu.create_countries(flights['Country'].unique())
+    flights = pd.concat([flights, fu.create_country_df(flights['Country'])], axis=1)
 
+    flights['delay_time'] = diff
     flights['delay_class'] = fu.classify_delay(diff)
 
-    flights.drop(columns=['ATO', 'STO', 'country', 'dest', 'company'], inplace=True)
+    # flights.drop(columns=['PTO', 'STO'], inplace=True)
 
-    # Create a Pandas Excel writer using XlsxWriter as the engine.
-    writer = pd.ExcelWriter('files/departures_flights_formatted.xlsx', engine='xlsxwriter')
+    # #Create a Pandas Excel writer using XlsxWriter as the engine.
+    # writer = pd.ExcelWriter('FlightData/departures_flights_formatted.xlsx', engine='xlsxwriter')
 
-    # Convert the dataframe to an XlsxWriter Excel object.
-    flights.to_excel(writer)
+    # # Convert the dataframe to an XlsxWriter Excel object.
+    # flights.to_excel(writer)
 
-    # Close the Pandas Excel writer and output the Excel file.
-    writer.save()
+    # # Close the Pandas Excel writer and output the Excel file.
+    # writer.save()
 
 
 if __name__ == "__main__":
