@@ -14,6 +14,7 @@ const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
 var machine_pred; 
 
+
 function sendToServer() {
     const paragraphs = document.getElementsByClassName("resultWrapper");
     for (flight of paragraphs) {
@@ -54,29 +55,42 @@ function sendToServer() {
     console.log(allFlightsDestTime.join('\n'));
     console.log(overNight.join('\n'));
 
-    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEvalPlugIn.py', dayDeparture, allFlightsOriginTime, allFlightsName, allFlightsDestAirport2]);
-    console.log('after spawn')
-    
-    // collect data from script
-    python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        var m_tmp = data.toString();
-        m_tmp = m_tmp.split('[')[1].split(']')[0].split(', ')
+    var data={'dayDept' : dayDeparture, 'allFlightsOrigTime' : allFlightsOriginTime, 'allFlightsName' : allFlightsName, 'allFlightsDestAirport2' : allFlightsDestAirport2};
+    console.log("******CONNECTING SERVER******")
+    var xhttp = new XMLHttpRequest();
 
-        machine_pred = m_tmp;
-    });
-    python.stderr.on('data', (data) => {
-        console.error('err: ', data.toString());
-    });
-      
-    python.on('exit', (code) => {
-        console.log(code)
-    });
+    // set callback for when connection with prefernces server is ready
+    xhttp.onreadystatechange = function () {
+        console.log("readystate", this.readyState)
+        console.log("status: ", this.status)
+        if (this.readyState == 4 && this.status == 200) {
+            console.log("finished connecting server")
 
-        // console.log(allFlightsDayDeparture.join('\n'))
-        // console.log(allFlightsPlanes.join('\n'))
-    // console.log(tryMe.join('\n'))
-    // });
+            // reorder sections acoording to the server response
+            var preds = this.responseText
+            console.log(`response text: ${preds}`)
+
+            var machine_pred = preds.split('[')[1].split(']')[0].split(', ')
+            // order = sections_order.preferences
+
+            console.log(machine_pred)
+
+        } else {
+            machine_pred = []
+            var l = allFlightsOriginTime.length
+            for (let j = 0; j < l; j++) {
+                machine_pred.push('5')
+            }
+        }
+    }
+
+
+    url = "http://localhost:80/Plugin"
+    xhttp.open("POST", url);
+
+    // send Get request
+    xhttp.send(JSON.stringify(data))
+    console.log(" send finished ")
 }
 function clicked(i) {
     // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
@@ -98,6 +112,8 @@ function clicked(i) {
     // }
     console.log("Button clicked");
 }
+
+
 function CreatElements() {
     ///////// creat elements////////
     
@@ -128,6 +144,10 @@ function CreatElements() {
                     txt = 'OSevere delay'
                     clr = 'red'
                 } 
+                if (machine_pred[j] == '5') {
+                    txt = ' '
+                    clr = 'white'
+                }
                 const node1 = document.createTextNode(txt);
                 flightPercent.appendChild(node1.cloneNode(true));
                 flightPercent.style.backgroundColor = clr;
