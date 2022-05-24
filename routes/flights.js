@@ -103,9 +103,11 @@ router.post("/addFlight", async function(req, res){
     // alert("!הטיסה נוספה"); 
     
     var machine_pred;
+    var r_date = fullInfo.dep_date.split('-')
+    console.log(r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time)
 
     // spawn new child process to call the python script
-    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', fullInfo.dep_date + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]);
+    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]);
     console.log('after spawn')
     
     // collect data from script
