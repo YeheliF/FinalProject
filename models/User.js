@@ -34,7 +34,7 @@ userSchema = new mongoose.Schema( {
         default: Date.now
     },
 	resetLink: {
-		data: String,
+		type: String,
 		default:''
 	}
 },{timestamps: true})

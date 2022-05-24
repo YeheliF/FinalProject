@@ -205,6 +205,8 @@ const passport = require('passport');  // authentication
 const { forwardAuthenticated } = require('../config/auth');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+const { token } = require('morgan');
 // require('../config/passport')(passport)
 // router.set("view engine","ejs");
 
@@ -323,7 +325,7 @@ router.post('/signup', (req, res) => {
 	if (Password.length < 6) {
 	  errors.push({ msg: 'הסיסמא צריכה להכיל לפחות 6 תווים' });
 	}
-  
+	
 	if (errors.length > 0) {
 	  res.render('signup', {
 		errors,
@@ -529,11 +531,13 @@ router.post('/forgetpass', async (req, res) => {
 					rejectUnauthorized: false
 				}	
 			});
+			// token = jwt.sign({id:userData.id,username:userData.Email},process.env.JWT_SECRET,{ expiresIn: '2h'})
+			// userData.resetLink=token
 			let mailOptions = {
 				from: '<resetflight@google.com>', // sender address
 				to: email, // list of receivers
 				subject: "איפוס סיסמא", // Subject line
-				text: " http://localhost:5000/resetPassword?t=token" + email +":לחץ על הקישור לשנות סיסמא", // plain text body
+				text: " http://localhost:80/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא\n העתק את המספר לתבנית זיהוי משתמש: "+userData.id , // plain text body
 				// html: ejs.render("hii") // html body
 			};
 			transporter.sendMail(mailOptions,(error,email)=>{
@@ -559,14 +563,17 @@ router.post('/forgetpass', async (req, res) => {
 
     }
 	router.get('/resetPassword',forwardAuthenticated, function (req, res, next) {
-		res.render("resetPassword.ejs");
+		console.log("req.params")
+		console.log(req.query)
+		var userData = User.findOne({ resetLink: req.query });
+		res.render("resetPassword.ejs",{token:req.query});
 	});
 
 	router.post('/resetPassword', async  function (req, res, next) {
-		//console.log('req.body');
-		//console.log(req.body);
+		console.log('req.body');
+		console.log(req.query);
 		let errors = [];
-		var userData=await User.findOne({Email:req.body.Email});
+		var userData=await User.findOne({_id:req.body.id});
 		console.log(userData);
 		if(!userData){
 			errors.push({ msg: 'אימייל לא קיים' })
@@ -575,25 +582,19 @@ router.post('/forgetpass', async (req, res) => {
 		}else{
 			// res.send({"Success":"Success!"});
 			if (req.body.Password==req.body.PasswordConf) {
-				const newUser = new User({
-					unique_id:userData.unique_id,
-					Email:userData.Email,
-					userName:userData.userName,
-					type:userData.type
-				});
 				bcrypt.genSalt(10, (err, salt) => {
 					bcrypt.hash(req.body.Password, salt, (err, hash) => {
 					if (err) throw err;
-					newUser.Password = hash;
-					newUser.PasswordConf=req.body.PasswordConf;
+					userData.Password = hash;
+					userData.PasswordConf=req.body.PasswordConf;
 				
-					newUser.save()
+					userData.save()
 					.then(user => {
 					req.flash(
 						'success_msg',
 						'הסיסמא שונתה בהצלחה :)'
 					);
-					userData.delete();
+					// userData.delete();
 					res.redirect('/login');
 					})
 					.catch(err => console.log(err));
