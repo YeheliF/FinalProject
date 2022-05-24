@@ -33,6 +33,11 @@ class ModuleEval():
 
 
     def format_flight_num(self, num):
+        nnum = num
+        if len(num) == 1 :
+            nnum = '00' + num
+        if len(num) == 2 :
+            nnum = '0' + num
         return const.FLIGHT_NUMBER_MAP[num]
         df_array = const.FLIGHT_NUMBER_MAP[num]
         column_names = ['f_number_{}'.format(i) for i in range(11)]
@@ -106,8 +111,20 @@ def main(t_and_d, al, fn, dst):
   
     print(me.model_eval(torch.from_numpy(np.array([input_arr])).float())[0][0].item())
 
+def sanity_check():
+    val = '1'
+    while val == '1':
+        comp = input("Enter company : ")
+        fn = input("Enter flight num : ")
+        td = input("Enter date and time : ")
+        dst = input("Enter dest : ")
+        pred = main(td, comp, fn, dst)
+        print("Prediction: {}".format(pred))
+        val = input("Continue ? ")
+
 if __name__ == "__main__":
 
     # arr = ['05-06-2022 19:50', 'W6', '2812', 'VIE']
     # main('05-06-2022 21:15', 'W6', '2328', 'BUD')
+    # sanity_check()
     main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

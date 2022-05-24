@@ -140,7 +140,7 @@ def run_train(file_name, save_path):
     lr = 0.0002
 
     # epochs
-    epoch = 50
+    epoch = 180
 
     # optimizer
     optimizer = optim.Adam(model.parameters(), lr=lr)

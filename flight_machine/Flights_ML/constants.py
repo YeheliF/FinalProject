@@ -1,6 +1,6 @@
 
-SAVE_PATH = 'flight_machine/Flights_ML/data_files/machine_w.pt'
-#SAVE_PATH = 'data_files/machine_w.pt'
+SAVE_PATH = 'flight_machine/Flights_ML/data_files/machine_w1.pt'
+#SAVE_PATH = 'data_files/machine_w1.pt'
 
 HOUR_IN_DAY_MAX = 1435
 

@@ -10,7 +10,7 @@ const dayDeparture = window.location.href.split('/')[5]
 const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
 
-function sendToServer(){
+function sendToServer() {
     const paragraphs = document.getElementsByClassName("resultWrapper");
     for (flight of paragraphs) {
         flightName = flight.getElementsByClassName('codeshares-airline-names')[0];
@@ -73,7 +73,7 @@ function clicked(i) {
     // }
     console.log("Button clicked");
 }
-function CreatElements(){
+function CreatElements() {
     ///////// creat elements////////
     
 
