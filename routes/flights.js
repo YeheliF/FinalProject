@@ -255,6 +255,7 @@ router.get("/Thankyou",ensureAuthenticated, function(req, res){
 }) 
 
 router.post("/Plugin", function(req, res) { 
+    res.header('Access-Control-Allow-Origin', '*');
     // res.render('report.ejs', {Email: req.user._id}) 
     console.log("*** inside server from PLUGIN ***")
 
