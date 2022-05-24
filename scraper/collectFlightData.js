@@ -20,7 +20,7 @@ const D_MONTHS = new Map([
 ])
 const TIMES = new Map([
   ['1', '13'], ['2', '14'], ['3', '15'], ['4', '16'], ['5', '17'], ['6', '18'],
-  ['7', '19'], ['8', '20'], ['9', '21'], ['10', '22'], ['11', '23'], ['12', '00']
+  ['7', '19'], ['8', '20'], ['9', '21'], ['10', '22'], ['11', '23'], ['12', '12']
 ])
 
 // Async function which scrapes the data
@@ -75,9 +75,13 @@ async function scrapeData(airline, flightNum, dateFromUser) {
     var dep_am_or_pm = dep_str_time.split(' ')[1]
     if (dep_am_or_pm == 'PM') {
       dep_time = TIMES.get(dep_time.split(':')[0]) + ':' + dep_time.split(':')[1]
+    } else {
+      if (dep_time.split(':')[0] == '12') {
+        dep_time = '00:' + dep_time.split(':')[1]
+      }
     }
     var dep_str_date = info[1].split(',')[1]
-    var dep_d = dep_str_date.substr(4, dep_str_date.length - 1).trim() + '-' + D_MONTHS.get(dep_str_date.substr(1, 4).trim()) + '-' + year
+    var dep_d = year + '-' + D_MONTHS.get(dep_str_date.substr(1, 4).trim()) + '-' + dep_str_date.substr(4, dep_str_date.length - 1).trim()
     
     
     // format arrival date
@@ -86,9 +90,13 @@ async function scrapeData(airline, flightNum, dateFromUser) {
     var arv_am_or_pm = arv_str_time.split(' ')[1]
     if (arv_am_or_pm == 'PM') {
       arv_time = TIMES.get(arv_time.split(':')[0]) + ':' + arv_time.split(':')[1]
+    } else {
+      if (arv_time.split(':')[0] == '12') {
+        arv_time = '00:' + arv_time.split(':')[1]
+      }
     }
     var arv_str_date = info[4].split(',')[1]
-    var arv_d = arv_str_date.substr(4, arv_str_date.length - 1).trim() + '-' + D_MONTHS.get(arv_str_date.substr(1, 4).trim()) + '-' + year
+    var arv_d = year + '-' + D_MONTHS.get(arv_str_date.substr(1, 4).trim()) + '-' + arv_str_date.substr(4, arv_str_date.length - 1).trim()
     
     
     full_d = {

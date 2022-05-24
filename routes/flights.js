@@ -104,6 +104,8 @@ router.post("/addFlight", async function(req, res){
     
     var machine_pred;
     var r_date = fullInfo.dep_date.split('-')
+    console.log(fullInfo.dep_date)
+    console.log(r_date)
     console.log(r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time)
 
     // spawn new child process to call the python script

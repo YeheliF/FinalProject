@@ -38,7 +38,7 @@ class ModuleEval():
             nnum = '00' + num
         if len(num) == 2 :
             nnum = '0' + num
-        return const.FLIGHT_NUMBER_MAP[num]
+        return const.FLIGHT_NUMBER_MAP[nnum]
         df_array = const.FLIGHT_NUMBER_MAP[num]
         column_names = ['f_number_{}'.format(i) for i in range(11)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
@@ -127,4 +127,6 @@ if __name__ == "__main__":
     # arr = ['05-06-2022 19:50', 'W6', '2812', 'VIE']
     # main('05-06-2022 21:15', 'W6', '2328', 'BUD')
     # sanity_check()
+    # arr = [ '23-06-2022 12:30', 'LY', '27', 'EWR' ]
+    # main(arr[0], arr[1], arr[2], arr[3])
     main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
