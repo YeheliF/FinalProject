@@ -3,6 +3,7 @@ import constants as const
 import numpy as np
 import pandas as pd
 import sys
+import random
 
 class ModuleEval():
     def __init__(self, save_path):
@@ -55,7 +56,7 @@ class ModuleEval():
 
 
 def main(flight_data):
-    print('green')
+    print(str(random.randint(0, 3)))
 
 if __name__ == "__main__":
     main(sys.argv[1])

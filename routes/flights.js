@@ -83,17 +83,32 @@ router.post("/addFlight", async function(req, res){
     // res.redirect('/machine')  
     // res.redirect('/addFlight') 
     // alert("!הטיסה נוספה"); 
-    var flight_info = 'flight-info'
+    var flight_info = 'flight-info';
     var machine_pred;
+
     // spawn new child process to call the python script
     const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', flight_info]);
+    
     // collect data from script
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         machine_pred = data.toString();
         console.log(machine_pred)
-        if (String(machine_pred).trim() == 'green') {
+        if (String(machine_pred).trim() == '3') {
+            //document.getElementById('machinePred').style.backgroundColor = 'greenyellow' ;
             machine_pred = 'On time !'
+        }
+        if (String(machine_pred).trim() == '2') {
+            //document.getElementById('machinePred').style.backgroundColor = '#ffff00' ;
+            machine_pred = 'Minor delay'
+        }
+        if (String(machine_pred).trim() == '1') {
+            //document.getElementById('machinePred').style.backgroundColor = '#ffbf00' ;
+            machine_pred = 'Moderate delay'
+        }
+        if (String(machine_pred).trim() == '0') {
+            //document.getElementById('machinePred').style.backgroundColor = 'ff4000' ;
+            machine_pred = 'Severe delay'
         }
         console.log(machine_pred)
     });
