@@ -1,5 +1,3 @@
-console.log('from background');
-
 const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
@@ -10,8 +8,11 @@ const allFlightsOriginTime = [];
 const allFlightsDestTime = [];
 const overNight = [];
 
+// function search() {
+//     chrome.tabs.executeScript({file: 'jquery.min.js'});
+// }
+
 function sendToServer(){
-    //////// send to server ////////////
     const paragraphs = document.getElementsByClassName("resultWrapper");
 
     for (flight of paragraphs) {
@@ -55,10 +56,34 @@ function sendToServer(){
     // console.log(tryMe.join('\n'))
     // });
 }
+function clicked(i) {
+    console.log(i)
+    console.log('Flight Name: ' + allFlightsName[i])
+    console.log('From: ' + allFlightsOriginAirport[i].substring(1,4))
+    console.log('Time: ' + allFlightsOriginTime[i])
+    // console.log($('button').index($(this)))
+    // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
+    // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
+    // information.style.backgroundColor = "#fff173"
+
+    const info = document.createElement('div');
+    const node = document.createTextNode('');
+    info.value= "x" //information
+    info.appendChild(node.cloneNode(true));
+    info.style.backgroundColor = "green";
+    
+    // JSconfirm()
+    if (confirm(info.value)) {
+            window.open("http://134.122.56.202/")
+    } else {
+        console.log("goodbey!")
+    }
+    console.log("Button clicked");
+}
 function CreatElements(){
     ///////// creat elements////////
     const flightPercent = document.createElement('div');
-    const node1 = document.createTextNode("percents of delay:");
+    const node1 = document.createTextNode("Percents of delay:");
     flightPercent.appendChild(node1.cloneNode(true));
     flightPercent.style.backgroundColor = "green";
 
@@ -69,7 +94,7 @@ function CreatElements(){
     button.style.backgroundColor = "pink";
     button.id = "websiteButton";
     button.type = "submit";
-    button.value = "click on me for more details";
+    button.value = "לחץ עליי לפרטים נוספים";
 
 
     // const button = document.createElement("input");
@@ -79,40 +104,114 @@ function CreatElements(){
     // button.style.backgroundColor = "pink";
 
     const slides = document.getElementsByClassName('top-row');
+    console.log("after slides")
+    $(document).ready(function () {
+        setTimeout(function(){
+    // $( window ).on( "load", function(){
 
-    document.addEventListener('mouseenter', (event)=>{
-        console.log('got into event listener');
+        console.log("after ready")
         for (var i = 0; i < slides.length; i = i+2) {
+            console.log("in loop")
             slides[i].appendChild(flightPercent.cloneNode(true));
             slides[i].appendChild(button.cloneNode(true));
-            i=0
         }
-        
-        document.getElementById("websiteButton").addEventListener("click", function (req,res){
-            var information = 'Flight Name: ' + allFlightsName[0] + '\nFrom: ' + allFlightsOriginAirport[0].substring(1,4) + "\nTime: "
-            + allFlightsOriginTime[0] + "\nTo: " + allFlightsDestAirport[0].substring(1,4) + "\narrivale time: " + allFlightsDestTime[0]
-            // information.style.backgroundColor = "#fff173"
+        console.log("added all buttons")
+        //////one shot
+        // eachButton = document.getElementsByClassName("websiteButton");
+        // for (var i = 0; i < eachButton.length; i++){
+        //     console.log("onclick {}".i)
+        //     $(eachButton.item[i]).on("click", "a", function (e) {
+        //         e.preventDefault()
+        //         console.log("flicked!")
+        //         // var information = 'Flight Name: ' + allFlightsName[0] + '\nFrom: ' + allFlightsOriginAirport[0].substring(1,4) + "\nTime: "
+        //         // + allFlightsOriginTime[0] + "\nTo: " + allFlightsDestAirport[0].substring(1,4) + "\narrivale time: " + allFlightsDestTime[0]
+        //         // // information.style.backgroundColor = "#fff173"
 
-            const info = document.createElement('div');
-            const node = document.createTextNode('');
-            info.value=information
-            info.appendChild(node.cloneNode(true));
-            info.style.backgroundColor = "green";
+        //         // const info = document.createElement('div');
+        //         // const node = document.createTextNode('');
+        //         // info.value=information
+        //         // info.appendChild(node.cloneNode(true));
+        //         // info.style.backgroundColor = "green";
+                
+        //         // // JSconfirm()
+        //         // if (confirm(info.value)) {
+        //         //         window.open("http://134.122.56.202/")
+        //         // } else {
+        //         //     console.log("goodbey!")
+        //         // }
+        //         // console.log("Button clicked");
+        //     });
+        // };
+        //////second shot
+        var allButtons = document.querySelectorAll('#websiteButton')
+        for ( var i =0;i<allButtons.length -1;i++){
+            console.log(allButtons[i]);
+            allButtons[i].addEventListener('click', e =>{console.log(e.target)}) //clicked(allFlightsName.indexOf( e.target.flightName)));
             
-            if (confirm(info.value)) {
-                    window.open("http://134.122.56.202/")
-            } else {
-                console.log("goodbey!")
-            }
-            console.log("Button clicked");
-            // const loginForm=document.querySelector("#login").style.visibility="visible";
-            // console.log(loginForm);
-            // loginForm.classList.add("active");
-        })
-
+        }
+        return false; },2000);
     });
+    /////OLD///////
+    // document.addEventListener('mouseenter', (event)=>{
+    //     console.log('got into event listener');
+    //     for (var i = 0; i < slides.length; i = i+2) {
+    //         slides[i].appendChild(flightPercent.cloneNode(true));
+    //         slides[i].appendChild(button.cloneNode(true));
+    //         i=0
+    //     }
+        
+    //     document.getElementById("websiteButton").addEventListener("click", function (req,res){
+    //         var information = 'Flight Name: ' + allFlightsName[0] + '\nFrom: ' + allFlightsOriginAirport[0].substring(1,4) + "\nTime: "
+    //         + allFlightsOriginTime[0] + "\nTo: " + allFlightsDestAirport[0].substring(1,4) + "\narrivale time: " + allFlightsDestTime[0]
+    //         // information.style.backgroundColor = "#fff173"
+
+    //         const info = document.createElement('div');
+    //         const node = document.createTextNode('');
+    //         info.value=information
+    //         info.appendChild(node.cloneNode(true));
+    //         info.style.backgroundColor = "green";
+            
+    //         // JSconfirm()
+    //         if (confirm(info.value)) {
+    //                 window.open("http://134.122.56.202/")
+    //         } else {
+    //             console.log("goodbey!")
+    //         }
+    //         console.log("Button clicked");
+    //     })
+    // });
+}
+function JSconfirm(){
+ 
+    swal({
+     
+    title: "flight information",
+     
+    text: "Redirect me to our website?",
+     
+    type: "warning",
+     
+    showCancelButton: true,
+     
+    confirmButtonColor: "#DD6B55",
+     
+    confirmButtonText: "Yes",
+     
+    cancelButtonText: "No",
+     
+    closeOnConfirm: false,
+     
+    closeOnCancel: false },
+     
+    function(isConfirm){
+        if (isConfirm){
+            window.location = "http://134.122.56.202/";
+        } 
+        else {} 
+    });
+     
 }
 
-
+// search()
 sendToServer();
 CreatElements();

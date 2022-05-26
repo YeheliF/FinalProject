@@ -1,6 +1,6 @@
 {
-    "name":"Plugin for Kayak website",
-    "description":"Plugin for our final project - flight postponed",
+    "name":"plugin final",
+    "description":"plugin and server",
     "version":"1.0",
     "manifest_version":2,
     
@@ -10,15 +10,21 @@
             "matches":[
                 "*://www.il.kayak.com/flights/*"  
             ],
-            "js": ["jquery.min.js", "content.js"],
-            "run_at": "document_end"
+            "js": ["content.js"],
+            "html": ["extention.html"]
         }
     ],
     "background": {
         "scripts": [
-            "jquery.min.js","./content.js"
-        ],
-        "run_at": "document_end"
+            "./content.js"
+        ]
+    },    
+    "web_accessible_resources": [
+        "./extention.html"
+    ],
+    "browser_action": {
+        "default_popup":"popup.html",
+        "default_title": "Welcome to out project"
     },
     "permissions": [
         "activeTab",
