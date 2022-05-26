@@ -3,6 +3,7 @@ const express = require ('express')
 const mongoose = require('mongoose')
 const dotenv = require ('dotenv')
 const morgan = require ('morgan')
+const jwt = require('jsonwebtoken');
 // const csrf = require('csurf');
 // const exphbs = require('express-handlebars')
 const passport = require ('passport')
@@ -59,7 +60,6 @@ app.use(session({
     //     mongoUrl: process.env.MONGO_URI
     // })
 }))
-
 // app.use(csrf());
 //Passport middleware
 app.use(passport.initialize())
