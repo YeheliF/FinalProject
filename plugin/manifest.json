@@ -10,14 +10,16 @@
             "matches":[
                 "*://www.il.kayak.com/flights/*"  
             ],
-            "js": ["jquery.min.js", "content.js"],
+            "js": ["jquery.min.js","sweetalert2.all.min.js", "content.js"],
+            "css": ["style.css"],
             "run_at": "document_end"
         }
     ],
     "background": {
         "scripts": [
-            "jquery.min.js","./content.js"
+            "jquery.min.js","sweetalert2.all.min.js","./content.js"
         ],
+        "css": ["style.css"],
         "run_at": "document_end"
     },
     "permissions": [
