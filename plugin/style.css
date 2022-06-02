@@ -1,5 +1,6 @@
-.swal-pre{
-    padding: 10px;
-    font-size: 30px;
-    text-align: left;
-  }
+.sweet-alert html {
+  display: initial !important;
+  padding: 10px;
+  font-size: 30px;
+  text-align: left;
+}

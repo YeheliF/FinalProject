@@ -2,11 +2,12 @@ const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
 const allFlightsDurations = [];
-const allFlightsPlanes = [];
-const allFlightsDayDeparture = [];
 const allFlightsOriginTime = [];
 const allFlightsDestTime = [];
 const overNight = [];
+
+const dayDeparture = window.location.href.split('/')[5]
+const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
 
 function sendToServer(){
@@ -15,7 +16,7 @@ function sendToServer(){
         flightName = flight.getElementsByClassName('codeshares-airline-names')[0];
         origin = flight.getElementsByClassName("airport-name")[0];
         destination = flight.getElementsByClassName("airport-name")[1];
-        duration = flight.getElementsByClassName("top")[0];
+        duration = flight.getElementsByClassName("section duration allow-multi-modal-icons")[0].getElementsByClassName("top")[0];
         originTime = flight.getElementsByClassName("depart-time base-time")[0];
         destTime = flight.getElementsByClassName("arrival-time base-time")[0];
         oneway = flight.getElementsByClassName("container")[0];
@@ -53,17 +54,18 @@ function sendToServer(){
     // });
 }
 function clicked(i) {
-    var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
-    + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
-    console.log(information)
+    // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
+    // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
+    // console.log(information)
 
-    const info = document.createElement('div');
-    const node = document.createTextNode('');
-    info.value= information
-    info.appendChild(node.cloneNode(true));
-    info.style.backgroundColor = "green";
+    // const info = document.createElement('div');
+    // const node = document.createTextNode('');
+    // info.value= information
+    // info.appendChild(node.cloneNode(true));
+    // info.style.backgroundColor = "green";
     
-    JSconfirm([allFlightsName[i],allFlightsOriginAirport[i].substring(1,4),allFlightsOriginTime[i] ,allFlightsDestAirport[i].substring(1,4),allFlightsDestTime[i]])
+    JSconfirm([allFlightsName[i],allFlightsOriginAirport[i].substring(1,4),allFlightsOriginTime[i] ,
+    allFlightsDestAirport[i].substring(1,4),allFlightsDestTime[i],allFlightsDurations[i]], dayDeparture, dayArrival)
     // if (confirm(info.value)) {
     //         window.open("http://134.122.56.202/")
     // } else {
@@ -73,10 +75,7 @@ function clicked(i) {
 }
 function CreatElements(){
     ///////// creat elements////////
-    const flightPercent = document.createElement('div');
-    const node1 = document.createTextNode("Percents of delay:");
-    flightPercent.appendChild(node1.cloneNode(true));
-    flightPercent.style.backgroundColor = "green";
+    
 
     
     const slides = document.getElementsByClassName('top-row');
@@ -85,6 +84,10 @@ function CreatElements(){
             
             for (var i = 0; i < slides.length; i = i+2) {
                 console.log("in loop")
+                const flightPercent = document.createElement('div');
+                const node1 = document.createTextNode("Percents of delay:");
+                flightPercent.appendChild(node1.cloneNode(true));
+                flightPercent.style.backgroundColor = "green";
                 const button = document.createElement("input");
                 const node2 = document.createTextNode("click on me for more details");
                 button.appendChild(node2.cloneNode(true));
@@ -304,12 +307,18 @@ function JSconfirm(info){
     // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
     // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
    
-    x=9
     new swal({
-        title:"האם אתה מעוניין לעבור אל האתר שלנו על מנת לקבל פרטים נוספים?",
-        html:  '<pre>' + '<strong><u>Flightnum</u>: </strong>'+info[0] +'<strong><u>\nFrom</u>: </strong>'+info[1]
-        + '<strong><u>\nTime</u>: </strong>'+info[2]+ '<strong><u>\nTo</u>: </strong>'+info[3]+ 
-        '<strong><u>\narrivale time</u>: </strong>'+info[4]+ '</pre>',
+        // text:"?האם אתה מעוניין לעבור אל האתר שלנו על מנת לקבל פרטים נוספים",
+        title:"האם אתה מעוניין לעבור אל האתר שלנו\n ?על מנת לקבל פרטים נוספים" +  '\n<pre style="text-align: Right";>' 
+        + info[0]  + '<strong> :<u>מספר טיסה</u>\n</strong>'
+        + info[1] + '<strong> :<u>המראה משדה התעופה</u>\n</strong>'
+        + dayDeparture + '<strong> :<u>ביום</u>\n</strong>'
+        + info[2]+ '<strong> :<u>זמן נחיתה</u>\n</strong>' 
+        + info[5].split('\n')[1] + '<strong> :<u>משך הטיסה</u>\n</strong>' 
+        + info[3] + '<strong> :<u>נחיתה בשדה התעופה</u>\n</strong>' 
+        + dayArrival + '<strong> :<u>ביום</u>\n</strong>'
+        + info[4] + '<strong> :<u>זמן נחיתה</u>\n</strong>'
+        +'</pre>',
         
         // html: $('<h2>')
         // .addClass('some-class')
@@ -322,18 +331,43 @@ function JSconfirm(info){
         padding: 100,
         background: '#fff url(//bit.ly/1Nqn9HU)',
         showCancelButton: true,
+        cancelButtonText: 'ביטול',
         confirmButtonText: 'כן',
-       
+        customClass: {
+            container: '...',
+            popup: '...',
+            header: '...',
+            title: '...',
+            closeButton: '...',
+            icon: '...',
+            image: '...',
+            content: '...',
+            htmlContainer: '...',
+            input: '...',
+            inputLabel: '...',
+            validationMessage: '...',
+            actions: '...',
+            confirmButton: '...',
+            denyButton: '...',
+            cancelButton: '...',
+            loader: '...',
+            footer: '....',
+            timerProgressBar: '....',
+          },
         // showLoaderOnConfirm: true,
         
         allowOutsideClick: false
-      }).then(function () {
-        new swal({
-        //   type: 'success',
-          
-        html: [window.open("http://134.122.56.202/"),'<pre>' + '<strong><u>תודה</u>: </strong></pre>']
-        })
-      })
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'תודה שהשתמשתם בשירות שלנו',
+                '',
+                'success',
+                window.open("http://134.122.56.202/")
+            )
+            // new swal({html: [window.open("http://134.122.56.202/"),'<pre>' + '<strong><u>תודה</u>: </strong></pre>']
+        }
+    })
      
 }
 
