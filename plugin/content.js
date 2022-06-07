@@ -1,6 +1,9 @@
+const {spawn} = require('child_process'); 
+
 const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
+const allFlightsDestAirport2 = [];
 const allFlightsDurations = [];
 const allFlightsOriginTime = [];
 const allFlightsDestTime = [];
@@ -9,8 +12,9 @@ const overNight = [];
 const dayDeparture = window.location.href.split('/')[5]
 const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
+var machine_pred; 
 
-function sendToServer(){
+function sendToServer() {
     const paragraphs = document.getElementsByClassName("resultWrapper");
     for (flight of paragraphs) {
         flightName = flight.getElementsByClassName('codeshares-airline-names')[0];
@@ -33,6 +37,7 @@ function sendToServer(){
         allFlightsName.push(flightName.innerHTML);
         allFlightsOriginAirport.push(origin.innerHTML);
         allFlightsDestAirport.push(destination.innerHTML);
+        allFlightsDestAirport2.push(destination.innerHTML.substring(1,4));
         allFlightsDurations.push(duration.innerHTML);
         allFlightsOriginTime.push(originTime.innerHTML);
         allFlightsDestTime.push(destTime.innerHTML);
@@ -48,6 +53,26 @@ function sendToServer(){
     console.log(allFlightsOriginTime.join('\n'));
     console.log(allFlightsDestTime.join('\n'));
     console.log(overNight.join('\n'));
+
+    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEvalPlugIn.py', dayDeparture, allFlightsOriginTime, allFlightsName, allFlightsDestAirport2]);
+    console.log('after spawn')
+    
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        var m_tmp = data.toString();
+        m_tmp = m_tmp.split('[')[1].split(']')[0].split(', ')
+
+        machine_pred = m_tmp;
+    });
+    python.stderr.on('data', (data) => {
+        console.error('err: ', data.toString());
+    });
+      
+    python.on('exit', (code) => {
+        console.log(code)
+    });
+
         // console.log(allFlightsDayDeparture.join('\n'))
         // console.log(allFlightsPlanes.join('\n'))
     // console.log(tryMe.join('\n'))
@@ -73,7 +98,7 @@ function clicked(i) {
     // }
     console.log("Button clicked");
 }
-function CreatElements(){
+function CreatElements() {
     ///////// creat elements////////
     
 
@@ -81,13 +106,31 @@ function CreatElements(){
     const slides = document.getElementsByClassName('top-row');
     $(document).ready(function () {
         setTimeout(function(){
-            
+            var j = 0;
             for (var i = 0; i < slides.length; i = i+2) {
                 console.log("in loop")
                 const flightPercent = document.createElement('div');
-                const node1 = document.createTextNode("Percents of delay:");
+                var txt;
+                var clr;
+                if (machine_pred[j] == '0') {
+                    txt = 'On time !'
+                    clr = 'green'
+                } 
+                if (machine_pred[j] == '1') {
+                    txt = 'Minor delay'
+                    clr = 'yellow'
+                } 
+                if (machine_pred[j] == '2') {
+                    txt = 'Moderate delay'
+                    clr = 'orange'
+                } 
+                if (machine_pred[j] == '3') {
+                    txt = 'OSevere delay'
+                    clr = 'red'
+                } 
+                const node1 = document.createTextNode(txt);
                 flightPercent.appendChild(node1.cloneNode(true));
-                flightPercent.style.backgroundColor = "green";
+                flightPercent.style.backgroundColor = clr;
                 const button = document.createElement("input");
                 const node2 = document.createTextNode("click on me for more details");
                 button.appendChild(node2.cloneNode(true));
@@ -105,7 +148,7 @@ function CreatElements(){
                     console.log(e.target.id);
                     clicked(e.target.id/2);
                 }) //clicked(allFlightsName.indexOf( e.target.flightName)));
-            
+                j = j + 1;
             }
            
             

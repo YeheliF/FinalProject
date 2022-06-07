@@ -57,10 +57,28 @@ router.get("/addFlight", ensureAuthenticated,function(req, res){
 router.post("/addFlight", async function(req, res){ 
     var dateFromUser = req.body.Date
     var flightNumFromUser = req.body.flightNumber
+    flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
     // console.log({partOne:partOne,partTwo:partTwo})
     // var fullInfo = scraperCollectData(partOneFlightNum,partTwoFlightNum,parseDate )
-    var fullInfo = await scraperCollectData(flightNumFromUser, dateFromUser)
+    var al_input;
+    var fn_input;
+    if (flightNumFromUser.charAt(2) >= 'A') {
+        var al_input = flightNumFromUser.substr(0, 3)
+        var fn_input = flightNumFromUser.substr(3, flightNumFromUser.length - 1)
+    } else {
+        var al_input = flightNumFromUser.substr(0, 2)
+        var fn_input = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
+    }
+    var fullInfo = await scraperCollectData(al_input, fn_input, dateFromUser)
     console.log(fullInfo)
+
+    // No flight like this exisits 
+    if (fullInfo == 0) {
+
+    }
+    
+    var flight_data = [fullInfo.dep_date + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]
+    console.log(flight_data)
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: req.body.flightNumber, 
@@ -83,11 +101,14 @@ router.post("/addFlight", async function(req, res){
     // res.redirect('/machine')  
     // res.redirect('/addFlight') 
     // alert("!הטיסה נוספה"); 
-    var flight_info = 'flight-info';
+    
     var machine_pred;
+    var r_date = fullInfo.dep_date.split('-')
+    console.log(r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time)
 
     // spawn new child process to call the python script
-    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', flight_info]);
+    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEval.py', r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]);
+    console.log('after spawn')
     
     // collect data from script
     python.stdout.on('data', function (data) {
@@ -96,24 +117,29 @@ router.post("/addFlight", async function(req, res){
         console.log(machine_pred)
         if (String(machine_pred).trim() == '3') {
             //document.getElementById('machinePred').style.backgroundColor = 'greenyellow' ;
-            machine_pred = 'On time !'
+            machine_pred = 'Severe delay'
         }
         if (String(machine_pred).trim() == '2') {
             //document.getElementById('machinePred').style.backgroundColor = '#ffff00' ;
-            machine_pred = 'Minor delay'
+            machine_pred = 'Moderate delay'
         }
         if (String(machine_pred).trim() == '1') {
             //document.getElementById('machinePred').style.backgroundColor = '#ffbf00' ;
-            machine_pred = 'Moderate delay'
+            machine_pred = 'Minor delay'
         }
         if (String(machine_pred).trim() == '0') {
             //document.getElementById('machinePred').style.backgroundColor = 'ff4000' ;
-            machine_pred = 'Severe delay'
+            machine_pred = 'On time !'
         }
+        
         console.log(machine_pred)
     });
-    // in close event we are sure that stream from child process is closed
-    python.on('close', (code) => {
+    python.stderr.on('data', (data) => {
+        console.error('err: ', data.toString());
+    });
+      
+    python.on('exit', (code) => {
+        console.log(code)
         res.render('summaryFlight', { 
             num: req.body.flightNumber, 
             date: req.body.Date, 
@@ -125,6 +151,19 @@ router.post("/addFlight", async function(req, res){
             machinePred: machine_pred
         }) 
     });
+    // in close event we are sure that stream from child process is closed
+    // python.on('close', (code) => {
+    //     res.render('summaryFlight', { 
+    //         num: req.body.flightNumber, 
+    //         date: req.body.Date, 
+    //         dep: fullInfo.dep,
+    //         depTime: fullInfo.dep_time,
+    //         arr: fullInfo.arv,
+    //         arrTime: fullInfo.arv_time,
+    //         terminal: fullInfo.terminal,
+    //         machinePred: machine_pred
+    //     }) 
+    // });
 
     // res.render('summaryFlight', { 
     //     num: req.body.flightNumber, 

@@ -24,14 +24,18 @@ const TIMES = new Map([
 ])
 
 // Async function which scrapes the data
-async function scrapeData(flightNumFromUser, dateFromUser) {
+async function scrapeData(airline, flightNum, dateFromUser) {
   var year = dateFromUser.substr(0, 4)
   var month = dateFromUser.substr(5, 2)
   var day = dateFromUser.substr(8, 2)
   var whenDate_input = year + month + day
-  flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
-  var al_input = flightNumFromUser.substr(0, 2)
-  var fn_input = flightNumFromUser.substr(2, flightNumFromUser.length - 1)
+  //flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
+  var al_input = airline;
+  var fn_input = flightNum;
+  if (al_input === 'EJU' || al_input === 'EZY') {
+    al_input = 'U2'
+  }
+  console.log(al_input)
   var namal_input = AIRLINE_MAP.get(al_input)
 
   try {
@@ -54,12 +58,16 @@ async function scrapeData(flightNumFromUser, dateFromUser) {
 
     var info = []
     dep.each((idx, el) => {
-        if ($(el).text() != '' && $(el).text() != '-') {
-            info.push(($(el).text()).replace('\n', '')
-            .replace('\n', '').replace('\n', '').split("<")[0].trim());
+      console.log($(el).text());
+      if ($(el).text() != '' && $(el).text() != '-') {
+        info.push(($(el).text()).replace('\n', '')
+          .replace('\n', '').replace('\n', '').split("<")[0].trim());
         }
     });
     console.log(info)
+    if (info.length == 0) {
+      return 0
+    }
 
     // format departure date  
     var dep_str_time = info[1].split(',')[0]
@@ -69,7 +77,7 @@ async function scrapeData(flightNumFromUser, dateFromUser) {
       dep_time = TIMES.get(dep_time.split(':')[0]) + ':' + dep_time.split(':')[1]
     }
     var dep_str_date = info[1].split(',')[1]
-    var dep_d = year + '-' + D_MONTHS.get(dep_str_date.substr(1, 4).trim()) + '-' + dep_str_date.substr(4, dep_str_date.length - 1).trim()
+    var dep_d = dep_str_date.substr(4, dep_str_date.length - 1).trim() + '-' + D_MONTHS.get(dep_str_date.substr(1, 4).trim()) + '-' + year
     
     
     // format arrival date
@@ -80,11 +88,11 @@ async function scrapeData(flightNumFromUser, dateFromUser) {
       arv_time = TIMES.get(arv_time.split(':')[0]) + ':' + arv_time.split(':')[1]
     }
     var arv_str_date = info[4].split(',')[1]
-    var arv_d = year + '-' + D_MONTHS.get(arv_str_date.substr(1, 4).trim()) + '-' + arv_str_date.substr(4, arv_str_date.length - 1).trim()
+    var arv_d = arv_str_date.substr(4, arv_str_date.length - 1).trim() + '-' + D_MONTHS.get(arv_str_date.substr(1, 4).trim()) + '-' + year
     
     
     full_d = {
-        'num_flight': flightNumFromUser,
+        'num_flight': airline + flightNum,
         'dep' : info[0],
         'dep_time' : dep_time,
         'dep_date' : dep_d,
