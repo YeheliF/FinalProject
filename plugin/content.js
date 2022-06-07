@@ -374,3 +374,16 @@ function JSconfirm(info){
 // search()
 sendToServer();
 CreatElements();
+
+
+
+////// GET ALL FLIGHT NUMBER
+//id = flight.getElementsByClassName("resultInner")[0].id
+//        console.log(id)
+// document.getElementById("YJC5-inner").click();        
+//console.log($(`#${id}`))
+//$(`#${id}`).click()
+// flightNamePlus = flight.getElementsByClassName('nAz5-carrier-text')[0];
+// console.log(flightNamePlus)
+// console.log("-----------------")
+// console.log(flightNamePlus.innerHTML)
