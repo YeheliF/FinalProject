@@ -207,6 +207,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const { token } = require('morgan');
+const { config } = require('dotenv');
 // require('../config/passport')(passport)
 // router.set("view engine","ejs");
 
@@ -524,8 +525,8 @@ router.post('/forgetpass', async (req, res) => {
 				host: 'smtp.googlemail.com',
 				port: 465,
 				auth: {
-				user: 'resetflight@gmail.com ',
-				pass: '1111reset'
+				user: process.env.EMAIL_SEND_FROM,
+				pass: process.env.PASSWORD_EMAIL
 				},
 				tls: {
 					rejectUnauthorized: false
@@ -537,7 +538,7 @@ router.post('/forgetpass', async (req, res) => {
 				from: '<resetflight@google.com>', // sender address
 				to: email, // list of receivers
 				subject: "איפוס סיסמא", // Subject line
-				text: " http://localhost:80/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא\n העתק את המספר לתבנית זיהוי משתמש: "+userData.id , // plain text body
+				text: " http://localhost:80/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא: " // plain text body
 				// html: ejs.render("hii") // html body
 			};
 			transporter.sendMail(mailOptions,(error,email)=>{
@@ -566,7 +567,7 @@ router.post('/forgetpass', async (req, res) => {
 		console.log("req.params")
 		console.log(req.query)
 		var userData = User.findOne({ resetLink: req.query });
-		res.render("resetPassword.ejs",{token:req.query});
+		res.render('resetPassword.ejs', {token:req.query.token});
 	});
 
 	router.post('/resetPassword', async  function (req, res, next) {

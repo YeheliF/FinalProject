@@ -12,7 +12,7 @@ body{
     align-items: baseline; 
     justify-content: center; 
     font-size:x-large; 
-    background: url('https://images.theconversation.com/files/393210/original/file-20210401-13-z6rl6z.jpg?ixlib=rb-1.1.0&rect=0%2C292%2C3008%2C1504&q=45&auto=format&w=1356&h=668&fit=crop'); 
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg/800px-PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg'); 
     background-size: cover; 
     text-align: right;
 } 
@@ -29,16 +29,270 @@ body{
     text-align: right;
 }
 .container { 
-    width: 700px; 
-    max-width: 700px; 
-    margin: 2rem; 
-    padding: 2rem; 
-    box-shadow: black; 
-    border-radius: var(--border-radius); 
-    background: rgba(255, 255, 255, 0.932); 
-    text-align: right;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+
 } 
- 
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* .form-control{
+    height: auto;
+    border: none;
+    border-radius: 30;
+    color: rgb(209, 244, 225);
+} */
+
+
+
+.choose__terminal--section .tabs--navber .nav .nav-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 4.6875rem;
+    color: #4096A6;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 0;
+    border: 1px solid;
+    background-color: #fff;
+}
+
+.flight_board--container .table-responsive {
+    margin-bottom: 1.25rem;
+}
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+th[scope="col"] {
+    background-color: #0a50468a;
+    color: #fff;
+    text-align: center;
+}
+table {
+    border-collapse:collapse;
+    border:2px solid  rgb(201, 255, 234);
+    height:100%;
+    max-width:70%;
+    font-size: 1.5rem;
+}
+.rabbish{
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ProyqceW5_hz6wcM9sLq8pw3Br1_0jvG_g&usqp=CAU");
+}
+/* thead {
+    border-collapse:collapse;
+    border:2px solid  rgb(201, 255, 234);
+    height:30px;
+    padding:4px;
+    background-color:rgba(171, 245, 233, 0.685);
+} */
+th {
+    border:2px solid  rgb(201, 255, 234);
+    height:30px;
+    padding:4px;
+    background-color: #159a898a;
+    text-align: center;
+}
+tr {
+    /* border:2px solid  rgb(223, 248, 238); */
+    height:30px;
+    /*  */
+    color:purple;
+    text-align: right;
+}
+td {
+    text-align:left;
+    vertical-align:middle;
+}
+
+.lead {
+    font-size: 30px;
+    vertical-align:middle;
+}
+h1,p {
+    color:rgb(35, 88, 59);
+    text-align:center;
+    font-size:40px;
+    }
+
+h2 {
+    color:rgb(7, 7, 7);
+    text-align:center;
+    font-size:20px;
+    
+}
+
+.form-control {
+    text-align:center;
+    font-size:20px;
+    display: block;
+    width: 65%;
+    height: 34px;
+    margin-right: 195px;
+    padding: 6px 12px;
+    font-size: 20px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid rgb(227, 248, 227);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+
+.abc {
+    text-align: left;
+    font-size: 20px;
+    width: 100%; 
+    padding: 0.2rem; 
+    color: #c93737; 
+    border: none; 
+    border-radius: var(--border-radius); 
+    outline: none; 
+    cursor: pointer; 
+    
+}
+
+.btn, .btn-success {
+    width: 65%;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+
+    margin-right: 195px;
+}
+
+/* .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    width: 70%;
+} */
+
+.alert {
+    width: 70%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-right: 150px;
+}
+
+/* .flight_board--container .table.table.table tr td, .flight_board--container .table.table.table tr th {
+    display: block;
+    width: 100%;
+    max-width: calc( (100% - 3.75rem) / 3);
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-preferred-size: calc( calc( (100% - 3.75rem) / 3 ));
+    flex-basis: calc( calc( (100% - 3.75rem) / 3 ));
+    padding-right: 1.25rem;
+    white-space: normal;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.flight_board--container .table thead th {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    background-color: #D7EFF0;
+}
+
+.flight_board--container .table.table.table, .flight_board--container .table.table.table thead, .flight_board--container .table.table.table tbody {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-weight: 400;
+    font-family: "Open Sans Hebrew";
+    font-size: 1em;
+    color: #0d1555;
+    direction: rtl;
+    text-align: right;
+    line-height: inherit;
+    box-sizing: border-box;
+}
+.flight_board--container .table.table.table thead tr th {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+approved_contractors--container .table thead th {
+    font-weight: 700;
+}
+.flight_board--container .table td, .flight_board--container .table th {
+    padding-right: 2.8125rem;
+    border: 0;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    vertical-align: middle;
+    background-color: transparent;
+}
+.table text-16{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-weight: 400;
+    font-family: "Open Sans Hebrew";
+    font-size: 1em;
+    color: #0d1555;
+    direction: rtl;
+    text-align: right;
+    line-height: inherit;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+}
+
+.fade{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-weight: 400;
+    font-family: "Open Sans Hebrew";
+    font-size: 1em;
+    color: #0d1555;
+    direction: rtl;
+    text-align: right;
+    line-height: inherit;
+    box-sizing: border-box;
+    transition: opacity 0.15s linear;
+} */
+div {
+    display: block;
+}
+body {
+    font-family: "Open Sans Hebrew";
+    font-size: 1em;
+    color: #0d1555;
+    direction: rtl;
+    text-align: right;
+    line-height: inherit;
+    overflow-x: hidden;
+}
 .container, 
 .form__input, 
 .form__button,
@@ -116,7 +370,9 @@ body{
  
 .form__input-group{ 
     margin-bottom: 1rem; 
-    text-align: right;
+    text-size-adjust:var(--color-secondary);
+    text-align: center;
+    font-size: 20px;
 } 
  
 .form__input, .btn red darken-1{ 
@@ -203,7 +459,7 @@ body{
  
 .home__button{ 
     width: 100%; 
-    padding: 0.1rem; 
+    padding: 0.2rem; 
     font-size: 1pc; 
     color: #ffffff; 
     border: none; 
@@ -266,7 +522,7 @@ body{
     text-decoration: underline; 
     text-align: right;
 } 
-table { 
+/* table { 
     border-collapse: collapse; 
     border: 2px solid rgb(200, 200, 200); 
     letter-spacing: 1px; 
@@ -289,3 +545,9 @@ th {
     padding: 10px; 
     text-align: right;
 }
+
+.text-70 {
+    font-size: 6rem;
+    color: #001d5a;
+} */
+

@@ -15,24 +15,27 @@
 	</style>
 </head>
 <body>
+	
 	<a href="myFlights" class="home__button">לכל הטיסות שלי</a>
 		<div>
-            <p class="lead mb-3">:) <%= userName %>  ברוכ/ה הבא/ה </p>
-			<h1>:הכנס/י את פרטי הטיסה</h1>
+            <h1 class="lead mb-3"> <%= userName %>  ברוכ/ה הבא/ה :)</h1>
+			<p>הכנס/י את פרטי הטיסה:</p>
             
 		</div>
 		<div class="">
 			<%- include ('./partials/messages') %>
 			<form id="form3" method="post" action="/addFlight">
                 
-                <input type="text" class="form__input" name="flightNumber" autofocus placeholder="מספר טיסה" class="form__input-error-message" required>
-                <input type="date" class="form__input"  name="Date" autofocus placeholder="Date" class="form__input-error-message" required>
-				<input type="submit" value="ראה פרטי טיסה" class="btn btn-success"> 
+                <input type="text" class="form-control" name="flightNumber" autofocus placeholder="מספר טיסה" class="form__input-error-message" required>
+				<h7></h7>
+                <input type="date" class="form-control"  name="Date" autofocus placeholder="Date" class="form__input-error-message" required>
+				<p></p>
+				<input type="submit" value="ראה פרטי טיסה" class="btn btn-primary btn-sm"> 
 
 			</form>
 		</div>
 		<div class="abc">
-            <a href="/logout">התנתק</a>
+            <h4><a href="/logout">התנתק</a></h4>
         </div>
 	</div>
 </body>

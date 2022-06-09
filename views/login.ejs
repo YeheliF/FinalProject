@@ -15,28 +15,36 @@
 		.btn-block { display: block;width: 100%;justify-content: center;}
 		.btn-success {justify-content: center;width: 100%; background: #00739580;}
 	</style>
+	<section class="hero--section" style="background-image: url('/media/topb34rg/צוות.jpg?anchor=center&amp;mode=crop&amp;width=1200&amp;height=400&amp;rnd=132411040130330000')">
+
+        <!-- notifications section -->
+    </section>
 	
 </head>
 <body>
 	<div action="/login">
 		<div>
-			<h1>התחברות</h1>
+			<h1 class="text-70 mb-5">
+				<strong>התחברות</strong>
+			</h1>
+			
 		</div>
 
 			<%- include ('./partials/messages') %>
 			<form id="form" method="post" action="/login">
 				<input type="text" name="Email" placeholder="אימייל" required="" class="form-control"><br/>
 				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control"><br/>
-				<input type="submit" value="התחבר" class="btn btn-success">
+				<input type="submit" value="התחבר" class="btn btn-primary btn-sm">
 			</form>
 	
 		<div>
-			<a href="/auth/google" class="btn btn-primary btn-block my-2">
-				<i class="fab fa-google left"></i> התחבר עם גוגל
+			<p></p>
+			<a href="/auth/google" class="btn btn-primary btn-sm">
+				<i class="fab fa-google left"></i> 
 			</a>
 		</div>
-		<div><span>שכחת את הסיסמא?</span><a href="/forgetpass">לחץ כאן</a>
-		<div><span>ליצירת משתמש חדש</span><a href="/signup">לחץ כאן</a>
+		<div><span><h2><a href="/forgetpass">שכחת את הסיסמא?</span></a></h2>
+		<div><span><h2>ליצירת משתמש חדש</span><a href="/signup">לחץ כאן</a></h2>
 
 		</div>
 		
