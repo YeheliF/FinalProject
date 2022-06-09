@@ -55,7 +55,18 @@
             </div>
             <div class="form__input-group" >
                 <label for="machinePred">החיזוי שלנו</label>
-                <div id="machinePred" class="form__input" style="background-color:greenyellow;"><%= machinePred %></div>
+                <% if (machinePred == 'On time !') {%>
+                    <div id="machinePred" class="form__input" style="background-color:greenyellow;"><%= machinePred %></div>
+                <% } %>
+                <% if (machinePred == 'Minor delay') {%>
+                    <div id="machinePred" class="form__input" style="background-color:#ffff00;"><%= machinePred %></div>
+                <% } %>
+                <% if (machinePred == 'Moderate delay') {%>
+                    <div id="machinePred" class="form__input" style="background-color:rgb(255, 186, 47);"><%= machinePred %></div>
+                <% } %>
+                <% if (machinePred == 'Severe delay') {%>
+                    <div id="machinePred" class="form__input" style="background-color:rgb(255, 82, 47);"><%= machinePred %></div>
+                <% } %>
                 <div class="form__input-error-message"></div>
             </div>
             <input type="submit" value="הוספת טיסה" class="btn btn-success">

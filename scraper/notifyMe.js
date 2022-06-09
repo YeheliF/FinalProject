@@ -1,14 +1,6 @@
 let client = require('@sendgrid/mail') 
-// const nodemailer = require('nodemailer') 
-// const MongoClient = require('mongodb').MongoClient 
 const Flight = require('../models/Flight') 
 const User = require('../models/User')
-// import * as $ from "jquery.js"; 
-const jsdom = require('jsdom') 
-const dom = new jsdom.JSDOM("") 
-const jquery = require('jquery')(dom.window) 
-var $ = require("jquery"); 
-const { use } = require('passport')
 var $ = require('jquery')(require('jsdom-no-contextify').jsdom().parentWindow); 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest; 
 $.support.cors = true; 
@@ -42,20 +34,12 @@ async function updateEmail(flight,canceled){
             from: flight.Departure,  
             to: flight.Arrival, 
             date: flight.Date, 
-            time: flight.delayHourUpdate, 
-            // flightScheduledDetails: [user.flightNumber,user.from,user.to,user.date,user.hour], 
-            // flightDelayDetails: [user.flightNumber,user.from,user.to,flight.delaydate,flight.delayHour] 
-            // flightScheduledDetails: ["Flight Number: ", user.flightNumber, 
-            //                         "\nDate: ", user.Date,], 
-            // flightDelayDetails: ["Flight Number: ", user.flightNumber, 
-            //                     "\nDate: ", flight.delayDate, 
-            //                     "\nTime: ",flight.delayHour], 
+            time: flight.delayHourUpdate,
         }, 
     }).then(() => { 
         console.log('Message sent') 
     }).catch((error) => { 
         console.log(error.response.body) 
-        // console.log(error.response.body.errors[0].message) 
     }) 
 } 
 function notifyMe(){ 
@@ -73,10 +57,8 @@ function notifyMe(){
          
             today = yyyy + '-' + mm + '-' + dd; 
             $.each(flights.result.records, function(i, flight){ 
-                // oldList = flights.result.records 
                 if (flight.CHSTOL.includes(today)){ 
                     if (flight.CHRMINH == "עיכוב"){ 
-                        // console.log(i + ' ' + JSON.stringify(flight)+'\n') 
                         delaysFlights.push({"flightNumber": flight.CHOPER+flight.CHFLTN, 
                                             "scheduledDate": flight.CHSTOL.substr(0, flight.CHSTOL.indexOf('T')), 
                                             "scheduledHour": flight.CHSTOL.substr(flight.CHSTOL.indexOf('T') + 1, 5), 
@@ -86,7 +68,6 @@ function notifyMe(){
                 } 
                 if (flight.CHSTOL.includes(today)){ 
                     if (flight.CHRMINH == "מבוטלת"){ 
-                        // console.log(i + ' ' + JSON.stringify(flight)+'\n') 
                         canceledFlights.push({"flightNumber": flight.CHOPER+flight.CHFLTN, 
                                             "scheduledDate": flight.CHSTOL.substr(0, flight.CHSTOL.indexOf('T')), 
                                             "scheduledHour": flight.CHSTOL.substr(flight.CHSTOL.indexOf('T') + 1, 5)}) 
@@ -95,14 +76,9 @@ function notifyMe(){
                  
             })
             let all_flights_first_delay = await Flight.find( { delayHourUpdate: { $exists: false } } ) 
-            // console.log("all_flights:")    
-            // console.log(all_flights)
             all_flights_first_delay.forEach(flight=>{ 
                 delaysFlights.forEach(async delayFlight=>{ 
-                    // console.log({flight : flight, delayFlight: delayFlight}) 
-                    if( flight.flightNumber == delayFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-                        // console.log(flight.Email) 
-                        
+                    if( flight.flightNumber == delayFlight.flightNumber){                        
                         await Flight.updateMany(
                             {flightNumber: delayFlight.flightNumber}, 
                             {delayHourUpdate : delayFlight.delayHour},
@@ -113,10 +89,7 @@ function notifyMe(){
                     } 
                 }) 
                 canceledFlights.forEach(async cancelFlight=>{ 
-                    // console.log({flight : flight, delayFlight: delayFlight}) 
-                    if( flight.flightNumber == cancelFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-                        // console.log(flight.Email) 
-                        
+                    if( flight.flightNumber == cancelFlight.flightNumber){                        
                         await Flight.updateMany(
                             {flightNumber: cancelFlight.flightNumber}, 
                             {delayHourUpdate : "התבטלה"},
@@ -129,11 +102,8 @@ function notifyMe(){
             })
             
             let all_flights_multi_delay = await Flight.find( { delayHourUpdate: { $exists: true, $ne: "התבטלה" } } ) 
-            // console.log("all_flights:")    
-            // console.log(all_flights)
             all_flights_multi_delay.forEach(flight=>{ 
                 delaysFlights.forEach(async delayFlight=>{ 
-                    // console.log({flight : flight, delayFlight: delayFlight}) 
                     if( flight.flightNumber == delayFlight.flightNumber){
                         
                         if (flight.delayHourUpdate != delayFlight.delayHour){
@@ -150,10 +120,7 @@ function notifyMe(){
                     } 
                 }) 
                 canceledFlights.forEach(async cancelFlight=>{ 
-                    // console.log({flight : flight, delayFlight: delayFlight}) 
-                    if( flight.flightNumber == cancelFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-                        // console.log(flight.Email) 
-                        
+                    if( flight.flightNumber == cancelFlight.flightNumber){
                         await Flight.updateMany(
                             {flightNumber: cancelFlight.flightNumber}, 
                             {delayHourUpdate : "התבטלה"},
@@ -165,29 +132,10 @@ function notifyMe(){
                     }
                 }) 
             })
-            // let all_flights = await Flight.find( {} ) 
-            // // console.log("all_flights:")    
-            // // console.log(all_flights)
-            // all_flights.forEach(flight=>{ 
-            //     canceledFlights.forEach(cancelFlight=>{ 
-            //         // console.log({flight : flight, delayFlight: delayFlight}) 
-            //         if( flight.flightNumber == cancelFlight.flightNumber){//} && note.Date.substr(0, note.Date.indexOf('T')) == delayFlight.scheduledDate){ 
-            //             // console.log(flight.Email) 
-                        
-            //             var x = async() => {Flight.updateMany(
-            //                 {flightNumber: cancelFlight.flightNumber}, 
-            //                 {cancelUpdate: true},
-            //                 {multi:true}, 
-            //                 function(err, numberAffected){}
-            //             );}
-            //             updateEmail(flight,true); 
-            //         } 
-            //     }) 
-            // })
         } 
     }); 
 } 
-// var loop = async () =>{ setInterval(notifyMe,900000) } 
-var loop = async () =>{ setInterval(notifyMe,20000) } 
+var loop = async () =>{ setInterval(notifyMe,900000) } 
+// var loop = async () =>{ setInterval(notifyMe,20000) } 
 
 module.exports = loop

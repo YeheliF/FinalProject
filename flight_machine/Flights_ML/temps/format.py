@@ -9,13 +9,13 @@ import sys
 from sklearn.preprocessing import OneHotEncoder
 import xlsxwriter
 import math
-from FormatUtils import FormatUtil
+#from FormatUtils import FormatUtil
 
 sns.set_theme(style="whitegrid")
 
 NUM_SECONDS_IN_A_MIN = 60
 
-flights = pd.read_excel(sys.argv[1])
+flights = pd.read_excel('allFlightData.xlsx')
 
 find_unique = False
 
@@ -45,9 +45,9 @@ if find_unique:
 flights['ATO'] = [pd.to_datetime(d, dayfirst=True) for d in flights['ATO']]
 flights['STO'] = [pd.to_datetime(d, dayfirst=True) for d in flights['STO']]
 
-flights['S_day_in_week'] =[pd.Timestamp(d).day_of_week for d in flights['STO']]
-flights['S_month'] =[pd.Timestamp(d).month for d in flights['STO']]
-flights['S_day_in_month'] =[pd.Timestamp(d).day for d in flights['STO']]
+# flights['S_day_in_week'] =[pd.Timestamp(d).day_of_week for d in flights['STO']]
+# flights['S_month'] =[pd.Timestamp(d).month for d in flights['STO']]
+# flights['S_day_in_month'] =[pd.Timestamp(d).day for d in flights['STO']]
 
 # flights['A_day_in_week'] =[pd.Timestamp(d).day_of_week for d in flights['ATO']]
 # flights['A_month'] =[pd.Timestamp(d).month for d in flights['ATO']]
@@ -71,6 +71,11 @@ flights["sin_m"] = np.sin(flights["m_norm"])
 flights["d_in_w_norm"] = 2 * math.pi * flights["S_day_in_week"] / flights["S_day_in_week"].max()
 flights["cos_d_in_w"] = np.cos(flights["d_in_w_norm"])
 flights["sin_d_in_w"] = np.sin(flights["d_in_w_norm"])
+
+# d_in_m - day in month
+flights["d_in_m_norm"] = [2 * math.pi * d.day / d.days_in_month for d in flights['STO']]
+flights["cos_d_in_m"] = np.cos(flights["d_in_m_norm"])
+flights["sin_d_in_m"] = np.sin(flights["d_in_m_norm"])
 
 """
 classify delay type -
@@ -100,19 +105,18 @@ flights['delay_class'] = delay
 # result = pd.concat([flights, enc_df], axis=1)
 # # print(result)
 
-fu = FormatUtil()
-fu.create_company()
-flights = pd.concat([flights, fu.create_company_df(flights['company'])], axis=1)
-fu.create_dest()
-flights = pd.concat([flights, fu.create_dest_df(flights['dest'])], axis=1)
-fu.create_countries()
-flights = pd.concat([flights, fu.create_country_df(flights['country'])], axis=1)
+# fu = FormatUtil()
+# fu.create_company()
+# flights = pd.concat([flights, fu.create_company_df(flights['company'])], axis=1)
+# fu.create_dest()
+# flights = pd.concat([flights, fu.create_dest_df(flights['dest'])], axis=1)
+# fu.create_countries()
+# flights = pd.concat([flights, fu.create_country_df(flights['country'])], axis=1)
 
 
-flights.drop(columns=['S_day_in_week', 'S_month', 'S_day_in_month', 'ATO', 'STO', 'diff', 'h_in_d', 'h_in_d_norm',
-                      'm_norm', 'd_in_w_norm', 'country', 'dest', 'company'], inplace=True)
+#flights.drop(columns=['S_day_in_week', 'S_month', 'S_day_in_month', 'ATO', 'STO', 'diff', 'h_in_d', 'h_in_d_norm', 'm_norm', 'd_in_w_norm', 'country', 'dest', 'company'], inplace=True)
 
-ga =flights.groupby('delay_class').count()
+ga = flights.groupby('delay_class').count()
 print(ga)
 
 print(flights)
