@@ -5,11 +5,15 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 	</script>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/style.css">
 	<style>
-		body        { padding-top:70px; }
-		.container {width: 400px;}
+		body        { padding-top:70px; background-image: url('https://ae01.alicdn.com/kf/HTB1.mYlQFXXXXX_apXXq6xXFXXXr/4x8ft-D.jpg')}
+		.container {width: 500px; height: 600px;}
 		.btn-success {justify-content: center;width: 100%; background: #00739580;}
 	</style>
 </head>
@@ -18,25 +22,26 @@
 	<div action="/signup">
 		<div>
 			<h1>צור משתמש חדש
-			</h1>
+				<i class="fa fa-user-o" aria-hidden="true"></i></h1>
 		</div>
 
 			<%- include ("./partials/messages"); %>
-			<form id="form1" method="post">
+			<form id="form1" method="post" class="container">
 				<input type="email" name="Email" placeholder="אימייל" required="" class="form-control" value="<%= typeof Email != 'undefined' ? Email : '' %>"><br/>
 				<input type="text" name="userName" placeholder="שם משתמש" required="" class="form-control" value="<%= typeof userName != 'undefined' ? userName : '' %>"><br/>
 				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control" value="<%= typeof Password != 'undefined' ? Password : '' %>"><br/>
 				<input type="password" name="PasswordConf" placeholder="אימות סיסמא" required="" class="form-control" value="<%= typeof PasswordConf != 'undefined' ? PasswordConf : '' %>"><br/>
 				<input type="submit" value="יצירה" class="btn btn-primary btn-sm">
-			</form>
+			
 
 		
 		<div class="mssg bg-danger">
 			<span id="check"></span>
 		</div>
 		<div>
-			<h2><span>כבר רשום?! <a href="/">התחבר</a></span></h2>
+			<h2><span> <a href="/">כבר רשום - התחבר</a></span></h2>
 		</div>
+	</form>
 		<div id="LangTable"><a href="/addFlight" id="aa"></a>
 		</div>
 	</div>
