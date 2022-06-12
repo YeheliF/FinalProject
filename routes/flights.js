@@ -13,10 +13,12 @@ const { ReadConcernLevel } = require('mongodb');
 const {spawn} = require('child_process'); 
 var moment = require('moment');  
 const { isMoment } = require('moment');
+const {PythonShell} =require('python-shell');
  
  
 router.use(bodyParser.urlencoded({extended: true})); 
 router.use(bodyParser.json()); 
+router.use(bodyParser.text())
  
  
 router.get("/myFlights", ensureAuthenticated, async function(req, res){ 
@@ -121,6 +123,8 @@ router.post("/addFlight", async function(req, res){
     
     var machine_pred;
     var r_date = fullInfo.dep_date.split('-')
+    console.log(fullInfo.dep_date)
+    console.log(r_date)
     console.log(r_date[2] + '-' + r_date[1] + '-' + r_date[0] + ' ' + fullInfo.dep_time)
 
     // spawn new child process to call the python script
@@ -266,6 +270,52 @@ router.get("/Thankyou",ensureAuthenticated, function(req, res){
     // res.render('report.ejs', {Email: req.user._id}) 
     res.render('Thankyou.ejs') 
 }) 
+
+router.post("/Plugin", function(req, res) { 
+    res.header('Access-Control-Allow-Origin', '*');
+    // res.render('report.ejs', {Email: req.user._id}) 
+    console.log("*** inside server from PLUGIN ***")
+
+    var datas = JSON.parse(req.body)
+    console.log(datas.dayDept)
+    console.log(datas.allFlightsOrigTime)
+    console.log(datas.allFlightsName)
+
+    // let options = {
+    //     mode: 'text',
+    //     pythonOptions: ['-u'], // get print results in real-time
+    //       scriptPath: 'flight_machine/Flights_ML', //If you are having python_test.py script in same folder, then it's optional.
+    //     args: [datas.dayDept, datas.allFlightsOrigTime, datas.allFlightsName, datas.allFlightsDestAirport2] //An argument which can be accessed in the script using sys.argv[1]
+    // };
+     
+ 
+    // PythonShell.run('ModuleEvalPluginIn.py', options, function (err, result){
+    //       if (err) throw err;
+    //       // result is an array consisting of messages collected
+    //       //during execution of script.
+    //       console.log('result: ', result.toString());
+    //       res.send(result.toString())
+    // });
+    const python = spawn('python3', ['flight_machine/Flights_ML/ModuleEvalPluginIn.py', datas.dayDept, datas.allFlightsOrigTime, datas.allFlightsName, datas.allFlightsDestAirport2]);
+    console.log('after spawn FOR PLUGIN')
+    
+    // collect data from script
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script FOR PLUGIN ...');
+        var m_tmp = data.toString();
+        //m_tmp = m_tmp.split('[')[1].split(']')[0].split(', ')
+
+        res.send(m_tmp)
+    });
+    python.stderr.on('data', (data) => {
+        console.error('err: ', data.toString());
+    });
+      
+    python.on('exit', (code) => {
+        console.log(code)
+    });
+}) 
+
 
 router.get('/machine',ensureAuthenticated, (req, res) => {
     var flight_info = 'flight-info'
