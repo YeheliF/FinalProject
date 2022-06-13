@@ -56,6 +56,23 @@ router.get("/addFlight", ensureAuthenticated,function(req, res){
 //     res.render('addFlight.ejs') 
 // }) 
  
+router.get("/deleteFlight",ensureAuthenticated,async function(req, res){
+    console.log(req.user)
+    date_flight=req.query.date
+    num_flight=req.query.num
+    console.log("delete")
+    let all_flights = await Flight.find({}) 
+    all_flights.forEach(flight =>{
+        // console.log(flight.idUser)
+        // console.log(req.user.id)
+        if(flight.idUser == req.user.id){
+            if (flight.flightNumber==num_flight && flight.Date==date_flight){
+                flight.remove()
+            }
+        }
+    })
+    res.redirect("/myFlights")
+})
 router.post("/addFlight", async function(req, res){ 
     var dateFromUser = req.body.Date
     var flightNumFromUser = req.body.flightNumber
@@ -255,6 +272,7 @@ router.get("/Thankyou",ensureAuthenticated, function(req, res){
 }) 
 
 router.post("/Plugin", function(req, res) { 
+    res.header('Access-Control-Allow-Origin', '*');
     // res.render('report.ejs', {Email: req.user._id}) 
     console.log("*** inside server from PLUGIN ***")
 

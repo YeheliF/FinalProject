@@ -6,6 +6,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 	</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -13,6 +14,15 @@
 	</style>
 </head>
 <body>
+    <div class="w3-top">
+		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+		  <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user-circle-o"></i>התנתק</a>
+		  <!-- Float links to the right. Hide them on small screens -->
+		  <div class="w3-right w3-hide-small">
+			  <a href="myFlights" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>לכל הטיסות שלי</a>
+		  </div>
+		</div>
+	  </div>
     <div>
 		<div class="form-group">
 			<form id="form4" method="post" action="/flightDetails">

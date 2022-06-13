@@ -1,4 +1,4 @@
-const allFlightsName = [];
+ const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
 const allFlightsDestAirport2 = [];
@@ -68,10 +68,11 @@ function sendToServer() {
             var preds = this.responseText
             console.log(`response text: ${preds}`)
 
-            var machine_pred = preds.split('[')[1].split(']')[0].split(', ')
+            machine_pred = preds.split('[')[1].split(']')[0].split(', ')
             // order = sections_order.preferences
 
             console.log(machine_pred)
+            CreatElements();
 
         } else {
             machine_pred = []
@@ -121,6 +122,7 @@ function CreatElements() {
     $(document).ready(function () {
         setTimeout(function(){
             var j = 0;
+            console.log(machine_pred)
             for (var i = 0; i < slides.length; i = i+2) {
                 console.log("in loop")
                 const flightPercent = document.createElement('div');

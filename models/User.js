@@ -40,3 +40,11 @@ userSchema = new mongoose.Schema( {
 },{timestamps: true})
 
 module.exports = instance2().model('User', userSchema)
+
+
+
+
+
+
+
+

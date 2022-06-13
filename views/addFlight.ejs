@@ -7,33 +7,64 @@
 	</script>
     <script type="text/javascript" src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="/style.css">
     <style>
 		body        { padding-top:70px; }
+		
 		.btn-success {justify-content: center;width: 100%; background: #00739580;}
+		body, html {
+            height: 100%;
+            font-family: "Inconsolata", sans-serif;
+            text-align: right;
+            }
+
+            .bgimg {
+            background-position: center;
+            background-size: cover;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg/800px-PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg");
+            min-height: 130%;
+            }
+
+            .menu {
+            display: none;
+            }
 	</style>
 </head>
 <body>
-	<a href="myFlights" class="home__button">לכל הטיסות שלי</a>
+	
+	<div class="w3-top">
+		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+		  <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user-circle-o"></i>התנתק</a>
+		  <!-- Float links to the right. Hide them on small screens -->
+		  <div class="w3-right w3-hide-small">
+			  <a href="myFlights" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>לכל הטיסות שלי</a>
+		  </div>
+		</div>
+	  </div>
+
+	
 		<div>
-            <p class="lead mb-3">:) <%= userName %>  ברוכ/ה הבא/ה </p>
-			<h1>:הכנס/י את פרטי הטיסה</h1>
+            <h1 class="lead mb-3"> <%= userName %>  ברוכ/ה הבא/ה :)</h1>
+			<p>הכנס/י את פרטי הטיסה:<i class="fa fa-plane" aria-hidden="true"></i></p>
             
 		</div>
 		<div class="">
 			<%- include ('./partials/messages') %>
-			<form id="form3" method="post" action="/addFlight">
+			<form id="form3" method="post" action="/addFlight" class="container">
                 
-                <input type="text" class="form__input" name="flightNumber" autofocus placeholder="מספר טיסה" class="form__input-error-message" required>
-                <input type="date" class="form__input"  name="Date" autofocus placeholder="Date" class="form__input-error-message" required>
-				<input type="submit" value="ראה פרטי טיסה" class="btn btn-success"> 
+                <input type="text" class="form-control" name="flightNumber" autofocus placeholder="מספר טיסה" class="form__input-error-message" required>
+				<h7></h7>
+                <input type="date" class="form-control"  name="Date" autofocus placeholder="Date" class="form__input-error-message" required>
+				<p></p>
+				<input type="submit" value="ראה פרטי טיסה" class="btn btn-primary btn-sm"> 
 
 			</form>
 		</div>
-		<div class="abc">
-            <a href="/logout">התנתק</a>
-        </div>
+
 	</div>
 </body>
 </html>

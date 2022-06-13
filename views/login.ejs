@@ -4,40 +4,52 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="=utf-8">
     <title>Login</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 	</script>
     <link rel="stylesheet" href="/style.css">
 	<style>
-		body        { padding-top:70px; }
-		.container {width: 400px;}
+		body        { padding-top:100px; background-image: url('https://ae01.alicdn.com/kf/HTB1.mYlQFXXXXX_apXXq6xXFXXXr/4x8ft-D.jpg')}
+		.container {width: 500px; height: 600px;}
 		.btn-block { display: block;width: 100%;justify-content: center;}
 		.btn-success {justify-content: center;width: 100%; background: #00739580;}
 	</style>
+	<section class="hero--section" style="background-image: url('/media/topb34rg/צוות.jpg?anchor=center&amp;mode=crop&amp;width=1200&amp;height=400&amp;rnd=132411040130330000')">
+
+        <!-- notifications section -->
+    </section>
 	
 </head>
 <body>
 	<div action="/login">
 		<div>
-			<h1>התחברות</h1>
+			<h1 class="text-70 mb-5">
+				<strong>התחברות <i class="fa fa-user-o" aria-hidden="true"></i> </strong>
+			</h1>
+			
 		</div>
 
 			<%- include ('./partials/messages') %>
-			<form id="form" method="post" action="/login">
-				<input type="text" name="Email" placeholder="אימייל" required="" class="form-control"><br/>
-				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control"><br/>
-				<input type="submit" value="התחבר" class="btn btn-success">
-			</form>
-	
-		<div>
-			<a href="/auth/google" class="btn btn-primary btn-block my-2">
-				<i class="fab fa-google left"></i> התחבר עם גוגל
+			<form id="form" method="post" action="/login" class="container">
+				
+				<input type="text" name="Email" placeholder="אימייל" required="" class="form-control">
+				
+				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control">
+				
+				<input type="submit" value="התחבר" class="btn btn-primary btn-sm">
+				<h3><a class= " btn"> או התחבר באמצעות גוגל    </h3>
+			<a href="/auth/google" class="btn btn-primary btn-sm">
+				<i class="fab fa-google left"></i> 
 			</a>
-		</div>
-		<div><span>שכחת את הסיסמא?</span><a href="/forgetpass">לחץ כאן</a>
-		<div><span>ליצירת משתמש חדש</span><a href="/signup">לחץ כאן</a>
-
+	
+	
+		<span><h2><a href="/forgetpass">שכחת את הסיסמא?</span></a></h2>
+		<h2><a href="/signup">ליצירת משתמש חדש</a></h2>
+</form>
 		</div>
 		
 	</div>
