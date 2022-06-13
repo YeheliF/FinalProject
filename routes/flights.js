@@ -93,7 +93,8 @@ router.post("/addFlight", async function(req, res){
 
     // No flight like this exisits 
     if (fullInfo == 0) {
-
+        req.flash('error_msg', 'טיסה לא קיימת/ התאריך עבר');
+        res.redirect("/addFlight")
     }
     
     var flight_data = [fullInfo.dep_date + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]
@@ -255,7 +256,7 @@ router.get("/summaryFlight",async function(req, res)
        newFlight.save();  
     }
     else{
-        errors.push({ msg: 'הטיסה כבר קיימת' });
+        req.flash('error_msg', 'הטיסה כבר קיימת' );
     } 
     // console.log(newFlight)
     res.redirect("/addFlight")

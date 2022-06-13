@@ -25,7 +25,7 @@
 	
 </head>
 <body>
-	<div action="/login">
+	<div action="/login" class="container">
 		<div>
 			<h1 class="text-70 mb-5">
 				<strong>התחברות <i class="fa fa-user-o" aria-hidden="true"></i> </strong>
@@ -34,7 +34,7 @@
 		</div>
 
 			<%- include ('./partials/messages') %>
-			<form id="form" method="post" action="/login" class="container">
+			<form id="form" method="post" action="/login" >
 				
 				<input type="text" name="Email" placeholder="אימייל" required="" class="form-control">
 				
