@@ -538,7 +538,7 @@ router.post('/forgetpass', async (req, res) => {
 				from: '<resetflight@google.com>', // sender address
 				to: email, // list of receivers
 				subject: "איפוס סיסמא", // Subject line
-				text: " http://localhost:80/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא: " // plain text body
+				text: " http://134.122.56.202/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא: " // plain text body
 				// html: ejs.render("hii") // html body
 			};
 			transporter.sendMail(mailOptions,(error,email)=>{
