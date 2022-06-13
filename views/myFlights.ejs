@@ -103,13 +103,13 @@
                                 
                             <%if(!((flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] == new Date().getMonth()+1 && flight.Date.split("-")[2] < new Date().getDate()) || flight.Date.split("-")[0] < new Date().getFullYear() || (flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] < new Date().getMonth())) ){%>
                                 <th scope="row"><%= date = flight.Date %></th> 
-                                <th scope="row"><a href="summaryFlight" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a>  
+                                <th scope="row"><a href="summaryFlights" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a>  
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= arr = flight.Arrival %></th>
                                 <th scope="row"><%= arrTime = flight.ArrivalTime %></th>
                                 <th scope="row"><%= terminal = flight.Terminal %></th> 
-                                <th scope="row"><%= machinePred = flight.machinePred %></th>    
+                                <th scope="row"><%= machinePred = flight.MachinePred %></th>    
                                 <th><a href= "/deleteFlight?date=<%= date %>&num=<%= num%>"><i class="fa fa-times" aria-hidden="true"></i></a></th>  
                                 
                                 <%if(flight.delayHourUpdate){%>

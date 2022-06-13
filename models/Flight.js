@@ -13,7 +13,8 @@ flightSchema = new mongoose.Schema ({
     ArrivalTime: String,
     Terminal: String,
     delayDateUpdate: String,
-    delayHourUpdate: String
+    delayHourUpdate: String,
+    MachinePred: String
 })
 
-module.exports = instance2().model('Flights', flightSchema)
+module.exports = instance2().model('flight_project', flightSchema)

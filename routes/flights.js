@@ -13,7 +13,7 @@ const { ReadConcernLevel } = require('mongodb');
 const {spawn} = require('child_process'); 
 var moment = require('moment');  
 const { isMoment } = require('moment');
-const {PythonShell} =require('python-shell');
+
  
  
 router.use(bodyParser.urlencoded({extended: true})); 
@@ -98,16 +98,16 @@ router.post("/addFlight", async function(req, res){
     
     var flight_data = [fullInfo.dep_date + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]
     console.log(flight_data)
-    let newFlight = new Flight({ 
-        idUser: req.session.passport.user, 
-        flightNumber: req.body.flightNumber, 
-        Date: req.body.Date, 
-        Departure: fullInfo.dep,
-        DepartureTime: fullInfo.dep_time,
-        Arrival: fullInfo.arv,
-        ArrivalTime: fullInfo.arv_time,
-        Terminal: fullInfo.terminal,
-    }); 
+    // let newFlight = new Flight({ 
+    //     idUser: req.session.passport.user, 
+    //     flightNumber: req.body.flightNumber, 
+    //     Date: req.body.Date, 
+    //     Departure: fullInfo.dep,
+    //     DepartureTime: fullInfo.dep_time,
+    //     Arrival: fullInfo.arv,
+    //     ArrivalTime: fullInfo.arv_time,
+    //     Terminal: fullInfo.terminal,
+    // }); 
     // newFlight.save(); 
     // console.log(req.session.name) 
     // var popup = require('popups'); 
@@ -158,8 +158,9 @@ router.post("/addFlight", async function(req, res){
     python.stderr.on('data', (data) => {
         console.error('err: ', data.toString());
     });
-      
+    
     python.on('exit', (code) => {
+        // machine_pred = 'On time !'
         console.log(code)
         res.render('summaryFlight', { 
             num: req.body.flightNumber, 
@@ -215,7 +216,7 @@ router.get("/flightDetailsPast",ensureAuthenticated, function(req, res){
     res.render('flightDetailsPast.ejs' , req.params );
 }) 
  
-router.get("/summaryFlight",ensureAuthenticated, function(req, res){ 
+router.get("/summaryFlights",ensureAuthenticated, function(req, res){ 
     console.log("summ")
     console.log(req.body)
     console.log(req.params)
@@ -224,10 +225,11 @@ router.get("/summaryFlight",ensureAuthenticated, function(req, res){
     res.render('summaryFlight.ejs' , req.params );
 }) 
 
-router.post("/summaryFlight",async function(req, res)
+router.get("/summaryFlight",async function(req, res)
 {
     errors=[]
     console.log("INNNN")
+    console.log(req.query.machine_pred)
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: full_d.num_flight, 
@@ -236,7 +238,8 @@ router.post("/summaryFlight",async function(req, res)
         DepartureTime: full_d.dep_time,
         Arrival: full_d.arv,
         ArrivalTime: full_d.arv_time,
-        Terminal: full_d.terminal
+        Terminal: full_d.terminal,
+        MachinePred: req.query.machine_pred
     }); 
     console.log(newFlight)
     exist=0
