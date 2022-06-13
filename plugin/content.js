@@ -84,7 +84,7 @@ function sendToServer() {
     }
 
 
-    url = "http://localhost:80/Plugin"
+    url = "http://134.122.56.202//Plugin"
     xhttp.open("POST", url);
 
     // send Get request
@@ -436,7 +436,6 @@ function JSconfirm(info){
 
 // search()
 sendToServer();
-
 
 
 
