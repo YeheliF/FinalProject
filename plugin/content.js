@@ -1,4 +1,4 @@
- const allFlightsName = [];
+const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
 const allFlightsDestAirport2 = [];
@@ -68,11 +68,10 @@ function sendToServer() {
             var preds = this.responseText
             console.log(`response text: ${preds}`)
 
-            machine_pred = preds.split('[')[1].split(']')[0].split(', ')
+            var machine_pred = preds.split('[')[1].split(']')[0].split(', ')
             // order = sections_order.preferences
 
             console.log(machine_pred)
-            CreatElements();
 
         } else {
             machine_pred = []
@@ -84,7 +83,7 @@ function sendToServer() {
     }
 
 
-    url = "http://134.122.56.202//Plugin"
+    url = "http://localhost:80/Plugin"
     xhttp.open("POST", url);
 
     // send Get request
@@ -122,7 +121,6 @@ function CreatElements() {
     $(document).ready(function () {
         setTimeout(function(){
             var j = 0;
-            console.log(machine_pred)
             for (var i = 0; i < slides.length; i = i+2) {
                 console.log("in loop")
                 const flightPercent = document.createElement('div');
@@ -372,7 +370,7 @@ function JSconfirm(info){
    
     new swal({
         // text:"?האם אתה מעוניין לעבור אל האתר שלנו על מנת לקבל פרטים נוספים",
-        title:"האם אתה מעוניין לעבור אל האתר שלנו\n ?על מנת לקבל פרטים נוספים" +  '\n<pre style="text-align: Right";>' 
+        title:'\n<pre style="text-align: Right";>' 
         + info[0]  + '<strong> :<u>מספר טיסה</u>\n</strong>'
         + info[1] + '<strong> :<u>המראה משדה התעופה</u>\n</strong>'
         + dayDeparture + '<strong> :<u>ביום</u>\n</strong>'
@@ -381,7 +379,7 @@ function JSconfirm(info){
         + info[3] + '<strong> :<u>נחיתה בשדה התעופה</u>\n</strong>' 
         + dayArrival + '<strong> :<u>ביום</u>\n</strong>'
         + info[4] + '<strong> :<u>זמן נחיתה</u>\n</strong>'
-        +'</pre>',
+        +'</pre>' + "לקבלת עדכונים בזמן אמת - לחץ כאן",
         
         // html: $('<h2>')
         // .addClass('some-class')
@@ -392,7 +390,7 @@ function JSconfirm(info){
         // text: info,
         width: 600,
         padding: 100,
-        background: '#fff url(//bit.ly/1Nqn9HU)',
+        background: '#fff url(https://mondo.co.il/wp-content/uploads/2016/08/bg.jpg)',
         showCancelButton: true,
         cancelButtonText: 'ביטול',
         confirmButtonText: 'כן',
