@@ -131,7 +131,7 @@ function CreatElements() {
                 var clr;
                 if (machine_pred[j] == '0') {
                     txt = 'On time !'
-                    clr = 'green'
+                    clr = 'greenyellow'
                 } 
                 if (machine_pred[j] == '1') {
                     txt = 'Minor delay'
@@ -379,10 +379,9 @@ function JSconfirm(info){
         + info[0]  + '<strong> :<u>מספר טיסה</u>\n</strong>'
         + info[1] + '<strong> :<u>המראה משדה התעופה</u>\n</strong>'
         + dayDeparture + '<strong> :<u>ביום</u>\n</strong>'
-        + info[2]+ '<strong> :<u>זמן נחיתה</u>\n</strong>' 
+        + info[2]+ '<strong> :<u>זמן המראה</u>\n</strong>' 
         + info[5].split('\n')[1] + '<strong> :<u>משך הטיסה</u>\n</strong>' 
         + info[3] + '<strong> :<u>נחיתה בשדה התעופה</u>\n</strong>' 
-        + dayArrival + '<strong> :<u>ביום</u>\n</strong>'
         + info[4] + '<strong> :<u>זמן נחיתה</u>\n</strong>'
         +'</pre>' + "? האם ברצונך לקבל עדכונים בזמן אמת ",
         

@@ -116,7 +116,7 @@ def valid_check(model, test_load, ep, total):
 def run_train(file_name, save_path):
     flights = pd.read_excel(file_name)
     l_flights = len(flights)
-    len_ratio = round(l_flights * 0.80) + 1
+    len_ratio = round(l_flights * 0.90) + 1
     ratio = [len_ratio, l_flights - len_ratio]
     train_load, valid_load = torch.utils.data.random_split(list(zip(flights.drop('delay_class', axis = 1).values.astype(np.float32),
                                                                     flights['delay_class'].values.astype(np.float32))), ratio)
@@ -125,7 +125,7 @@ def run_train(file_name, save_path):
     train_y = [train_load[i][1] for i in range(len(train_load))]
 
     train_tensor = data_utils.TensorDataset(torch.from_numpy(np.array(train_x)).float(), torch.from_numpy(np.array(train_y)).long())
-    train_loader = data_utils.DataLoader(dataset = train_tensor, batch_size = 32, shuffle = True)
+    train_loader = data_utils.DataLoader(dataset = train_tensor, batch_size = 64, shuffle = True)
 
     valid_x = [train_load[i][0] for i in range(len(valid_load))]
     valid_y = [train_load[i][1] for i in range(len(valid_load))]
@@ -137,7 +137,7 @@ def run_train(file_name, save_path):
     model = ModuleFinal(image_size=44)
 
     # learning rate
-    lr = 0.0002
+    lr = 0.0001
 
     # epochs
     epoch = 180
