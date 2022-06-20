@@ -25,10 +25,10 @@ userSchema = new mongoose.Schema( {
     Password: {
 		type:String
 	}, 
-	PasswordConf: {
-		type:String
+	// PasswordConf: {
+	// 	type:String
 
-	},
+	// },
 	createdAt:{
         type: Date,
         default: Date.now

@@ -254,7 +254,7 @@ router.get("/summaryFlight",async function(req, res)
     let all_flights = await Flight.find({}) 
     all_flights.forEach(flight =>{
         if(flight.idUser == req.user._id){
-            if (flight.flightNumber==full_d.num_flight && flight.Date==full_d.arv_date){
+            if (flight.flightNumber==full_d.num_flight && flight.Date==full_d.dep_date){
                 exist=1
             }
         }
