@@ -11,7 +11,7 @@
                 "*://www.il.kayak.com/flights/*"  
             ],
             "js": ["jquery.min.js","sweetalert2.all.min.js", "content.js"],
-            "css": ["style.css"],
+            
             "run_at": "document_end"
         }
     ],
@@ -19,7 +19,7 @@
         "scripts": [
             "jquery.min.js","sweetalert2.all.min.js","./content.js"
         ],
-        "css": ["style.css"],
+        
         "run_at": "document_end"
     },
     "permissions": [
