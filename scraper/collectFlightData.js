@@ -113,6 +113,7 @@ async function scrapeData(airline, flightNum, dateFromUser) {
     console.log(full_d);
   } catch (err) {
     console.error(err);
+    return 0;
   }
   return full_d
 }

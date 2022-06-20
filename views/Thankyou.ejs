@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+    <script type="text/javascript" src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>תודה על הדיווח</title>
@@ -10,18 +19,45 @@
     <link rel="stylesheet" href="./style.css">
     <style>
 		body        { padding-top:70px; }
+        .btn-success {justify-content: center;width: 100%; background: #00739580;}
+		body, html {
+            height: 100%;
+            font-family: "Inconsolata", sans-serif;
+            text-align: right;
+            }
+
+            .bgimg {
+            background-position: center;
+            background-size: cover;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg/800px-PikiWiki_Israel_49662_bgn_airport_-_tlv.jpg");
+            min-height: 130%;
+            }
+
+            .menu {
+            display: none;
+            }
 	</style>
 </head>
 <body>
+    <div class="w3-top">
+		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+		  <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user-circle-o"></i>התנתק</a>
+		  <!-- Float links to the right. Hide them on small screens -->
+		  <div class="w3-right w3-hide-small">
+			  <a href="myFlights" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>לכל הטיסות שלי</a>
+		  </div>
+          <div class="w3-right w3-hide-small">
+            <a href="addFlight" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>הוספת טיסה חדשה</a>
+        </div>
+		</div>
+	  </div>
     <section>
     <div>
-        <a href="myFlights" class="home__button">לכל הטיסות שלי</a>
+        
         <h1 id="title" class="form__title">!תודה על הדיווח</h1> 
         <h2 id="title" class="form__title">נחזור אלייך בהקדם</h2>    
    
-        <div class="abc"> 
-            <a href="/logout">התנתק</a> 
-        </div> 
+
     </div>
 </section>
 </body>

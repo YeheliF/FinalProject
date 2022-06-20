@@ -234,7 +234,7 @@ router.get("/summaryFlight",async function(req, res)
     let newFlight = new Flight({ 
         idUser: req.session.passport.user, 
         flightNumber: full_d.num_flight, 
-        Date: full_d.arv_date , 
+        Date: full_d.dep_date , 
         Departure: full_d.dep,
         DepartureTime: full_d.dep_time,
         Arrival: full_d.arv,

@@ -55,19 +55,19 @@
 <body> 
     <!-- Links (sit on top) -->
     <!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user-circle-o"></i>התנתק</a>
-    <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
-        <a href="addFlight" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>הוספת טיסה חדשה</a>
-    </div>
-  </div>
-</div>
+
     
     <!-- Header with image -->
     <header id="home">
-        
+        <div class="w3-top">
+        <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+            <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-user-circle-o"></i>התנתק</a>
+            <!-- Float links to the right. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="addFlight" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>הוספת טיסה חדשה</a>
+            </div>
+        </div>
+        </div>
         <img class="w3-image" src="https://www.israelhayom.co.il/wp-content/uploads/2021/12/09/%D7%9E%D7%A8%D7%A7%D7%95%D7%91%D7%99%D7%A5.jpg" alt="Architecture" width="100%">
         <div> 
             <p class="lead mb-3"> </p>
@@ -103,7 +103,7 @@
                                 
                             <%if(!((flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] == new Date().getMonth()+1 && flight.Date.split("-")[2] < new Date().getDate()) || flight.Date.split("-")[0] < new Date().getFullYear() || (flight.Date.split("-")[0] == new Date().getFullYear() && flight.Date.split("-")[1] < new Date().getMonth())) ){%>
                                 <th scope="row"><%= date = flight.Date %></th> 
-                                <th scope="row"><a href="summaryFlights" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a>  
+                                <th scope="row"><a href="flightDetails" + {date,num,dep,depTime,arr,arrTime,terminal,machinePred}><%= num = flight.flightNumber %></a>  
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <th scope="row"><%= arr = flight.Arrival %></th>

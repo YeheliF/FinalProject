@@ -25,8 +25,9 @@
 				<i class="fa fa-user-o" aria-hidden="true"></i></h1>
 		</div>
 
-			<%- include ("./partials/messages"); %>
+			
 			<form id="form1" method="post" class="container">
+				<%- include ("./partials/messages"); %>
 				<input type="email" name="Email" placeholder="אימייל" required="" class="form-control" value="<%= typeof Email != 'undefined' ? Email : '' %>"><br/>
 				<input type="text" name="userName" placeholder="שם משתמש" required="" class="form-control" value="<%= typeof userName != 'undefined' ? userName : '' %>"><br/>
 				<input type="password" name="Password" placeholder="סיסמא" required="" class="form-control" value="<%= typeof Password != 'undefined' ? Password : '' %>"><br/>
