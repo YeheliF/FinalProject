@@ -6,13 +6,14 @@ const allFlightsDurations = [];
 const allFlightsOriginTime = [];
 const allFlightsDestTime = [];
 const overNight = [];
+var txtMachinePred = [];
+
 
 const dayDeparture = window.location.href.split('/')[5]
-const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
 var machine_pred = []; 
 
-
+// send data to server from KAYAK website in order to get machine prediction 
 function sendToServer() {
     const paragraphs = document.getElementsByClassName("resultWrapper");
     for (flight of paragraphs) {
@@ -28,11 +29,6 @@ function sendToServer() {
         } else {
             overNight.push(0);
         }
-
-        //     planes = flight.getElementsByClassName("af2q-equip-name")[0]
-        //     dayOut = flight.getElementsByClassName("X3K_-header-text")[0]
-
-
         allFlightsName.push(flightName.innerHTML);
         allFlightsOriginAirport.push(origin.innerHTML);
         allFlightsDestAirport.push(destination.innerHTML);
@@ -40,10 +36,7 @@ function sendToServer() {
         allFlightsDurations.push(duration.innerHTML);
         allFlightsOriginTime.push(originTime.innerHTML);
         allFlightsDestTime.push(destTime.innerHTML);
-        //     allFlightsPlanes.push(planes.innerText)
-        //     allFlightsDayDeparture.push(dayOut.innerText)
     }
-
 
     console.log(allFlightsName.join('\n'));
     console.log(allFlightsOriginAirport.join('\n'));
@@ -84,7 +77,6 @@ function sendToServer() {
         
     }
 
-
     url = "http://localhost:80/Plugin"
     xhttp.open("POST", url);
 
@@ -93,34 +85,9 @@ function sendToServer() {
     console.log(" send finished ")
 }
 
-function clicked(i) {
-    console.log(txtMachinePred)
-    // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
-    // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
-    // console.log(information)
 
-    // const info = document.createElement('div');
-    // const node = document.createTextNode('');
-    // info.value= information
-    // info.appendChild(node.cloneNode(true));
-    // info.style.backgroundColor = "green";
-    
-    JSconfirm([allFlightsName[i], allFlightsOriginAirport[i].substring(1,4), allFlightsOriginTime[i] ,
-    allFlightsDestAirport[i].substring(1,4), allFlightsDestTime[i], allFlightsDurations[i], txtMachinePred[i]], dayDeparture, dayArrival)
-    // if (confirm(info.value)) {
-    //         window.open("http://134.122.56.202/")
-    // } else {
-    //     console.log("goodbey!")
-    // }
-    console.log("Button clicked");
-}
-var txtMachinePred = [];
-
+// creat button and machine prediction elements on the KAYAK website
 function CreatElements() {
-    ///////// creat elements////////
-    
-
-    
     const slides = document.getElementsByClassName('top-row');
     $(document).ready(function () {
         setTimeout(function(){
@@ -170,23 +137,26 @@ function CreatElements() {
                 innerButton.addEventListener('click', e =>{
                     console.log(e.target.id);
                     clicked(e.target.id/2);
-                }) //clicked(allFlightsName.indexOf( e.target.flightName)));
+                })
                 j = j + 1;
             }
-           
-            
             return false; 
         }, 3000);
     });
     
 }
 
+// when cliet click on button to move to the website
+function clicked(i) {
+    console.log(txtMachinePred)
+    JSconfirm([allFlightsName[i], allFlightsOriginAirport[i].substring(1,4), allFlightsOriginTime[i] ,
+    allFlightsDestAirport[i].substring(1,4), allFlightsDestTime[i], allFlightsDurations[i], txtMachinePred[i]], dayDeparture)
+    console.log("Button clicked");
+}
+
 function JSconfirm(info){
-    // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
-    // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
     console.log(info)
     new swal({
-        // text:"?האם אתה מעוניין לעבור אל האתר שלנו על מנת לקבל פרטים נוספים",
         title:'\n<pre style="text-align: Right";>' 
         + info[6]  + '<strong> :<u>החיזוי שלנו</u>\n</strong>'
         + info[0]  + '<strong> :<u>מספר טיסה</u>\n</strong>'
