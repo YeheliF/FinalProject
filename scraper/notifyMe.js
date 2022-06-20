@@ -8,6 +8,7 @@ $.ajaxSettings.xhr = function () {
  return new XMLHttpRequest; 
 } 
  
+//send email to client about delay OR cancled flight
 async function updateEmail(flight,canceled){ 
     user = await User.find({_id:flight.idUser}) 
     userName = user[0].userName
@@ -42,6 +43,8 @@ async function updateEmail(flight,canceled){
         console.log(error.response.body) 
     }) 
 } 
+
+// go over all db and check for update in flights day and time
 function notifyMe(){ 
     console.log("got in notifyme") 
     $.ajax({ 

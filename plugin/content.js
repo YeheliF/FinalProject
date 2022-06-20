@@ -154,6 +154,7 @@ function clicked(i) {
     console.log("Button clicked");
 }
 
+// popUp with all data of flight & send to website
 function JSconfirm(info){
     console.log(info)
     new swal({
@@ -174,29 +175,6 @@ function JSconfirm(info){
         showCancelButton: true,
         cancelButtonText: 'ביטול',
         confirmButtonText: 'כן',
-        customClass: {
-            container: '...',
-            popup: '...',
-            header: '...',
-            title: '...',
-            closeButton: '...',
-            icon: '...',
-            image: '...',
-            content: '...',
-            htmlContainer: '...',
-            input: '...',
-            inputLabel: '...',
-            validationMessage: '...',
-            actions: '...',
-            confirmButton: '...',
-            denyButton: '...',
-            cancelButton: '...',
-            loader: '...',
-            footer: '....',
-            timerProgressBar: '....',
-          },
-        // showLoaderOnConfirm: true,
-        
         allowOutsideClick: false
     }).then((result) => {
         if (result.isConfirmed) {
@@ -205,25 +183,9 @@ function JSconfirm(info){
                 '',
                 'success',
                 window.open("http://134.122.56.202/")
-            )
-            // new swal({html: [window.open("http://134.122.56.202/"),'<pre>' + '<strong><u>תודה</u>: </strong></pre>']
-        }
+            )}
     })
      
 }
 
-// search()
 sendToServer();
-
-
-
-////// GET ALL FLIGHT NUMBER
-//id = flight.getElementsByClassName("resultInner")[0].id
-//        console.log(id)
-// document.getElementById("YJC5-inner").click();        
-//console.log($(`#${id}`))
-//$(`#${id}`).click()
-// flightNamePlus = flight.getElementsByClassName('nAz5-carrier-text')[0];
-// console.log(flightNamePlus)
-// console.log("-----------------")
-// console.log(flightNamePlus.innerHTML)
