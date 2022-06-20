@@ -1,10 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
-const getMapping = require ("constants");
 const mapAirlines = require("./constants");
-const { info } = require("console");
-var t
 
 // CONSTANT VARIABLES 
 
