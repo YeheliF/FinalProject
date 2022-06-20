@@ -1,5 +1,3 @@
-// Loading the dependencies. We don't need pretty
-// because we shall not log html to the terminal
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
@@ -29,7 +27,6 @@ async function scrapeData(airline, flightNum, dateFromUser) {
   var month = dateFromUser.substr(5, 2)
   var day = dateFromUser.substr(8, 2)
   var whenDate_input = year + month + day
-  //flightNumFromUser = flightNumFromUser.replace(/\s/g, '');
   var al_input = airline;
   var fn_input = flightNum;
   if (al_input === 'EJU' || al_input === 'EZY') {
@@ -117,6 +114,5 @@ async function scrapeData(airline, flightNum, dateFromUser) {
   }
   return full_d
 }
-// Invoke the above function
-// scrapeData('LY EL AL ISRAEL AIRLINES', 'LY', '003', '20220615')
+
 module.exports = scrapeData
