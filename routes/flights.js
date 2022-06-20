@@ -122,14 +122,14 @@ router.post("/addFlight", async function(req, res){
   
 }) 
 router.get("/flightDetails",ensureAuthenticated, function(req, res){ 
-    console.log("summ")
+    console.log("summ - flight det")
     console.log(req.body)
     console.log(req.params)
     res.render('flightDetails.ejs' , req.params );
 }) 
 
 router.get("/flightDetailsPast",ensureAuthenticated, function(req, res){ 
-    console.log("summ")
+    console.log("summ - past")
     console.log(req.body)
     console.log(req.params.updateHour)
     res.render('flightDetailsPast.ejs' , req.params );
