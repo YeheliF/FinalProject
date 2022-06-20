@@ -272,7 +272,7 @@ router.get("/report",ensureAuthenticated, function(req, res){
     // res.render('report.ejs', {Email: req.user._id}) 
     // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
 
-    res.render('report.ejs',{email:req.user.Email ,params:req.params});
+    res.render('report.ejs',{email:req.user.Email ,params:req.params, url:process.env.URL});
      
      
 }) 
