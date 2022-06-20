@@ -161,16 +161,21 @@
                             <%if(hours>6){%>
                                 
                                 
-                                    <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>הנך זכאי לפיצוי, אנא הגש תלונה</a></th>                                     
-                                <%}else{%> 
-                                    <th scope="row"></th> 
-                                <%}%> 
+                                <th scope="row" class="complain__button"><a href="report" + {date,num,dep,depTime,arr,arrTime,terminal}>הנך זכאי לפיצוי, אנא הגש תלונה</a></th>                                     
+                            <%}else{%> 
+                                <th scope="row"></th> 
+                            <%}%> 
                                 <% delayHourUpdate = flight.delayHourUpdate %>
                                 <th scope="row"><%= date = flight.Date %></th> 
                                 <th scope="row"><a href="flightDetailsPast" + {date,num,dep,depTime,arr,arrTime,terminal,delayHourUpdate}><%= num = flight.flightNumber %></th> 
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
-                                <th scope="row"><%= depTime = flight.delayHourUpdate %></th>
+                                <%if(flight.delayHourUpdate){%>
+                                    <th scope="row"><%= depTime = flight.delayHourUpdate %></th>
+                                <%} else {%>
+                                    <th scope="row"><%= flight.DepartureTime %></th>
+                                <%}%>
+                                
                                 <th scope="row"><%= arr = flight.Arrival %></th>
                                 <th scope="row"><%= arrTime = flight.ArrivalTime %></th> 
                                 <th scope="row"><%= terminal = flight.Terminal %></th> 
