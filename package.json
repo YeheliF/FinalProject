@@ -55,7 +55,8 @@
     "rand-token": "^1.0.1",
     "session": "^0.1.0",
     "split": "^1.0.1",
-    "substr": "0.0.7"
+    "substr": "0.0.7",
+    "torch": "^0.2.7"
   },
   "repository": {
     "type": "git",
