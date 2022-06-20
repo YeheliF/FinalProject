@@ -14,7 +14,6 @@ body{
     font-size:x-large; 
     background: url('https://mondo.co.il/wp-content/uploads/2016/08/bg.jpg'); 
     background-size: cover;
-    /* background-color: #dcf1f5dc;  */
     text-align: right;
 } 
 .confirm {
@@ -35,23 +34,12 @@ body{
     flex-grow: 1;
     width: 500px;
     height: 600px;
-
-
 } 
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-/* .form-control{
-    height: auto;
-    border: none;
-    border-radius: 30;
-    color: rgb(209, 244, 225);
-} */
-
-
 
 .choose__terminal--section .tabs--navber .nav .nav-link {
     display: -webkit-box;
@@ -94,20 +82,11 @@ table {
 }
 
 .complain__button {
-    /* height:180%; */
-    /* max-width:100%; */
     font-size: 1.5rem;
 }
 .rabbish{
     background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1ProyqceW5_hz6wcM9sLq8pw3Br1_0jvG_g&usqp=CAU");
 }
-/* thead {
-    border-collapse:collapse;
-    border:2px solid  rgb(201, 255, 234);
-    height:30px;
-    padding:4px;
-    background-color:rgba(171, 245, 233, 0.685);
-} */
 th {
     border:2px solid  rgba(2, 83, 52, 0.361);
     height:30px;
@@ -117,9 +96,7 @@ th {
     font-size: 1.2rem; 
 }
 tr {
-    /* border:2px solid  rgb(223, 248, 238); */
     height:30px;
-    /*  */
     color:rgb(58, 0, 96);
     text-align: right;
 }
@@ -152,9 +129,7 @@ h2 {
     width: 100%;
     height: 40px;
     font-weight: 600;
-    /* padding: 6px 12px; */
     font-size: 20px;
-    /* line-height: 1.42857143; */
     color: #555;
     background-color: #fff;
     background-image: none;
@@ -200,13 +175,6 @@ h2 {
     
 }
 
-/* .alert-success {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    width: 70%;
-} */
-
 .alert {
     width: 100%;
     padding: 15px;
@@ -215,89 +183,6 @@ h2 {
     border-radius: 4px;
 }
 
-/* .flight_board--container .table.table.table tr td, .flight_board--container .table.table.table tr th {
-    display: block;
-    width: 100%;
-    max-width: calc( (100% - 3.75rem) / 3);
-    -webkit-box-flex: 0;
-    -ms-flex-positive: 0;
-    flex-grow: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    -ms-flex-preferred-size: calc( calc( (100% - 3.75rem) / 3 ));
-    flex-basis: calc( calc( (100% - 3.75rem) / 3 ));
-    padding-right: 1.25rem;
-    white-space: normal;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.flight_board--container .table thead th {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-    background-color: #D7EFF0;
-}
-
-.flight_board--container .table.table.table, .flight_board--container .table.table.table thead, .flight_board--container .table.table.table tbody {
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    font-weight: 400;
-    font-family: "Open Sans Hebrew";
-    font-size: 1em;
-    color: #0d1555;
-    direction: rtl;
-    text-align: right;
-    line-height: inherit;
-    box-sizing: border-box;
-}
-.flight_board--container .table.table.table thead tr th {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-approved_contractors--container .table thead th {
-    font-weight: 700;
-}
-.flight_board--container .table td, .flight_board--container .table th {
-    padding-right: 2.8125rem;
-    border: 0;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    vertical-align: middle;
-    background-color: transparent;
-}
-.table text-16{
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    font-weight: 400;
-    font-family: "Open Sans Hebrew";
-    font-size: 1em;
-    color: #0d1555;
-    direction: rtl;
-    text-align: right;
-    line-height: inherit;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 1.25rem;
-}
-
-.fade{
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    font-weight: 400;
-    font-family: "Open Sans Hebrew";
-    font-size: 1em;
-    color: #0d1555;
-    direction: rtl;
-    text-align: right;
-    line-height: inherit;
-    box-sizing: border-box;
-    transition: opacity 0.15s linear;
-} */
 div {
     display: block;
 }
@@ -320,7 +205,6 @@ body {
     margin-bottom: 1rem; 
 } 
 .section{
-    /* font: 500 1rem 'Quicksand', sans-serif, */
     width: 100%; 
     padding: 1rem 1rem; 
     font-weight: bold; 
@@ -406,13 +290,6 @@ body {
 } 
  
 .form__input1{ 
-    /* width: 100%; 
-    padding: 0.2rem 0.2rem; 
- 
-     
-    border: none; 
-     
-    cursor: pointer; */ 
      
     text-align:center; 
     right: 2px; 
@@ -539,41 +416,9 @@ body {
     text-decoration: underline; 
     text-align: right;
 } 
-/* table { 
-    border-collapse: collapse; 
-    border: 2px solid rgb(200, 200, 200); 
-    letter-spacing: 1px; 
-    font-family: sans-serif; 
-    font-size: .8rem; 
-    text-align: right;
-} 
- 
-th[scope="col"] { 
-    background-color: #696969; 
-    color: #fff; 
-    text-align: right;
-} 
-tr:nth-child(even) { 
-    background-color: #eee;
-    text-align: right; 
-} 
-th { 
-    border: 1px solid rgb(190, 190, 190); 
-    padding: 10px; 
-    text-align: right;
-}
 
-.text-70 {
-    font-size: 6rem;
-    color: #001d5a;
-} */
 
-/* .w3-white, .w3-hover-white:hover {
-    color: #000!important;
-    background-color: #e0eefd!important;
-}*/
-
- .w3-image {
+.w3-image {
     
     height: 400px;
 } 
@@ -581,28 +426,6 @@ th {
     display: block;
     margin-top: 30em;
 }
-
-/* .w3-input {
-    padding: 10px;
-    display: block;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    width: 170%;
-    text-align: right;
-} */
-
-/* .w3-light-grey {
-    color: #79abcf!important;
-    text-align: -webkit-right;
-    background-color: #f1f1f1!important;
-} */
-
-/* .w3-col.l6 {
-    height: 70%;
-    width: 70%;
-    text-align: right;
-    left: 17%;
-} */
 .w3-bar {
     width: 1110px;
 }
