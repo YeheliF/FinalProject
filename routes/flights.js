@@ -226,6 +226,13 @@ router.get("/summaryFlights",ensureAuthenticated, function(req, res){
     res.render('summaryFlight.ejs' , req.params );
 }) 
 
+router.get("/board", function(req, res){ 
+    
+    // res.render('report.ejs', {Email: req.user._id}) 
+    // res.render('report.ejs', {Email: "yeheli2421@gmail.com"}) 
+    res.render('flightBoard.ejs');
+}) 
+
 router.get("/summaryFlight",async function(req, res)
 {
     errors=[]

@@ -1,4 +1,4 @@
- const allFlightsName = [];
+const allFlightsName = [];
 const allFlightsOriginAirport = [];
 const allFlightsDestAirport = [];
 const allFlightsDestAirport2 = [];
@@ -10,7 +10,7 @@ const overNight = [];
 const dayDeparture = window.location.href.split('/')[5]
 const dayArrival = window.location.href.split('/')[6].split('?')[0]
 
-var machine_pred; 
+var machine_pred = []; 
 
 
 function sendToServer() {
@@ -72,7 +72,7 @@ function sendToServer() {
             // order = sections_order.preferences
 
             console.log(machine_pred)
-            CreatElements();
+            CreatElements()
 
         } else {
             machine_pred = []
@@ -81,17 +81,20 @@ function sendToServer() {
                 machine_pred.push('5')
             }
         }
+        
     }
 
 
-    url = "http://134.122.56.202//Plugin"
+    url = "http://localhost:80/Plugin"
     xhttp.open("POST", url);
 
     // send Get request
     xhttp.send(JSON.stringify(data))
     console.log(" send finished ")
 }
+
 function clicked(i) {
+    console.log(txtMachinePred)
     // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
     // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
     // console.log(information)
@@ -102,8 +105,8 @@ function clicked(i) {
     // info.appendChild(node.cloneNode(true));
     // info.style.backgroundColor = "green";
     
-    JSconfirm([allFlightsName[i],allFlightsOriginAirport[i].substring(1,4),allFlightsOriginTime[i] ,
-    allFlightsDestAirport[i].substring(1,4),allFlightsDestTime[i],allFlightsDurations[i]], dayDeparture, dayArrival)
+    JSconfirm([allFlightsName[i], allFlightsOriginAirport[i].substring(1,4), allFlightsOriginTime[i] ,
+    allFlightsDestAirport[i].substring(1,4), allFlightsDestTime[i], allFlightsDurations[i], txtMachinePred[i]], dayDeparture, dayArrival)
     // if (confirm(info.value)) {
     //         window.open("http://134.122.56.202/")
     // } else {
@@ -111,7 +114,7 @@ function clicked(i) {
     // }
     console.log("Button clicked");
 }
-
+var txtMachinePred = [];
 
 function CreatElements() {
     ///////// creat elements////////
@@ -122,7 +125,6 @@ function CreatElements() {
     $(document).ready(function () {
         setTimeout(function(){
             var j = 0;
-            console.log(machine_pred)
             for (var i = 0; i < slides.length; i = i+2) {
                 console.log("in loop")
                 const flightPercent = document.createElement('div');
@@ -130,7 +132,7 @@ function CreatElements() {
                 var clr;
                 if (machine_pred[j] == '0') {
                     txt = 'On time !'
-                    clr = 'green'
+                    clr = 'greenyellow'
                 } 
                 if (machine_pred[j] == '1') {
                     txt = 'Minor delay'
@@ -141,13 +143,14 @@ function CreatElements() {
                     clr = 'orange'
                 } 
                 if (machine_pred[j] == '3') {
-                    txt = 'OSevere delay'
+                    txt = 'Severe delay'
                     clr = 'red'
                 } 
                 if (machine_pred[j] == '5') {
                     txt = ' '
                     clr = 'white'
                 }
+                txtMachinePred[j] = txt
                 const node1 = document.createTextNode(txt);
                 flightPercent.appendChild(node1.cloneNode(true));
                 flightPercent.style.backgroundColor = clr;
@@ -173,7 +176,7 @@ function CreatElements() {
            
             
             return false; 
-        },2000);
+        }, 3000);
     });
     
 }
@@ -369,19 +372,19 @@ function CreatElements() {
 function JSconfirm(info){
     // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
     // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
-   
+    console.log(info)
     new swal({
         // text:"?האם אתה מעוניין לעבור אל האתר שלנו על מנת לקבל פרטים נוספים",
-        title:"האם אתה מעוניין לעבור אל האתר שלנו\n ?על מנת לקבל פרטים נוספים" +  '\n<pre style="text-align: Right";>' 
+        title:'\n<pre style="text-align: Right";>' 
+        + info[6]  + '<strong> :<u>החיזוי שלנו</u>\n</strong>'
         + info[0]  + '<strong> :<u>מספר טיסה</u>\n</strong>'
         + info[1] + '<strong> :<u>המראה משדה התעופה</u>\n</strong>'
         + dayDeparture + '<strong> :<u>ביום</u>\n</strong>'
-        + info[2]+ '<strong> :<u>זמן נחיתה</u>\n</strong>' 
+        + info[2]+ '<strong> :<u>זמן המראה</u>\n</strong>' 
         + info[5].split('\n')[1] + '<strong> :<u>משך הטיסה</u>\n</strong>' 
         + info[3] + '<strong> :<u>נחיתה בשדה התעופה</u>\n</strong>' 
-        + dayArrival + '<strong> :<u>ביום</u>\n</strong>'
         + info[4] + '<strong> :<u>זמן נחיתה</u>\n</strong>'
-        +'</pre>',
+        +'</pre>' + "?האם ברצונך לקבל עדכונים בזמן אמת",
         
         // html: $('<h2>')
         // .addClass('some-class')
@@ -392,7 +395,7 @@ function JSconfirm(info){
         // text: info,
         width: 600,
         padding: 100,
-        background: '#fff url(//bit.ly/1Nqn9HU)',
+        background: '#fff url(https://mondo.co.il/wp-content/uploads/2016/08/bg.jpg)',
         showCancelButton: true,
         cancelButtonText: 'ביטול',
         confirmButtonText: 'כן',
