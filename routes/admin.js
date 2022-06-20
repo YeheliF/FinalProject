@@ -376,7 +376,7 @@ router.post('/signup', (req, res) => {
 					.then(user => {
 					req.flash(
 						'success_msg',
-						'נרשמת בהצלחה, עכשיו יכול/ה להתחבר'
+						'נרשמת בהצלחה'
 					);
 					res.redirect('/login');
 					})
@@ -521,46 +521,50 @@ router.post('/forgetpass', async (req, res) => {
             // type is for bootstrap alert types
             res.render('forget.ejs', {  msg: "User exists with Google account. Try resetting your google account password or logging using it.", type: 'danger' });
         } else {
-			let transporter = nodemailer.createTransport({
-				host: 'smtp.googlemail.com',
-				port: 465,
-				auth: {
-				user: process.env.EMAIL_SEND_FROM,
-				pass: process.env.PASSWORD_EMAIL
-				},
-				tls: {
-					rejectUnauthorized: false
-				}	
-			});
-			// token = jwt.sign({id:userData.id,username:userData.Email},process.env.JWT_SECRET,{ expiresIn: '2h'})
-			// userData.resetLink=token
-			let mailOptions = {
-				from: '<resetflight@google.com>', // sender address
-				to: email, // list of receivers
-				subject: "איפוס סיסמא", // Subject line
-				text: " http://134.122.56.202/resetPassword?token="+userData.id+" :לחץ על הקישור לשנות סיסמא: " // plain text body
-				// html: ejs.render("hii") // html body
-			};
-			transporter.sendMail(mailOptions,(error,email)=>{
-				if (error){
-					console.log(error)
-				}
-				console.log('Message s sent: s');
-        		res.redirect('/');
+			res.render('sendMailREset.ejs',{email:email, id:" לחץ על הקישור לשנות סיסמא: "+ process.env.RESET_URL+userData.id});
+		}
+		// 	let transporter = nodemailer.createTransport({
+		// 		service: 'gmail',
+		// 		auth: {
+		// 		user: "resetflight@gmail.com",
+		// 		pass: "1111reset"
+		// 		}	
+		// 	});
+		// 	// token = jwt.sign({id:userData.id,username:userData.Email},process.env.JWT_SECRET,{ expiresIn: '2h'})
+		// 	// userData.resetLink=token
+		// 	let mailOptions = {
+		// 		from: 'resetflight@gmail.com', // sender address
+		// 		to: email, // list of receivers
+		// 		subject: "איפוס סיסמא", // Subject line
+		// 		text:  // plain text body
+		// 		// html: ejs.render("hii") // html body
+		// 	};
+		// 	transporter.sendMail(mailOptions,(error,email)=>{
+		// 		if (error){
+		// 			console.log(error)
+		// 			req.flash('error_msg', 'אימייל לא נכון' );
+		// 			res.redirect('/forgetpass');
+		// 		}
+		// 		else{
+		// 			console.log('Message s sent: s');
+		// 			req.flash('success_msg', 'נשלח לך מייל' );
+        // 			res.redirect('/');
+		// 		}
 
-			})
-            // user exists and is not with google
-            // generate token
-            // var token = crypto.randomBytes(32).toString('hex');
-            // // add that to database
-            // await resetToken({ token: token, email: email }).save();
-            // // send an email for verification
-            // mailer.sendResetEmail(email, token);
+		// 	})
+        //     // user exists and is not with google
+        //     // generate token
+        //     // var token = crypto.randomBytes(32).toString('hex');
+        //     // // add that to database
+        //     // await resetToken({ token: token, email: email }).save();
+        //     // // send an email for verification
+        //     // mailer.sendResetEmail(email, token);
 
-            // res.render('forgetpass.ejs', {  msg: "Reset email sent. Check your email for more info.", type: 'success' });
-        }
+        //     // res.render('forgetpass.ejs', {  msg: "Reset email sent. Check your email for more info.", type: 'success' });
+        // }
     } else {
-        res.render('forget.ejs', {  msg: "No user Exists with this email.", type: 'danger' });
+        req.flash('error_msg', 'אימייל לא נכון' );
+		res.redirect('/forgetpass');
 
     }
 	router.get('/resetPassword',forwardAuthenticated, function (req, res, next) {
