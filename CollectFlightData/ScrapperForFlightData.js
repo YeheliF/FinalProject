@@ -1,4 +1,3 @@
-//const Flight = require('./blogs');
 const dotenv = require ('dotenv');
 const jsdom = require('jsdom');
 var $ = require("jquery");
@@ -57,9 +56,6 @@ const FlightD = instance1.model('Flight', new instance1.Schema({
 // connect to mongoDB
 const DB_URI = 'mongodb+srv://ashi-98:ashi1998@cluster0.6dmrx.mongodb.net/flights?retryWrites=true&w=majority';
 
-// await Mongoose.connect(DB_URI, { useNewUrlParser: true }).then((result)=> {
-//     console.log("connected to db")}).catch((err)=> console.log(err));
-
 const MONGO_DB_FLIGHTS = async () => {
     try{
         const conn = await instance1.connect('mongodb+srv://ashi-98:ashi1998@cluster0.6dmrx.mongodb.net/flights?retryWrites=true&w=majority', {
@@ -83,9 +79,7 @@ function GetData(){
         type: 'GET',
         url: 'https://data.gov.il/api/3/action/datastore_search?resource_id=e83f763b-b7d7-479e-b172-ae981ddc6de5&limit=2400',
         success: async function(flights) {
-            // oldList = []
-            // let difference = flights.result.records.filter(x => !oldList.includes(x));
-            // console.log({difference: difference})
+            
             $.each(flights.result.records, function(i, flight) {
                 
                 // if departure
@@ -113,26 +107,10 @@ function GetData(){
                         new: true,
                         upsert: true
                     }).then((result)=> {
-                            // console.log("saved")
+                            
                         }).catch((err) => {
                             conosole.log(err)
                         });
-                    
-                    // const f = new Flight({
-                    //     id: index, time: flight.CHPTOL, body: 'body'
-                    // });
-                    // f.save().then((result)=> {
-                    //     console.log("saved")
-                    // }).catch((err) => {
-                    //     conosole.log(err)
-                    // });
-                    // check if flight exsists
-                    // if (index ) {
-                    //     // if inside -> check if need to update
-                    //     if (flight.CHPTOL != inside )
-                    // }
-                    // // if not -> add
-                    // add ()
                 }
                
             })

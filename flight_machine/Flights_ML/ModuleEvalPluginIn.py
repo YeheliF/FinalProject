@@ -7,6 +7,9 @@ import random
 import math
 import torch
 
+"""
+Module for using the machine through the plugin
+"""
 class ModuleEvalPlugIn():
     def __init__(self):
         self.model = ModuleFinal(image_size=44)
