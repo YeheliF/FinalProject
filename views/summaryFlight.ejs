@@ -8,6 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="/style.css">
     <style>
@@ -22,13 +25,31 @@
 		  <div class="w3-right w3-hide-small">
 			  <a href="myFlights" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>לכל הטיסות שלי</a>
 		  </div>
+          <div class="w3-right w3-hide-small">
+            <a href="addFlight" class="w3-bar-item w3-button"><i class="fa fa-fighter-jet" aria-hidden="true"></i>הוספת טיסה חדשה</a>
+        </div>
 		</div>
 	  </div>
     <div>
 		<div class="container">
             <%- include ('./partials/messages') %>
 			<form id="form4" method="post" action="/summaryFlight">
-           
+                <div class="form__input-group" >
+                    <label for="machinePred">החיזוי שלנו</label>
+                    <% if (machinePred == 'On time !') {%>
+                        <div id="machinePred" class="form__input" style="background-color:greenyellow;"><%= machinePred %></div>
+                    <% } %>
+                    <% if (machinePred == 'Minor delay') {%>
+                        <div id="machinePred" class="form__input" style="background-color:#ffff00;"><%= machinePred %></div>
+                    <% } %>
+                    <% if (machinePred == 'Moderate delay') {%>
+                        <div id="machinePred" class="form__input" style="background-color:rgb(255, 186, 47);"><%= machinePred %></div>
+                    <% } %>
+                    <% if (machinePred == 'Severe delay') {%>
+                        <div id="machinePred" class="form__input" style="background-color:rgb(255, 82, 47);"><%= machinePred %></div>
+                    <% } %>
+                    <div class="form__input-error-message"></div>
+                </div>
             <div class="form__input-group" >
                 <label for="Date"> תאריך</label>
                 <div type="text" id="Date" class="form__input"><%= date %></div>
@@ -64,26 +85,13 @@
                 <div id="terminal" class="form__input"><%= terminal %></div>
                 <div class="form__input-error-message"></div>
             </div>
-            <div class="form__input-group" >
-                <label for="machinePred">החיזוי שלנו</label>
-                <% if (machinePred == 'On time !') {%>
-                    <div id="machinePred" class="form__input" style="background-color:greenyellow;"><%= machinePred %></div>
-                <% } %>
-                <% if (machinePred == 'Minor delay') {%>
-                    <div id="machinePred" class="form__input" style="background-color:#ffff00;"><%= machinePred %></div>
-                <% } %>
-                <% if (machinePred == 'Moderate delay') {%>
-                    <div id="machinePred" class="form__input" style="background-color:rgb(255, 186, 47);"><%= machinePred %></div>
-                <% } %>
-                <% if (machinePred == 'Severe delay') {%>
-                    <div id="machinePred" class="form__input" style="background-color:rgb(255, 82, 47);"><%= machinePred %></div>
-                <% } %>
-                <div class="form__input-error-message"></div>
-            </div>
+				<h7>נזכיר כי אין לנו כל אחריות על המידע הניתן, לאימות הדברים יש להיכנס לאתר של רשות שדות התעופה</h7>
+                <p></p>
             <div>
-            <a href="/summaryFlight?machine_pred=<%= machinePred %>" class="btn btn-success">הוספת טיסה</a>
+            <a href="/summaryFlight?machine_pred=<%= machinePred %>" class="btn btn-primary btn-sm">הוספת טיסה</a>
+            <p></p>
             <!-- <input type="submit" value="הוספת טיסה" class="btn btn-success"><a href="/summaryFlight?machine_pred=<%= machinePred %>"></a> -->
-            <a href="addFlight" class="btn btn-success">בדוק טיסה אחרת</a></div>
+            <a href="addFlight" class="btn btn-primary btn-sm">בדוק טיסה אחרת</a></div>
 			</form>
             
 		</div>
