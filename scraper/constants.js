@@ -11,7 +11,6 @@ function mapAirlines() {
         if (err) throw err;
         var tmp = CSVToJSON(data);
         var tmp = JSON.parse(tmp);
-        //console.log(tmp);
         for (var t of tmp) {
             airline_codes_map.set(t.AL_CDA, t.AIRLINE);
         }

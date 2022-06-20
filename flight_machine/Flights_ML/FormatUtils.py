@@ -18,8 +18,6 @@ class FormatUtil():
         # create mapping
         for i, fn in enumerate(f_number):
             self.f_number_map[fn] = [int(j) for j in format(i, '011b')]
-        # print
-        # print(self.f_number_map)
         # save mapping
         with open('data_files/FlightNumbers.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=f_number)
@@ -35,12 +33,9 @@ class FormatUtil():
         df_array = []
         for n in numbers:
             df_array.append(self.f_number_map[n])
-        #print(df_array)
         # create column names
         column_names = ['f_number_{}'.format(i) for i in range(11)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
-        # print
-        # print(df)
         # return
         return df
 
@@ -52,8 +47,6 @@ class FormatUtil():
         # create mapping
         for i, comp in enumerate(company):
             self.company_map[comp] = [int(j) for j in format(i, '08b')]
-        # print
-        print(self.company_map)
         # save mapping
         with open('data_files/CompanyNames.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=company)
@@ -72,8 +65,6 @@ class FormatUtil():
         # create column names
         column_names = ['comp_{}'.format(i) for i in range(8)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
-        # print
-        # print(df)
         # return
         return df
 
@@ -104,8 +95,6 @@ class FormatUtil():
         # create column names
         column_names = ['dest_{}'.format(i) for i in range(9)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
-        # print
-        # print(df)
         # return
         return df
 
@@ -119,10 +108,6 @@ class FormatUtil():
         # create mapping
         for i, count in enumerate(country):
             self.country_map[count] = [int(j) for j in format(i, '08b')]
-        # reformat
-        #self.country_map['UNITED ARAB\nEMIRATES'] = self.country_map['UNITED ARAB EMIRATES']
-        # print
-        # print(self.country_map)
         # save mapping
         with open('countryNames.csv', 'w') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=countr)
@@ -141,8 +126,6 @@ class FormatUtil():
         # create column names
         column_names = ['country_{}'.format(i) for i in range(8)]
         df = pd.DataFrame(data=np.array(df_array), columns=column_names)
-        # print
-        # print(df)
         # return
         return df
 
@@ -275,16 +258,16 @@ def main():
     flights['delay_time'] = diff
     flights['delay_class'] = fu.classify_delay(diff)
 
-    # flights.drop(columns=['PTO', 'STO'], inplace=True)
+    flights.drop(columns=['PTO', 'STO'], inplace=True)
 
-    # #Create a Pandas Excel writer using XlsxWriter as the engine.
-    # writer = pd.ExcelWriter('FlightData/departures_flights_formatted.xlsx', engine='xlsxwriter')
+    #Create a Pandas Excel writer using XlsxWriter as the engine.
+    writer = pd.ExcelWriter('FlightData/departures_flights_formatted.xlsx', engine='xlsxwriter')
 
-    # # Convert the dataframe to an XlsxWriter Excel object.
-    # flights.to_excel(writer)
+    # Convert the dataframe to an XlsxWriter Excel object.
+    flights.to_excel(writer)
 
-    # # Close the Pandas Excel writer and output the Excel file.
-    # writer.save()
+    # Close the Pandas Excel writer and output the Excel file.
+    writer.save()
 
 
 if __name__ == "__main__":
