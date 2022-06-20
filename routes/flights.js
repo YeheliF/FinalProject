@@ -124,15 +124,15 @@ router.post("/addFlight", async function(req, res){
 router.get("/flightDetails",ensureAuthenticated, function(req, res){ 
     console.log("summ - flight det")
     console.log(req.body)
-    console.log(req.params)
-    res.render('flightDetails.ejs' , req.params );
+    console.log(req.query)
+    res.render('flightDetails.ejs' , req.query );
 }) 
 
 router.get("/flightDetailsPast",ensureAuthenticated, function(req, res){ 
     console.log("summ - past")
     console.log(req.body)
     console.log(req.params.updateHour)
-    res.render('flightDetailsPast.ejs' , req.params );
+    res.render('flightDetailsPast.ejs' , req.query );
 }) 
  
 router.get("/summaryFlights",ensureAuthenticated, function(req, res){ 
@@ -183,7 +183,7 @@ router.get("/summaryFlight",async function(req, res)
 })
 router.get("/report",ensureAuthenticated, function(req, res){ 
 
-    res.render('report.ejs',{email:req.user.Email ,params:req.params, url:process.env.URL});
+    res.render('report.ejs',{email:req.user.Email ,query:req.query, url:process.env.URL});
      
      
 }) 
