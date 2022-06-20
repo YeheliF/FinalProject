@@ -90,6 +90,7 @@ function sendToServer() {
     xhttp.send(JSON.stringify(data))
     console.log(" send finished ")
 }
+
 function clicked(i) {
     // var information = 'Flight Name: ' + allFlightsName[i] + '\nFrom: ' + allFlightsOriginAirport[i].substring(1,4) + "\nTime: "
     // + allFlightsOriginTime[i] + "\nTo: " + allFlightsDestAirport[i].substring(1,4) + "\narrivale time: " + allFlightsDestTime[i]
@@ -379,7 +380,7 @@ function JSconfirm(info){
         + info[3] + '<strong> :<u>נחיתה בשדה התעופה</u>\n</strong>' 
         + dayArrival + '<strong> :<u>ביום</u>\n</strong>'
         + info[4] + '<strong> :<u>זמן נחיתה</u>\n</strong>'
-        +'</pre>' + "לקבלת עדכונים בזמן אמת - לחץ כאן",
+        +'</pre>' + "?האם ברצונך לקבל עדכונים בזמן אמת",
         
         // html: $('<h2>')
         // .addClass('some-class')
