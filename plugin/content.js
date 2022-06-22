@@ -44,14 +44,10 @@ function sendToServer() {
 
     // set callback for when connection with prefernces server is ready
     xhttp.onreadystatechange = function () {
-        console.log("readystate", this.readyState)
-        console.log("status: ", this.status)
         if (this.readyState == 4 && this.status == 200) {
-            console.log("finished connecting server")
 
             // reorder sections acoording to the server response
             var preds = this.responseText
-            console.log(`response text: ${preds}`)
 
             machine_pred = preds.split('[')[1].split(']')[0].split(', ')
 
@@ -72,7 +68,6 @@ function sendToServer() {
 
     // send Get request
     xhttp.send(JSON.stringify(data))
-    console.log(" send finished ")
 }
 
 
@@ -137,7 +132,6 @@ function CreatElements() {
 function clicked(i) {
     JSconfirm([allFlightsName[i], allFlightsOriginAirport[i].substring(1,4), allFlightsOriginTime[i] ,
     allFlightsDestAirport[i].substring(1,4), allFlightsDestTime[i], allFlightsDurations[i], txtMachinePred[i]], dayDeparture)
-    console.log("Button clicked");
 }
 
 // popUp with all data of flight & send to website

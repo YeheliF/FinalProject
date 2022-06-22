@@ -65,7 +65,6 @@ router.post('/signup', (req, res) => {
 			User.findOne({},function(err,data){
 
 				if (data) {
-					console.log("if");
 					c = data.unique_id + 1;
 				}else{
 					c=1;
@@ -110,7 +109,6 @@ router.get('/login',forwardAuthenticated, function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-	console.log(req.body);
 	passport.authenticate('local', {
 		successRedirect: '/addFlight',
 		failureRedirect: '/login',
@@ -120,7 +118,6 @@ router.post('/login', function (req, res, next) {
 
 
 router.get('/logout', function (req, res, next) {
-	console.log("logout")
 	req.logout();
 	req.flash('success_msg', 'התנתקת');
 	res.redirect('/login');
@@ -136,7 +133,6 @@ router.post('/forgetpass', async (req, res) => {
     // not checking if the field is empty or not 
     // check if a user existss with this email
     var userData = await User.findOne({ Email: email });
-    console.log(userData);
     if (userData) {
         if (userData.type == 'google') {
             // type is for bootstrap alert types
@@ -151,18 +147,13 @@ router.post('/forgetpass', async (req, res) => {
 
     }
 	router.get('/resetPassword',forwardAuthenticated, function (req, res, next) {
-		console.log("req.params")
-		console.log(req.query)
 		var userData = User.findOne({ resetLink: req.query });
 		res.render('resetPassword.ejs', {token:req.query.token});
 	});
 
 	router.post('/resetPassword', async  function (req, res, next) {
-		console.log('req.body');
-		console.log(req.query);
 		let errors = [];
 		var userData=await User.findOne({_id:req.body.id});
-		console.log(userData);
 		if(!userData){
 			errors.push({ msg: 'אימייל לא קיים' })
 			res.redirect('/resetPassword')

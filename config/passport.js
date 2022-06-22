@@ -28,7 +28,6 @@ module.exports = function(passport){
         if (!user) {
           return done(null, false, { message: 'האימייל לא רשום' });
         }
-        console.log(user)
         // Match password
         if(user.type == "google"){
           return done(null, false, { message: 'האימייל קיים בהתחברות דרך גוגל' });
@@ -56,7 +55,6 @@ module.exports = function(passport){
       callbackURL: process.env.AUTH0_CALLBACK_URL
   },
   async (accessToken,refreshToken, profile,done) => {
-      console.log(profile)
       const newUser = {
         unique_id: profile.id,
         userName: profile.displayName,

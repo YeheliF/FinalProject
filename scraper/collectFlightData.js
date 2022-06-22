@@ -29,7 +29,6 @@ async function scrapeData(airline, flightNum, dateFromUser) {
   if (al_input === 'EJU' || al_input === 'EZY') {
     al_input = 'U2'
   }
-  console.log(al_input)
   var namal_input = AIRLINE_MAP.get(al_input)
 
   try {
@@ -52,13 +51,11 @@ async function scrapeData(airline, flightNum, dateFromUser) {
 
     var info = []
     dep.each((idx, el) => {
-      console.log($(el).text());
       if ($(el).text() != '' && $(el).text() != '-') {
         info.push(($(el).text()).replace('\n', '')
           .replace('\n', '').replace('\n', '').split("<")[0].trim());
         }
     });
-    console.log(info)
     if (info.length == 0) {
       return 0
     }
@@ -108,7 +105,6 @@ async function scrapeData(airline, flightNum, dateFromUser) {
       full_d = 1;
     }
 
-    console.log(full_d);
   } catch (err) {
     console.error(err);
     return 0;
