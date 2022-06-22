@@ -149,10 +149,13 @@
 
                             <%var hours = parseInt(duration.asHours());%>
    
-                            
-                                <% delayHourUpdate = flight.delayHourUpdate %>
+                                <%if(flight.delayHourUpdate){%>
+                                    <% delayHourUpdate = flight.delayHourUpdate %>
+                                <%} else {%>
+                                    <% delayHourUpdate = flight.DepartureTime %>
+                                <%}%>
                                 <th scope="row"><%= date = flight.Date %></th> 
-                                <th scope="row"><a href="/flightDetailsPast?date=<%= date%>&num=<%= flight.flightNumber%>&dep=<%= flight.Departure%>&depTime=<%= flight.DepartureTime%>&arr=<%= flight.Arrival%>&arrTime=<%= flight.ArrivalTime%>&terminal=<%= flight.Terminal%>" ><%= num = flight.flightNumber %></th> 
+                                <th scope="row"><a href="/flightDetailsPast?date=<%= date%>&num=<%= flight.flightNumber%>&dep=<%= flight.Departure%>&depTime=<%= flight.DepartureTime%>&arr=<%= flight.Arrival%>&arrTime=<%= flight.ArrivalTime%>&terminal=<%= flight.Terminal%>&delayHourUpdate=<%= delayHourUpdate%>" ><%= num = flight.flightNumber %></th> 
                                 <th scope="row"><%= dep = flight.Departure %></th>
                                 <th scope="row"><%= depTime = flight.DepartureTime %></th>
                                 <%if(flight.delayHourUpdate){%>
