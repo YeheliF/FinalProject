@@ -104,6 +104,10 @@ async function scrapeData(airline, flightNum, dateFromUser) {
         'arv_date' : arv_d
     }
 
+    if (info[0] != 'TLV') {
+      full_d = 1;
+    }
+
     console.log(full_d);
   } catch (err) {
     console.error(err);

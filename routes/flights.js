@@ -56,6 +56,10 @@ router.post("/addFlight", async function(req, res){
         req.flash('error_msg', 'טיסה לא קיימת/ התאריך עבר');
         res.redirect("/addFlight")
     }
+    if (fullInfo == 1) {
+        req.flash('error_msg', ' הטיסה לא יוצאת מנתב״ג ');
+        res.redirect("/addFlight")
+    }
     
     var flight_data = [fullInfo.dep_date + ' ' + fullInfo.dep_time, al_input, fn_input, fullInfo.arv]
     var machine_pred;
