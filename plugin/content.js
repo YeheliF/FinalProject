@@ -38,14 +38,6 @@ function sendToServer() {
         allFlightsDestTime.push(destTime.innerHTML);
     }
 
-    console.log(allFlightsName.join('\n'));
-    console.log(allFlightsOriginAirport.join('\n'));
-    console.log(allFlightsDestAirport.join('\n'));
-    console.log(allFlightsDurations.join('\n'));
-    console.log(allFlightsOriginTime.join('\n'));
-    console.log(allFlightsDestTime.join('\n'));
-    console.log(overNight.join('\n'));
-
     var data={'dayDept' : dayDeparture, 'allFlightsOrigTime' : allFlightsOriginTime, 'allFlightsName' : allFlightsName, 'allFlightsDestAirport2' : allFlightsDestAirport2};
     console.log("******CONNECTING SERVER******")
     var xhttp = new XMLHttpRequest();
@@ -62,9 +54,7 @@ function sendToServer() {
             console.log(`response text: ${preds}`)
 
             machine_pred = preds.split('[')[1].split(']')[0].split(', ')
-            // order = sections_order.preferences
 
-            console.log(machine_pred)
             CreatElements()
 
         } else {
@@ -93,7 +83,6 @@ function CreatElements() {
         setTimeout(function(){
             var j = 0;
             for (var i = 0; i < slides.length; i = i+2) {
-                console.log("in loop")
                 const flightPercent = document.createElement('div');
                 var txt;
                 var clr;
@@ -131,11 +120,9 @@ function CreatElements() {
 
                 slides[i].appendChild(flightPercent.cloneNode(true));
                 slides[i].appendChild(button.cloneNode(true));
-                console.log("added all buttons")
                 var innerButton = document.getElementById(`${i}`)
                 
                 innerButton.addEventListener('click', e =>{
-                    console.log(e.target.id);
                     clicked(e.target.id/2);
                 })
                 j = j + 1;
@@ -148,7 +135,6 @@ function CreatElements() {
 
 // when cliet click on button to move to the website
 function clicked(i) {
-    console.log(txtMachinePred)
     JSconfirm([allFlightsName[i], allFlightsOriginAirport[i].substring(1,4), allFlightsOriginTime[i] ,
     allFlightsDestAirport[i].substring(1,4), allFlightsDestTime[i], allFlightsDurations[i], txtMachinePred[i]], dayDeparture)
     console.log("Button clicked");
@@ -156,7 +142,6 @@ function clicked(i) {
 
 // popUp with all data of flight & send to website
 function JSconfirm(info){
-    console.log(info)
     new swal({
         title:'\n<pre style="text-align: Right";>' 
         + info[6]  + '<strong> :<u>החיזוי שלנו</u>\n</strong>'

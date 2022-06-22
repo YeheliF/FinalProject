@@ -14,7 +14,6 @@ function mapAirlines() {
         for (var t of tmp) {
             airline_codes_map.set(t.AL_CDA, t.AIRLINE);
         }
-        console.log("in here hello ");
     });
     return airline_codes_map
 }

@@ -10,6 +10,7 @@ $.ajaxSettings.xhr = function () {
  
 //send email to client about delay OR cancled flight
 async function updateEmail(flight,canceled){ 
+    
     user = await User.find({_id:flight.idUser}) 
     userName = user[0].userName
     email = user[0].Email
@@ -35,7 +36,7 @@ async function updateEmail(flight,canceled){
             from: flight.Departure,  
             to: flight.Arrival, 
             date: flight.Date, 
-            time: flight.delayHourUpdate,
+            hour: '02:49',
         }, 
     }).then(() => { 
         console.log('Message sent') 
